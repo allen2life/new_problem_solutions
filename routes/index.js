@@ -1,10 +1,9 @@
 import express from 'express';
 import path from 'path';
-import ProblemManager from '../lib/problem.js';
 import MarkdownRenderer from '../lib/markdown.js';
+import problemManager from '../lib/instance.js';
 
 const router = express.Router();
-const problemManager = new ProblemManager({ auto_load: true });
 
 router.get('/', (req, res, next) => {
   const { q, oj, tag, page } = req.query;
@@ -71,7 +70,7 @@ router.get('/problems/:oj/:id', (req, res, next) => {
   }
   
   const md_path = path.join(process.cwd(), 'problems', problem.md_path);
-  const renderer = new MarkdownRenderer(md_path);
+  const renderer = new MarkdownRenderer(md_path, problemManager);
   const html_content = renderer.toHTML();
   
   res.render('problem', {

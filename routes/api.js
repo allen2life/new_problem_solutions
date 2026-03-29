@@ -1,12 +1,50 @@
 import express from 'express';
-import ProblemManager from '../lib/problem.js';
 import MarkdownRenderer from '../lib/markdown.js';
 import path from 'path';
 import fs from 'fs';
+import problemManager from '../lib/instance.js';
 
 const router = express.Router();
-const problemManager = new ProblemManager();
 const problemdir = path.resolve('problems');
+
+router.get('/', (req, res) => {
+  const endpoints = [
+    {
+      method: 'GET',
+      path: '/api/problems',
+      desc: '题目列表，支持分页和筛选',
+      query: 'page, limit, oj, tag, search',
+      example: '/api/problems?page=1&limit=20&oj=poj',
+    },
+    {
+      method: 'GET',
+      path: '/api/problems/:oj/:id',
+      desc: '单个题目详情（包含渲染后的 HTML）',
+      query: '-',
+      example: '/api/problems/poj/3061',
+    },
+    {
+      method: 'GET',
+      path: '/api/tags',
+      desc: '标签列表',
+      query: '-',
+      example: '/api/tags',
+    },
+    {
+      method: 'GET',
+      path: '/api/oj',
+      desc: 'OJ 平台列表',
+      query: '-',
+      example: '/api/oj',
+    },
+  ];
+
+  res.render('api', {
+    title: 'API 文档',
+    endpoints,
+    baseUrl: `${req.protocol}://${req.get('host')}`,
+  });
+});
 
 // GET /api/problems - Get problem list with pagination and filters
 router.get('/problems', (req, res, next) => {
@@ -75,7 +113,7 @@ router.get('/problems/:oj/:id', (req, res, next) => {
       });
     }
 
-    const renderer = new MarkdownRenderer(mdPath);
+    const renderer = new MarkdownRenderer(mdPath, problemManager);
     const content = renderer.toJSON();
 
     res.json({
