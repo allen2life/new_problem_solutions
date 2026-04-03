@@ -7,6 +7,8 @@
 import app from '../app.js';
 import debug from 'debug';
 import http from 'http';
+import os from 'os';
+import { buildAccessUrls } from '../lib/access-urls.js';
 
 const debugLog = debug('rbook:server');
 
@@ -89,4 +91,12 @@ function onListening() {
     ? 'pipe ' + addr
     : 'port ' + addr.port;
   debugLog('Listening on ' + bind);
+
+  if (typeof addr !== 'string') {
+    const urls = buildAccessUrls(addr.port, os.networkInterfaces());
+    console.log('Server is running. Access URLs:');
+    for (const url of urls) {
+      console.log('- ' + url);
+    }
+  }
 }
