@@ -1,7 +1,7 @@
 ---
 oj: "luogu"
-problem_id: "P1001"
-title: "A+B Problem"
+problem_id: "P9094"
+title: "[PA 2020] Mieszanie kolorów"
 date: 2025-12-24 10:34
 toc: true
 tags: ['差分']
