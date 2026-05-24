@@ -167,7 +167,7 @@ docker compose ps
 检查本机访问：
 
 ```bash
-curl -fsS http://127.0.0.1:3000/api/problems?limit=1
+curl -fsS http://127.0.0.1:3300/api/problems?limit=1
 ```
 
 查看日志：
@@ -205,7 +205,7 @@ server {
     server_name YOUR_DOMAIN_OR_IP;
 
     location / {
-        proxy_pass http://127.0.0.1:3000;
+        proxy_pass http://127.0.0.1:3300;
         proxy_http_version 1.1;
         proxy_set_header Host $host;
         proxy_set_header X-Real-IP $remote_addr;
@@ -314,7 +314,7 @@ git push origin master
 Actions -> Deploy to VPS
 ```
 
-查看 workflow 日志。如果成功，VPS 会自动拉取最新代码、重新构建镜像，并把仓库里的 `problems/` 挂载给新容器使用。
+查看 workflow 日志。如果成功，VPS 会自动拉取最新代码、重新构建镜像，并把仓库里的 `problems/` 挂载给新容器使用。宿主机暴露端口是 `127.0.0.1:3300`。
 
 ## 11. 日常使用
 
@@ -400,7 +400,7 @@ docker compose logs --tail=100 problems-solution
 
 - VPS 仓库里的 `problems/` 不存在，或不是一个真实目录。
 - Docker build 时 `npm ci --omit=dev` 失败。
-- `127.0.0.1:3000` 已被其它进程占用。
+- `127.0.0.1:3300` 已被其它进程占用。
 - Nginx 反向代理配置里的端口和 Compose 暴露端口不一致。
 
 ### 想部署非 master 分支
