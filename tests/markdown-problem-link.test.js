@@ -45,7 +45,54 @@ test('MarkdownRenderer includes code relative to markdown file', () => {
   const html = md.toHTML();
 
   assert.doesNotMatch(html, /@include-code/);
-  assert.match(html, /<pre><code class="language-cpp">/);
+  assert.match(html, /line-numbers-mode|language-cpp|language-clike/);
   assert.match(html, /int main/);
-  assert.match(html, /std::cin &gt;&gt; n/);
+  assert.match(html, /std/);
+  assert.match(html, /cin/);
+  assert.match(html, /<span class="token operator">><\/span><span class="token operator">><\/span>/);
+});
+
+test('MarkdownRenderer supports migrated rbook markdown extensions', () => {
+  const md = new MarkdownRenderer('problems/OpenJ_Bailian/1651/index.md');
+  md.md_content = `[[TOC]]
+
+## Section
+
+!!! warning 注意
+body
+!!!
+
+::: fold
+hidden
+:::
+
+::: center
+centered
+:::
+
+- [x] done
+
+:smile:
+
+![alt](a.png =100x200)
+
+[relative](./other.md)
+
+++ins++ ~~del~~ ==mark== H~2~O x^2^
+`;
+
+  const html = md.toHTML();
+  assert.match(html, /toc-body/);
+  assert.match(html, /class="admonition warning"/);
+  assert.match(html, /<details><summary>/);
+  assert.match(html, /<div class="center">/);
+  assert.match(html, /class="task-list"/);
+  assert.match(html, /class="emoji"/);
+  assert.match(html, /width="100" height="200"/);
+  assert.match(html, /href="\/problems\/OpenJ_Bailian\/1651\/other.html"/);
+  assert.match(html, /<ins>ins<\/ins>/);
+  assert.match(html, /<s>del<\/s>/);
+  assert.match(html, /<mark>mark<\/mark>/);
+  assert.match(html, /H<sub>2<\/sub>O/);
+  assert.match(html, /x<sup>2<\/sup>/);
 });

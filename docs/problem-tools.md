@@ -1,6 +1,6 @@
 # 写题工具使用手册
 
-本文档说明 `scripts/problem-tools/` 下的写题辅助工具。它们主要用于在 `problems/<oj>/<id>/` 目录中完成日常写题流程：创建代码、下载样例、编译运行、批量测试、对拍和画图辅助。
+本文档说明 `scripts/problem-tools/` 下的写题辅助工具。它们主要用于在 `problems/<oj>/<id>/` 目录中完成日常写题流程：下载样例、编译运行、批量测试、对拍和画图辅助。
 
 ## 1. 安装
 
@@ -47,7 +47,7 @@ source ~/.zshrc
 
 ```bash
 b --version
-template.py list
+randint.py 3
 ```
 
 ## 2. 推荐题目目录
@@ -74,33 +74,7 @@ cd problems/luogu/9094
 
 ## 3. 常用工作流
 
-### 3.1 新建代码
-
-从模板创建代码：
-
-```bash
-template.py
-```
-
-列出可用模板：
-
-```bash
-template.py list
-```
-
-直接输出某个模板内容：
-
-```bash
-template.py apply template.cpp
-```
-
-模板文件位于：
-
-```text
-scripts/problem-tools/templates/
-```
-
-### 3.2 下载洛谷样例
+### 3.1 下载洛谷样例
 
 在洛谷题目目录中，如果目录名就是题号：
 
@@ -123,7 +97,7 @@ in1, out1, in2, out2, ...
 
 如果当前目录没有 `in`，会把第一组样例输入复制为 `in`，方便 `b 1` 直接运行。
 
-### 3.3 编译并运行
+### 3.2 编译并运行
 
 编译并运行 `1.cpp`，默认读取 `in`：
 
