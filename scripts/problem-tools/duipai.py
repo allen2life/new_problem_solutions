@@ -1,0 +1,405 @@
+#!/usr/bin/env python3
+"""
+对拍脚本 - 用于自动化测试程序正确性
+author: rainboy
+用途: 自动生成测试数据，运行用户程序和标准程序并对比输出结果
+"""
+
+import os
+import sys
+import subprocess
+import argparse
+import shutil
+import json
+import glob
+from pathlib import Path
+
+# 添加 gum 模块路径
+sys.path.insert(0, str(Path(__file__).resolve().parent / 'mylib'))
+try:
+    from gum import choose as gum_choose, filter as gum_filter, input as gum_input ,confirm as gum_confirm
+    GUM_AVAILABLE = True
+except ImportError:
+    print("警告: 无法导入 gum 模块，将使用普通输入方式")
+    GUM_AVAILABLE = False
+
+# 默认配置
+TOTAL_COUNT = None
+COMPARE_DIR = None
+DATA_CODE = None
+USR_CODE = None
+STD_CODE = None
+CONFIG_FILE = "duipai_config.json"
+
+# 程序变量将在main函数中初始化
+USR_PROGRAM = None
+STD_PROGRAM = None
+DATA_GENERATOR = None
+
+# 比较的基本路径
+# tmp 是一个在内存中的filesystem,速度快
+BASE_DIR = "/tmp"
+
+valid_code_file_ext = [".cpp",".c",".py",".hs"]
+
+
+def find_files(pattern):
+    """查找匹配模式的文件"""
+    return glob.glob(pattern, recursive=True)
+
+def load_config():
+    """加载配置文件"""
+    if os.path.exists(CONFIG_FILE):
+        should_load = False
+        prompt = f"找到配置文件 {CONFIG_FILE}，是否加载?"
+        if GUM_AVAILABLE:
+            try:
+                should_load = gum_confirm(prompt)
+            except Exception:
+                # Fallback
+                response = input(f"{prompt} (y/n) [y]: ").strip().lower()
+                should_load = response in ['', 'y', 'yes']
+        else:
+            response = input(f"{prompt} (y/n) [y]: ").strip().lower()
+            should_load = response in ['', 'y', 'yes']
+
+        if should_load:
+            with open(CONFIG_FILE, 'r') as f:
+                print("已加载配置")
+                return json.load(f), True
+    return {}, False
+
+def save_config(config):
+    """保存配置文件"""
+    should_save = False
+    prompt = f"是否将当前配置保存到 {CONFIG_FILE}?"
+    if GUM_AVAILABLE:
+        try:
+            should_save = gum_confirm(prompt)
+        except Exception:
+            # Fallback
+            response = input(f"{prompt} (y/n) [y]: ").strip().lower()
+            should_save = response in ['', 'y', 'yes']
+    else:
+        response = input(f"{prompt} (y/n) [y]: ").strip().lower()
+        should_save = response in ['', 'y', 'yes']
+
+    if should_save:
+        with open(CONFIG_FILE, 'w') as f:
+            json.dump(config, f, indent=4)
+        print(f"配置已保存到 {CONFIG_FILE}")
+
+def compile_if_newer(code_file, out_file):
+    """
+    如果源代码比可执行文件新，则重新编译
+    :param code_file: 源代码文件
+    :param out_file: 可执行文件
+    """
+    if not os.path.exists(code_file):
+        print(f"错误: 源代码文件 {code_file} 不存在")
+        sys.exit(1)
+
+    if not os.path.exists(out_file) or os.path.getmtime(code_file) > os.path.getmtime(out_file):
+        print(f"{code_file} 比 {out_file} 新，正在编译...")
+        
+        # 获取文件扩展名
+        _, ext = os.path.splitext(code_file)
+        
+        try:
+            if ext == ".cpp":
+                # C++ 文件编译
+                compile_soft = "g++"
+                if sys.platform == "darwin":
+                    compile_soft = "clang++"
+                compile_cmd = [compile_soft, "-O2", "-std=c++17", code_file, "-o", out_file]
+                subprocess.run(compile_cmd, check=True)
+                
+            elif ext == ".c":
+                # C 文件编译
+                compile_soft = "gcc"
+                if sys.platform == "darwin":
+                    compile_soft = "clang"
+                compile_cmd = [compile_soft, "-O2", code_file, "-o", out_file]
+                subprocess.run(compile_cmd, check=True)
+                
+            elif ext == ".py":
+                # Python 文件：创建可执行的脚本
+                with open(out_file, 'w') as f:
+                    f.write(f"#!/usr/bin/env python3\n")
+                    f.write(f"exec(open('{os.path.abspath(code_file)}').read())\n")
+                os.chmod(out_file, 0o755)
+                
+            elif ext == ".hs":
+                # Haskell 文件编译
+                compile_cmd = ["ghc", "-O2", code_file, "-o", out_file]
+                subprocess.run(compile_cmd, check=True)
+                
+            else:
+                print(f"错误: 不支持的文件类型 {ext}")
+                sys.exit(1)
+                
+        except subprocess.CalledProcessError:
+            print(f"编译 {code_file} 失败!")
+            sys.exit(1)
+
+def show_progress(total, current, width=50):
+    """
+    显示进度条
+    :param total: 总数
+    :param current: 当前进度
+    :param width: 进度条宽度
+    """
+    # 计算进度百分比
+    percentage = int(current * 100 / total)
+    # 计算进度条填充的长度
+    progress = int(current * width / total)
+    # 生成进度条字符串
+    bar = "=" * progress
+    # 显示进度条和百分比
+    print(f"\r[{bar:<{width}}] {current}/{total} {percentage}%", end="", flush=True)
+
+def scan_code_files():
+    """扫描当前目录下的所有代码文件"""
+    import glob
+    code_files = []
+    for ext in valid_code_file_ext:
+        code_files.extend(glob.glob(f"*{ext}"))
+    return code_files
+
+def select_file_with_gum(files, prompt):
+    """使用 gum 选择文件"""
+    if GUM_AVAILABLE:
+        try:
+            # return gum_choose(files, header=prompt)
+            return gum_filter(files,header=prompt)
+        except Exception:
+            # 如果 gum 失败，回退到普通选择
+            pass
+
+    # 回退到普通选择方式
+    print(f"\n{prompt}")
+    for i, file in enumerate(files, 1):
+        print(f"{i}. {file}")
+
+    while True:
+        try:
+            choice = input("请选择文件编号: ").strip()
+            if choice.isdigit() and 1 <= int(choice) <= len(files):
+                return files[int(choice) - 1]
+            else:
+                print("无效选择，请重新输入")
+        except (ValueError, KeyboardInterrupt):
+            print("\n选择取消")
+            return None
+
+def get_user_input(prompt, default_value):
+    """获取用户输入，提供默认值"""
+    if GUM_AVAILABLE:
+        try:
+            user_input = gum_input(placeholder=f"默认: {default_value}", prompt=f"{prompt}: ")
+            return user_input if user_input else default_value
+        except Exception:
+            # 如果 gum 失败，回退到普通输入
+            pass
+
+    # 普通输入方式
+    user_input = input(f"{prompt} (默认: {default_value}): ").strip()
+    return user_input if user_input else default_value
+
+def main():
+    """主函数"""
+    global TOTAL_COUNT, COMPARE_DIR, DATA_CODE, USR_CODE, STD_CODE
+    global USR_PROGRAM, STD_PROGRAM, DATA_GENERATOR
+    
+    # 加载配置文件
+    config, config_loaded = load_config()
+    
+    # 示例文本，用于帮助信息展示
+    example_text = '''example:
+  duipai.py
+  duipai.py -n 100
+  duipai.py -n 50 -d test_compare --data data.cpp --user sol.cpp --std std.cpp'''
+
+    # 解析命令行参数
+    parser = argparse.ArgumentParser(
+        description="对拍工具 - 自动生成数据并对比两个程序的输出",
+        epilog=example_text,
+        formatter_class=argparse.RawDescriptionHelpFormatter)
+    parser.add_argument("-n", "--count", type=int, default=0, 
+                        help="对拍次数")
+    parser.add_argument("-d", "--dir", default="",
+                        help="比较目录")
+    parser.add_argument("--data", default=config.get("data"),
+                        help="数据生成程序源码")
+    parser.add_argument("--user", default=config.get("user"),
+                        help="用户程序源码")
+    parser.add_argument("--std", default=config.get("std"),
+                        help="标准程序源码")
+    
+    args = parser.parse_args()
+    
+    # 优先级: 命令行参数 > 配置文件 > 交互式输入
+    
+    # 获取对拍次数
+    if args.count > 0:
+        TOTAL_COUNT = args.count
+    elif "count" in config:
+        TOTAL_COUNT = config["count"]
+    else:
+        total_count_input = get_user_input("请输入对拍次数", "200")
+        try:
+            TOTAL_COUNT = int(total_count_input)
+        except ValueError:
+            print("错误: 对拍次数必须是数字")
+            sys.exit(1)
+    
+    # 获取比较目录
+    if args.dir:
+        COMPARE_DIR = args.dir
+    elif "dir" in config:
+        COMPARE_DIR = config["dir"]
+    else:
+        COMPARE_DIR = get_user_input("请输入比较目录", "compare")
+    
+    # 如果命令行参数没有提供，则扫描目录让用户通过fzf选择
+    code_files = scan_code_files()
+    
+    if args.data:
+        DATA_CODE = args.data
+    else:
+        DATA_CODE = select_file_with_gum(code_files, "请选择数据生成程序源码")
+        if DATA_CODE is None:
+            print("未选择数据生成程序源码")
+            sys.exit(1)
+    
+    if args.user:
+        USR_CODE = args.user
+    else:
+        USR_CODE = select_file_with_gum(code_files, "请选择用户程序源码")
+        if USR_CODE is None:
+            print("未选择用户程序源码")
+            sys.exit(1)
+    
+    if args.std:
+        STD_CODE = args.std
+    else:
+        STD_CODE = select_file_with_gum(code_files, "请选择标准程序源码")
+        if STD_CODE is None:
+            print("未选择标准程序源码")
+            sys.exit(1)
+    
+    # 检查是否选择了所有必需的文件
+    if not all([DATA_CODE, USR_CODE, STD_CODE]):
+        print("错误: 必须选择所有程序源码文件")
+        sys.exit(1)
+
+    # 如果配置不是从文件加载的，则询问是否保存
+    if not config_loaded:
+        current_config = {
+            "count": TOTAL_COUNT,
+            "dir": COMPARE_DIR,
+            "data": DATA_CODE,
+            "user": USR_CODE,
+            "std": STD_CODE
+        }
+        save_config(current_config)
+    
+    # 初始化程序变量
+    global USR_PROGRAM, STD_PROGRAM, DATA_GENERATOR
+    
+    def get_executable_name(code_file):
+        """根据代码文件类型获取可执行文件名"""
+        _, ext = os.path.splitext(code_file)
+        if ext == ".py":
+            return code_file  # Python文件直接使用源文件
+        else:
+            return f"{code_file.split('.')[0]}.out"
+    
+    USR_PROGRAM = get_executable_name(USR_CODE)
+    STD_PROGRAM = get_executable_name(STD_CODE)
+    DATA_GENERATOR = get_executable_name(DATA_CODE)    # 编译程序
+    compile_if_newer(USR_CODE, USR_PROGRAM)
+    compile_if_newer(STD_CODE, STD_PROGRAM)
+    compile_if_newer(DATA_CODE, DATA_GENERATOR)
+
+    def run_program(program_file, stdin_file, stdout_file):
+        """运行程序，支持多种语言"""
+        _, ext = os.path.splitext(program_file)
+        
+        if ext == ".py":
+            cmd = ["python3", program_file]
+        else:
+            cmd = [f"./{program_file}"]
+        
+        # print(f"运行 {program_file}...")
+        try:
+            with open(stdin_file, "r") as infile, open(stdout_file, "w") as outfile:
+                subprocess.run(cmd, stdin=infile, stdout=outfile, stderr=subprocess.DEVNULL, check=True)
+        except subprocess.CalledProcessError:
+            return False
+        return True
+
+    # 创建比较目录
+    os.makedirs(COMPARE_DIR, exist_ok=True)
+
+    # 对拍循环
+    show_progress(TOTAL_COUNT, 0)
+    for i in range(1, TOTAL_COUNT + 1):
+        # 生成测试数据
+        try:
+            with open(f"{BASE_DIR}/in", "w") as infile:
+                _, data_ext = os.path.splitext(DATA_GENERATOR)
+                if data_ext == ".py":
+                    subprocess.run(["python3", DATA_GENERATOR], stdout=infile, check=True)
+                else:
+                    # print(f"运行 {DATA_GENERATOR}...")
+                    subprocess.run([f"./{DATA_GENERATOR}"], stdout=infile, check=True)
+        except subprocess.CalledProcessError:
+            print(f"\n生成测试数据失败，第 {i} 次")
+            sys.exit(1)
+
+        # 运行用户程序
+        if not run_program(USR_PROGRAM, f"{BASE_DIR}/in", f"{BASE_DIR}/user_out"):
+            print(f"\n运行用户程序失败，第 {i} 次")
+            sys.exit(1)
+
+        # 运行标准程序
+        if not run_program(STD_PROGRAM, f"{BASE_DIR}/in", f"{BASE_DIR}/std_out"):
+            print(f"\n运行标准程序失败，第 {i} 次")
+            sys.exit(1)
+
+        # 比较输出结果
+        try:
+            result = subprocess.run(["diff", "-b", "-q", f"{BASE_DIR}/user_out", f"{BASE_DIR}/std_out"],
+                                  stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+            if result.returncode != 0:
+                # 如果diff出错
+                print()  # 换行
+                print(f"diff出错，第 {i} 次")
+                # 复制输入文件到比较目录
+                shutil.copy(f"{BASE_DIR}/in", f"{COMPARE_DIR}/in")
+                # 使用vimdiff进行比较
+                subprocess.run(["vimdiff", f"{BASE_DIR}/user_out", f"{BASE_DIR}/std_out"])
+                # 清理临时文件
+                os.remove(f"{BASE_DIR}/user_out")
+                os.remove(f"{BASE_DIR}/std_out")
+                sys.exit(1)
+        except Exception as e:
+            print(f"\n比较输出时出错: {e}")
+            sys.exit(1)
+
+        # 更新进度条
+        show_progress(TOTAL_COUNT, i)
+
+    # 清理临时文件
+    try:
+        os.remove(f"{BASE_DIR}/user_out")
+        os.remove(f"{BASE_DIR}/std_out")
+    except FileNotFoundError:
+        pass
+
+    print()  # 换行
+    print("对拍完成，所有测试通过!")
+
+if __name__ == "__main__":
+    main()

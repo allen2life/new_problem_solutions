@@ -70,6 +70,7 @@ TARGET_API_BASE_URL=http://127.0.0.1:3000 npm start
 ├── views/                 # Pug 模板
 ├── public/                # 静态资源
 ├── problems/              # 题目 Markdown 数据（本地数据源）
+├── scripts/problem-tools/ # 写题辅助脚本
 ├── mcp/                   # MCP 网关服务
 └── docs/                  # 设计与计划文档
 ```
@@ -86,6 +87,8 @@ npm start
 源码阅读路径见：`docs/source-guide.md`
 
 VPS + GitHub 自动部署教程见：`docs/deployment/vps-github-auto-deploy.md`
+
+写题辅助脚本安装与使用见：`docs/problem-tools.md`
 
 ### MCP 子项目
 
