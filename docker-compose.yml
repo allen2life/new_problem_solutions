@@ -1,6 +1,6 @@
 services:
   problems-solution:
-    image: ${IMAGE_REF:-ghcr.io/rainboyoj/new_problem_solutions:master}
+    image: ${IMAGE_REF:-problems-solution:deploy}
     container_name: ${SERVICE_NAME:-problems-solution}
     restart: unless-stopped
     environment:

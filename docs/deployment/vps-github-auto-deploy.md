@@ -12,7 +12,10 @@ git push origin master
   -> SSH 到 VPS
   -> /srv/rbook/scripts/deploy-vps.sh
   -> git reset --hard origin/master
-  -> docker compose pull
+  -> docker pull ghcr.nju.edu.cn/rainboyoj/new_problem_solutions:master
+  -> 如果失败，fallback 到 gh-proxy.org/docker/ghcr.io/rainboyoj/new_problem_solutions:master
+  -> 如果还失败，fallback 到 ghcr.io/rainboyoj/new_problem_solutions:master
+  -> docker tag 成 problems-solution:deploy
   -> docker compose up -d --remove-orphans
   -> ./problems 只读挂载到容器 /app/problems
   -> 容器 npm start
@@ -41,7 +44,7 @@ npm run generate:problems
 
 `problems.json` 是运行时生成文件，不提交到 Git。`npm start` 会先执行 `npm run generate:problems`，所以容器每次启动都会基于当前 `problems/` 重新生成。
 
-Docker 镜像由 GitHub Actions 构建并推送到 GitHub Container Registry，即 `ghcr.io/rainboyoj/new_problem_solutions:master`。镜像不包含 `problems/`，部署时由 `docker-compose.yml` 把 VPS 仓库里的 `./problems` 只读挂载到容器的 `/app/problems`。这样可以避免把较大的题目数据重复打进每个镜像层。
+Docker 镜像由 GitHub Actions 构建并推送到 GitHub Container Registry，即 `ghcr.io/rainboyoj/new_problem_solutions:master`。VPS 部署时会优先从 `ghcr.nju.edu.cn` 拉取，失败后依次 fallback 到 `gh-proxy.org` 和原始 `ghcr.io`，最终统一 tag 成本地镜像 `problems-solution:deploy` 给 Docker Compose 使用。镜像不包含 `problems/`，部署时由 `docker-compose.yml` 把 VPS 仓库里的 `./problems` 只读挂载到容器的 `/app/problems`。这样可以避免把较大的题目数据重复打进每个镜像层。
 
 ## 2. VPS 安装基础环境
 
@@ -165,7 +168,7 @@ docker login ghcr.io -u YOUR_GITHUB_USERNAME
 
 密码使用 GitHub Personal Access Token，至少需要 `read:packages` 权限。
 
-部署脚本默认给 `docker compose pull` 设置 300 秒超时。这样 VPS 到 GHCR 网络卡住时，旧容器会继续运行，GitHub Actions 会明确失败，便于排查。
+部署脚本默认给每个 `docker pull` 候选地址设置 300 秒超时。这样 VPS 到某个镜像源网络卡住时，会自动尝试下一个候选地址；全部失败时旧容器会继续运行，GitHub Actions 会明确失败，便于排查。
 
 ## 7. 首次启动 Docker 服务
 
@@ -173,8 +176,7 @@ docker login ghcr.io -u YOUR_GITHUB_USERNAME
 
 ```bash
 cd /srv/rbook
-IMAGE_REF=ghcr.io/rainboyoj/new_problem_solutions:master docker compose pull
-IMAGE_REF=ghcr.io/rainboyoj/new_problem_solutions:master docker compose up -d
+bash scripts/deploy-vps.sh
 docker compose ps
 ```
 
@@ -328,7 +330,7 @@ git push origin master
 Actions -> Deploy to VPS
 ```
 
-查看 workflow 日志。如果成功，GitHub Actions 会构建并推送 GHCR 镜像，VPS 会自动拉取最新代码和镜像，并把仓库里的 `problems/` 挂载给新容器使用。宿主机暴露端口是 `127.0.0.1:3300`。
+查看 workflow 日志。如果成功，GitHub Actions 会构建并推送 GHCR 镜像，VPS 会自动拉取最新代码和镜像。镜像拉取会按 `ghcr.nju.edu.cn`、`gh-proxy.org`、`ghcr.io` 的顺序 fallback，并把成功拉取的镜像 tag 成 `problems-solution:deploy`。仓库里的 `problems/` 会挂载给新容器使用。宿主机暴露端口是 `127.0.0.1:3300`。
 
 ## 12. 日常使用
 
@@ -413,16 +415,19 @@ docker compose logs --tail=100 problems-solution
 常见原因：
 
 - VPS 仓库里的 `problems/` 不存在，或不是一个真实目录。
-- VPS 无法拉取 `ghcr.io/rainboyoj/new_problem_solutions:master`。
+- VPS 无法从所有候选镜像源拉取 `ghcr.io/rainboyoj/new_problem_solutions:master`。
 - `127.0.0.1:3300` 已被其它进程占用。
 - Nginx 反向代理配置里的端口和 Compose 暴露端口不一致。
 
 ### VPS 拉取 GHCR 镜像失败
 
-先检查 VPS 能否访问 GHCR：
+先检查 VPS 能否访问候选镜像源：
 
 ```bash
 curl -I https://ghcr.io/v2/
+curl -I https://ghcr.nju.edu.cn/v2/
+docker pull ghcr.nju.edu.cn/rainboyoj/new_problem_solutions:master
+docker pull gh-proxy.org/docker/ghcr.io/rainboyoj/new_problem_solutions:master
 docker pull ghcr.io/rainboyoj/new_problem_solutions:master
 ```
 

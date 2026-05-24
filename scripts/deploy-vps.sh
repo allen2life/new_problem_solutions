@@ -7,6 +7,7 @@ BRANCH="${BRANCH:-master}"
 NODE_ENV="${NODE_ENV:-production}"
 COMPOSE_PROJECT_NAME="${COMPOSE_PROJECT_NAME:-problems-solution}"
 IMAGE_REF="${IMAGE_REF:-ghcr.io/rainboyoj/new_problem_solutions:master}"
+DEPLOY_IMAGE_REF="${DEPLOY_IMAGE_REF:-problems-solution:deploy}"
 GHCR_USERNAME="${GHCR_USERNAME:-}"
 GHCR_TOKEN_B64="${GHCR_TOKEN_B64:-}"
 PULL_TIMEOUT="${PULL_TIMEOUT:-300}"
@@ -18,7 +19,7 @@ echo "Deploying $(pwd) from branch $BRANCH"
 git fetch origin "$BRANCH"
 git reset --hard "origin/$BRANCH"
 
-export SERVICE_NAME NODE_ENV COMPOSE_PROJECT_NAME IMAGE_REF
+export SERVICE_NAME NODE_ENV COMPOSE_PROJECT_NAME
 
 if docker compose version >/dev/null 2>&1; then
   compose=(docker compose)
@@ -33,6 +34,29 @@ if [[ -n "$GHCR_USERNAME" && -n "$GHCR_TOKEN_B64" ]]; then
   printf '%s' "$GHCR_TOKEN_B64" | base64 -d | docker login ghcr.io -u "$GHCR_USERNAME" --password-stdin
 fi
 
-timeout "$PULL_TIMEOUT" "${compose[@]}" pull
+pull_candidates=(
+  "${IMAGE_REF/ghcr.io/ghcr.nju.edu.cn}"
+  "gh-proxy.org/docker/$IMAGE_REF"
+  "$IMAGE_REF"
+)
+
+pulled_image=""
+for candidate in "${pull_candidates[@]}"; do
+  echo "Pulling image candidate: $candidate"
+  if timeout "$PULL_TIMEOUT" docker pull "$candidate"; then
+    pulled_image="$candidate"
+    break
+  fi
+  echo "Failed to pull image candidate: $candidate" >&2
+done
+
+if [[ -z "$pulled_image" ]]; then
+  echo "Failed to pull any image candidate for $IMAGE_REF" >&2
+  exit 1
+fi
+
+docker tag "$pulled_image" "$DEPLOY_IMAGE_REF"
+export IMAGE_REF="$DEPLOY_IMAGE_REF"
+
 "${compose[@]}" up -d --remove-orphans
 "${compose[@]}" ps
