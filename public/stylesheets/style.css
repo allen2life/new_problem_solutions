@@ -79,10 +79,18 @@ a {
 
 .index-table__title {
   min-width: 24rem;
+  text-align: center;
+}
+
+.index-table thead th:first-child {
+  text-align: center;
 }
 
 .index-table__title-link {
-  font-weight: 600;
+  display: inline-block;
+  font-size: 1rem;
+  font-weight: 700;
+  line-height: 1.45;
   color: #212529;
   text-decoration: none;
 }
