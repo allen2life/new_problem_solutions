@@ -4,13 +4,23 @@ block title
   | 题目列表 - 题目列表
 
 block content
-  .row.mb-4
-    .col-md-8
-      form.d-flex(action="/", method="GET")
-        input.form-control.me-2(type="search", name="q", placeholder="搜索题目标题或ID", value=query)
-        button.btn.btn-outline-primary(type="submit") 搜索
-    .col-md-4
-      .d-flex.gap-2
+  .index-shell
+    .index-head
+      .index-head__title
+        h1.h3.mb-1 题目列表
+        p.text-muted.mb-0 可按标题、OJ、标签快速筛选题目解析。
+      .index-head__meta
+        span.index-count 共 #{pagination.total} 题
+
+    .index-toolbar
+      form.index-search(action="/", method="GET")
+        input.form-control(type="search", name="q", placeholder="搜索题目标题或 ID", value=query)
+        if currentOJ
+          input(type="hidden", name="oj", value=currentOJ)
+        if currentTag
+          input(type="hidden", name="tag", value=currentTag)
+        button.btn.btn-primary(type="submit") 搜索
+      .index-filters
         select.form-select(name="oj", onchange="filterByOJ(this.value)")
           option(value="") 全部 OJ
           each oj in ojs
@@ -20,23 +30,45 @@ block content
           each tag in tags
             option(value=tag, selected=tag === currentTag) #{tag}
 
-  .row
-    each problem in problems
-      .col-md-6.col-lg-4.mb-3
-        .card.h-100
-          .card-body
-            h5.card-title
-              a.text-decoration-none.text-dark(href=problem.url) #{problem.title}
-            h6.card-subtitle.mb-2.text-muted #{problem.oj} - #{problem.problem_id}
-            .mb-2
-              if problem.tags
-                each tag in problem.tags
-                  span.badge.bg-secondary.me-1 #{tag}
-            if problem.date
-              small.text-muted #{problem.date}
+    .table-responsive.index-table-wrap
+      table.table.table-hover.align-middle.index-table
+        thead
+          tr
+            th(scope="col") 标题
+            th(scope="col") OJ
+            th(scope="col") 题号
+            th(scope="col") 标签
+            th(scope="col") 最后更新
+            th(scope="col") 原题
+        tbody
+          each problem in problems
+            tr
+              td.index-table__title
+                a.index-table__title-link(href=problem.url) #{problem.title}
+              td
+                span.index-pill #{problem.oj}
+              td
+                code.index-code #{problem.problem_id}
+              td
+                if problem.tags && problem.tags.length
+                  .index-tags
+                    each tag in problem.tags
+                      span.badge.text-bg-light.index-tag #{tag}
+                else
+                  span.text-muted -
+              td
+                if problem.date
+                  span.text-nowrap #{problem.date}
+                else
+                  span.text-muted -
+              td
+                if problem.source
+                  a.btn.btn-sm.btn-outline-secondary(href=problem.source, target="_blank", rel="noopener noreferrer") 打开
+                else
+                  span.text-muted -
 
   if pagination
-    nav(aria-label="Page navigation")
+    nav.index-pagination(aria-label="Page navigation")
       ul.pagination.justify-content-center
         if pagination.page > 1
           li.page-item

@@ -1,9 +1,125 @@
 body {
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  color: #1f2328;
+  background: #ffffff;
 }
 
 a {
   color: #00B7FF;
+}
+
+.index-shell {
+  display: grid;
+  gap: 1.25rem;
+}
+
+.index-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: end;
+  gap: 1rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 1px solid #dee2e6;
+}
+
+.index-count {
+  display: inline-flex;
+  align-items: center;
+  min-height: 2rem;
+  padding: 0 0.75rem;
+  font-size: 0.875rem;
+  color: #495057;
+  background: #f8f9fa;
+  border: 1px solid #dee2e6;
+  border-radius: 999px;
+}
+
+.index-toolbar {
+  display: grid;
+  gap: 0.75rem;
+}
+
+.index-search {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 0.75rem;
+}
+
+.index-filters {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 220px));
+  gap: 0.75rem;
+}
+
+.index-table-wrap {
+  border: 1px solid #dee2e6;
+  border-radius: 0.75rem;
+}
+
+.index-table {
+  margin-bottom: 0;
+}
+
+.index-table thead th {
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  color: #6c757d;
+  text-transform: uppercase;
+  white-space: nowrap;
+  background: #f8f9fa;
+  border-bottom-width: 1px;
+}
+
+.index-table tbody td {
+  padding-top: 0.9rem;
+  padding-bottom: 0.9rem;
+  vertical-align: middle;
+}
+
+.index-table__title {
+  min-width: 24rem;
+}
+
+.index-table__title-link {
+  font-weight: 600;
+  color: #212529;
+  text-decoration: none;
+}
+
+.index-table__title-link:hover {
+  color: #0d6efd;
+  text-decoration: underline;
+}
+
+.index-pill {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.2rem 0.55rem;
+  font-size: 0.82rem;
+  color: #495057;
+  background: #f8f9fa;
+  border: 1px solid #dee2e6;
+  border-radius: 999px;
+}
+
+.index-code {
+  font-size: 0.84rem;
+  color: #495057;
+}
+
+.index-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+}
+
+.index-tag {
+  font-weight: 500;
+}
+
+.index-pagination {
+  margin-top: 0.5rem;
 }
 
 .markdown-body {
@@ -68,4 +184,24 @@ a {
   overflow-x: auto;
   overflow-y: hidden;
   padding: 0.25rem 0;
+}
+
+@media (max-width: 767.98px) {
+  .index-head {
+    align-items: start;
+  }
+
+  .index-head,
+  .index-search,
+  .index-filters {
+    grid-template-columns: 1fr;
+  }
+
+  .index-filters {
+    grid-template-columns: 1fr;
+  }
+
+  .index-table__title {
+    min-width: 16rem;
+  }
 }

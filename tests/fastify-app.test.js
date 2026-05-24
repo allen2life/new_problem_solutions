@@ -13,6 +13,9 @@ test('Fastify app renders the index page', async () => {
   assert.equal(response.statusCode, 200);
   assert.match(response.headers['content-type'], /text\/html/);
   assert.match(response.body, /题目列表/);
+  assert.match(response.body, /<table/);
+  assert.match(response.body, /原题/);
+  assert.match(response.body, /最后更新/);
 
   await app.close();
 });
