@@ -1,6 +1,6 @@
 # VPS + GitHub 自动部署教程
 
-目标：每次 push 到 GitHub 的 `master` 分支后，GitHub Actions 自动 SSH 到 VPS，拉取最新代码，重新生成 `problems.json`，并重启 rbook 服务。
+目标：每次 push 到 GitHub 的 `master` 分支后，GitHub Actions 自动 SSH 到 VPS，拉取最新代码，重新生成 `problems.json`，并重启 `problems-solution` 服务。
 
 最终链路：
 
@@ -33,7 +33,7 @@ npm test
 npm run generate:problems
 ```
 
-`generate:problems` 会扫描本项目的 `problems/` 目录，生成根目录的 `problems.json`。部署时会在 VPS 上重新执行这一步。
+`generate:problems` 会扫描本项目的 `problems/` 目录，生成根目录的 `problems.json`。`problems.json` 是运行时生成文件，不提交到 Git；部署时会在 VPS 上重新执行这一步，`npm start` 也会在启动前自动生成一次。
 
 ## 2. VPS 安装基础环境
 

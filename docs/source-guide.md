@@ -122,11 +122,12 @@ const problemManager = new ProblemManager({ auto_load: true });
 
 加载逻辑：
 
-1. 默认读取根目录 `problems.json`。
-2. 如果 `problems.json` 不存在，扫描 `problems/` 下所有非 `_` 开头的 Markdown 文件。
-3. 每个 Markdown 读取 front matter，要求存在 `oj` 和 `problem_id`。
-4. 生成 `url: /problems/:oj/:id`。
-5. `buildIndex()` 填充 `problemMap`。
+1. `problems.json` 是运行时生成文件，不提交到 Git。
+2. `npm start` 会先执行 `npm run generate:problems`，扫描 `problems/` 下所有非 `_` 开头的 Markdown 文件并生成 `problems.json`。
+3. 如果 `problems.json` 不存在，`ProblemManager` 也会自动扫描并生成。
+4. 每个 Markdown 读取 front matter，要求存在 `oj` 和 `problem_id`。
+5. 生成 `url: /problems/:oj/:id`。
+6. `buildIndex()` 填充 `problemMap`。
 
 常用方法：
 
