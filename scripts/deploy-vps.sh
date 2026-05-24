@@ -9,6 +9,7 @@ COMPOSE_PROJECT_NAME="${COMPOSE_PROJECT_NAME:-problems-solution}"
 IMAGE_REF="${IMAGE_REF:-ghcr.io/rainboyoj/new_problem_solutions:master}"
 GHCR_USERNAME="${GHCR_USERNAME:-}"
 GHCR_TOKEN_B64="${GHCR_TOKEN_B64:-}"
+PULL_TIMEOUT="${PULL_TIMEOUT:-300}"
 
 cd "$APP_DIR"
 
@@ -32,6 +33,6 @@ if [[ -n "$GHCR_USERNAME" && -n "$GHCR_TOKEN_B64" ]]; then
   printf '%s' "$GHCR_TOKEN_B64" | base64 -d | docker login ghcr.io -u "$GHCR_USERNAME" --password-stdin
 fi
 
-"${compose[@]}" pull
+timeout "$PULL_TIMEOUT" "${compose[@]}" pull
 "${compose[@]}" up -d --remove-orphans
 "${compose[@]}" ps

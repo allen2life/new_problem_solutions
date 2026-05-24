@@ -165,6 +165,8 @@ docker login ghcr.io -u YOUR_GITHUB_USERNAME
 
 密码使用 GitHub Personal Access Token，至少需要 `read:packages` 权限。
 
+部署脚本默认给 `docker compose pull` 设置 300 秒超时。这样 VPS 到 GHCR 网络卡住时，旧容器会继续运行，GitHub Actions 会明确失败，便于排查。
+
 ## 7. 首次启动 Docker 服务
 
 在 VPS 上用 `rbook` 用户执行：
