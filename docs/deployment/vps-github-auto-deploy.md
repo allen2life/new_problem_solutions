@@ -1,16 +1,19 @@
 # VPS + GitHub + Docker 自动部署教程
 
-目标：每次 push 到 GitHub 的 `master` 分支后，GitHub Actions 自动 SSH 到 VPS，拉取最新代码，用 Docker Compose 重新构建并启动 `problems-solution` 服务。
+目标：每次 push 到 GitHub 的 `master` 分支后，GitHub Actions 先构建 Docker 镜像并推送到 GHCR，然后自动 SSH 到 VPS，拉取最新代码和镜像，用 Docker Compose 重启 `problems-solution` 服务。
 
 最终链路：
 
 ```text
 git push origin master
   -> GitHub Actions
+  -> build Docker image
+  -> push ghcr.io/rainboyoj/new_problem_solutions:master
   -> SSH 到 VPS
   -> /srv/rbook/scripts/deploy-vps.sh
   -> git reset --hard origin/master
-  -> docker compose up -d --build --remove-orphans
+  -> docker compose pull
+  -> docker compose up -d --remove-orphans
   -> ./problems 只读挂载到容器 /app/problems
   -> 容器 npm start
   -> 自动生成 problems.json
@@ -38,7 +41,7 @@ npm run generate:problems
 
 `problems.json` 是运行时生成文件，不提交到 Git。`npm start` 会先执行 `npm run generate:problems`，所以容器每次启动都会基于当前 `problems/` 重新生成。
 
-Docker 镜像不包含 `problems/`，部署时由 `docker-compose.yml` 把 VPS 仓库里的 `./problems` 只读挂载到容器的 `/app/problems`。这样可以避免把较大的题目数据重复打进每个镜像层。
+Docker 镜像由 GitHub Actions 构建并推送到 GitHub Container Registry，即 `ghcr.io/rainboyoj/new_problem_solutions:master`。镜像不包含 `problems/`，部署时由 `docker-compose.yml` 把 VPS 仓库里的 `./problems` 只读挂载到容器的 `/app/problems`。这样可以避免把较大的题目数据重复打进每个镜像层。
 
 ## 2. VPS 安装基础环境
 
@@ -138,13 +141,38 @@ test -L problems && echo "problems is symlink" || echo "problems is real directo
 
 如果输出 `problems is symlink`，请先把真实题目目录复制进仓库，再重新提交。
 
-## 6. 首次启动 Docker 服务
+## 6. 准备 GHCR 镜像
+
+首次部署前，先在 GitHub 页面手动运行一次 workflow，让 Actions 构建并推送镜像：
+
+```text
+GitHub 仓库 -> Actions -> Deploy to VPS -> Run workflow -> Branch: master
+```
+
+如果这是仓库第一次推送 GHCR 镜像，运行成功后打开：
+
+```text
+GitHub 仓库 -> Packages -> new_problem_solutions
+```
+
+建议把 package visibility 设置为 Public。公开镜像可以让 VPS 匿名 `docker pull`，不需要在 VPS 上额外配置 GHCR token。
+
+如果你希望镜像保持 Private，需要在 VPS 上先登录 GHCR：
+
+```bash
+docker login ghcr.io -u YOUR_GITHUB_USERNAME
+```
+
+密码使用 GitHub Personal Access Token，至少需要 `read:packages` 权限。
+
+## 7. 首次启动 Docker 服务
 
 在 VPS 上用 `rbook` 用户执行：
 
 ```bash
 cd /srv/rbook
-docker compose up -d --build
+IMAGE_REF=ghcr.io/rainboyoj/new_problem_solutions:master docker compose pull
+IMAGE_REF=ghcr.io/rainboyoj/new_problem_solutions:master docker compose up -d
 docker compose ps
 ```
 
@@ -172,7 +200,7 @@ docker compose exec problems-solution ls -ld /app/problems
 systemctl disable --now problems-solution
 ```
 
-## 7. 配置 Nginx 反向代理
+## 8. 配置 Nginx 反向代理
 
 退出到 root：
 
@@ -212,7 +240,7 @@ http://YOUR_DOMAIN_OR_IP/
 
 如果你有域名，后续可以用 certbot 配置 HTTPS。
 
-## 8. 给 GitHub Actions 配置 SSH 登录 VPS
+## 9. 给 GitHub Actions 配置 SSH 登录 VPS
 
 在你的本地电脑生成一把专门给 GitHub Actions 登录 VPS 的 key：
 
@@ -248,7 +276,7 @@ VPS_APP_DIR       = /srv/rbook
 VPS_SERVICE_NAME  = problems-solution
 ```
 
-`VPS_APP_DIR` 和 `VPS_SERVICE_NAME` 可以不填，workflow 默认使用 `/srv/rbook` 和 `problems-solution`。如果你的 SSH 端口不是 22，需要在 `.github/workflows/deploy.yml` 的 `ssh` 命令里加 `-p YOUR_PORT`，并在 `ssh-keyscan` 里加 `-p YOUR_PORT`。
+`VPS_APP_DIR` 和 `VPS_SERVICE_NAME` 可以不填，workflow 默认使用 `/srv/rbook` 和 `problems-solution`。镜像地址不需要配置 secret，workflow 会自动使用当前仓库生成 `ghcr.io/rainboyoj/new_problem_solutions:master`。如果你的 SSH 端口不是 22，需要在 `.github/workflows/deploy.yml` 的 `ssh` 命令里加 `-p YOUR_PORT`，并在 `ssh-keyscan` 里加 `-p YOUR_PORT`。
 
 `VPS_SSH_KEY` 填私钥内容：
 
@@ -264,7 +292,7 @@ cat ./github_actions_rbook
 -----END OPENSSH PRIVATE KEY-----
 ```
 
-## 9. 首次手动测试部署脚本
+## 10. 首次手动测试部署脚本
 
 在 VPS 上用 `rbook` 用户执行：
 
@@ -282,7 +310,7 @@ problems-solution ... Up
 
 如果这里失败，先修 VPS 本地问题，再测试 GitHub Actions。
 
-## 10. Push 触发自动部署
+## 11. Push 触发自动部署
 
 本地提交并 push：
 
@@ -298,9 +326,9 @@ git push origin master
 Actions -> Deploy to VPS
 ```
 
-查看 workflow 日志。如果成功，VPS 会自动拉取最新代码、重新构建镜像，并把仓库里的 `problems/` 挂载给新容器使用。宿主机暴露端口是 `127.0.0.1:3300`。
+查看 workflow 日志。如果成功，GitHub Actions 会构建并推送 GHCR 镜像，VPS 会自动拉取最新代码和镜像，并把仓库里的 `problems/` 挂载给新容器使用。宿主机暴露端口是 `127.0.0.1:3300`。
 
-## 11. 日常使用
+## 12. 日常使用
 
 以后只需要：
 
@@ -331,7 +359,7 @@ cd /srv/rbook
 bash scripts/deploy-vps.sh
 ```
 
-## 12. 常见问题
+## 13. 常见问题
 
 ### GitHub Actions 报 Permission denied
 
@@ -383,9 +411,26 @@ docker compose logs --tail=100 problems-solution
 常见原因：
 
 - VPS 仓库里的 `problems/` 不存在，或不是一个真实目录。
-- Docker build 时 `npm ci --omit=dev` 失败。
+- VPS 无法拉取 `ghcr.io/rainboyoj/new_problem_solutions:master`。
 - `127.0.0.1:3300` 已被其它进程占用。
 - Nginx 反向代理配置里的端口和 Compose 暴露端口不一致。
+
+### VPS 拉取 GHCR 镜像失败
+
+先检查 VPS 能否访问 GHCR：
+
+```bash
+curl -I https://ghcr.io/v2/
+docker pull ghcr.io/rainboyoj/new_problem_solutions:master
+```
+
+如果 package 是 Private，需要先登录：
+
+```bash
+docker login ghcr.io -u YOUR_GITHUB_USERNAME
+```
+
+如果网络超时，说明 VPS 到 `ghcr.io` 的网络也不稳定。此时可以给 Docker 配代理，或者改用国内/自建 registry 镜像仓库。
 
 ### 想部署非 master 分支
 

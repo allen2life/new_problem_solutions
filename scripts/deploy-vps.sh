@@ -6,6 +6,7 @@ SERVICE_NAME="${SERVICE_NAME:-problems-solution}"
 BRANCH="${BRANCH:-master}"
 NODE_ENV="${NODE_ENV:-production}"
 COMPOSE_PROJECT_NAME="${COMPOSE_PROJECT_NAME:-problems-solution}"
+IMAGE_REF="${IMAGE_REF:-ghcr.io/rainboyoj/new_problem_solutions:master}"
 
 cd "$APP_DIR"
 
@@ -14,7 +15,7 @@ echo "Deploying $(pwd) from branch $BRANCH"
 git fetch origin "$BRANCH"
 git reset --hard "origin/$BRANCH"
 
-export SERVICE_NAME NODE_ENV COMPOSE_PROJECT_NAME
+export SERVICE_NAME NODE_ENV COMPOSE_PROJECT_NAME IMAGE_REF
 
 if docker compose version >/dev/null 2>&1; then
   compose=(docker compose)
@@ -25,5 +26,6 @@ else
   exit 1
 fi
 
-"${compose[@]}" up -d --build --remove-orphans
+"${compose[@]}" pull
+"${compose[@]}" up -d --remove-orphans
 "${compose[@]}" ps

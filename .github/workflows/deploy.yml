@@ -6,6 +6,10 @@ on:
       - master
   workflow_dispatch:
 
+permissions:
+  contents: read
+  packages: write
+
 concurrency:
   group: deploy-problems-solution
   cancel-in-progress: true
@@ -14,6 +18,41 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Prepare image references
+        id: image
+        run: |
+          image_name="ghcr.io/${GITHUB_REPOSITORY,,}"
+          echo "image_name=$image_name" >> "$GITHUB_OUTPUT"
+          echo "image_ref=$image_name:${GITHUB_REF_NAME}" >> "$GITHUB_OUTPUT"
+          echo "sha_ref=$image_name:${GITHUB_SHA}" >> "$GITHUB_OUTPUT"
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Log in to GitHub Container Registry
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Build and push image
+        uses: docker/build-push-action@v6
+        with:
+          context: .
+          push: true
+          tags: |
+            ${{ steps.image.outputs.image_ref }}
+            ${{ steps.image.outputs.sha_ref }}
+          labels: |
+            org.opencontainers.image.source=https://github.com/${{ github.repository }}
+            org.opencontainers.image.revision=${{ github.sha }}
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+
       - name: Configure SSH key
         run: |
           mkdir -p ~/.ssh
@@ -28,12 +67,13 @@ jobs:
         run: |
           ssh -i ~/.ssh/rbook_deploy_key \
             "${{ secrets.VPS_USER }}@${{ secrets.VPS_HOST }}" \
-            "APP_DIR='${{ secrets.VPS_APP_DIR }}' SERVICE_NAME='${{ secrets.VPS_SERVICE_NAME }}' BRANCH='${{ github.ref_name }}' bash -s" <<'EOF'
+            "APP_DIR='${{ secrets.VPS_APP_DIR }}' SERVICE_NAME='${{ secrets.VPS_SERVICE_NAME }}' BRANCH='${{ github.ref_name }}' IMAGE_REF='${{ steps.image.outputs.image_ref }}' bash -s" <<'EOF'
           set -euo pipefail
           : "${APP_DIR:=/srv/rbook}"
           : "${SERVICE_NAME:=problems-solution}"
           : "${BRANCH:=master}"
-          export APP_DIR SERVICE_NAME BRANCH
+          : "${IMAGE_REF:=ghcr.io/rainboyoj/new_problem_solutions:master}"
+          export APP_DIR SERVICE_NAME BRANCH IMAGE_REF
           cd "$APP_DIR"
           bash scripts/deploy-vps.sh
           EOF
