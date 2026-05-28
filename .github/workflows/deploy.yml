@@ -112,9 +112,14 @@ jobs:
       - name: Deploy
         run: |
           ghcr_token_b64="$(printf '%s' "${{ secrets.GITHUB_TOKEN }}" | base64 -w0)"
-          ssh -i ~/.ssh/rbook_deploy_key \
-            "${{ secrets.VPS_USER }}@${{ secrets.VPS_HOST }}" \
-            "APP_DIR='${{ secrets.VPS_APP_DIR }}' SERVICE_NAME='${{ secrets.VPS_SERVICE_NAME }}' BRANCH='${{ github.ref_name }}' IMAGE_REF='${{ steps.image.outputs.image_ref }}' SKIP_IMAGE_PULL='${{ steps.changes.outputs.skip_image_pull }}' GHCR_USERNAME='${{ github.actor }}' GHCR_TOKEN_B64='$ghcr_token_b64' bash -s" <<'EOF'
+          for attempt in 1 2 3 4 5; do
+            if ssh \
+              -o ConnectTimeout=20 \
+              -o ServerAliveInterval=15 \
+              -o ServerAliveCountMax=3 \
+              -i ~/.ssh/rbook_deploy_key \
+              "${{ secrets.VPS_USER }}@${{ secrets.VPS_HOST }}" \
+              "APP_DIR='${{ secrets.VPS_APP_DIR }}' SERVICE_NAME='${{ secrets.VPS_SERVICE_NAME }}' BRANCH='${{ github.ref_name }}' IMAGE_REF='${{ steps.image.outputs.image_ref }}' SKIP_IMAGE_PULL='${{ steps.changes.outputs.skip_image_pull }}' GHCR_USERNAME='${{ github.actor }}' GHCR_TOKEN_B64='$ghcr_token_b64' bash -s" <<'EOF'
           set -euo pipefail
           : "${APP_DIR:=/srv/rbook}"
           : "${SERVICE_NAME:=problems-solution}"
@@ -127,3 +132,13 @@ jobs:
           cd "$APP_DIR"
           bash scripts/deploy-vps.sh
           EOF
+            then
+              exit 0
+            fi
+
+            echo "Deploy SSH attempt $attempt failed." >&2
+            if [[ "$attempt" == "5" ]]; then
+              exit 255
+            fi
+            sleep "$((attempt * 10))"
+          done
