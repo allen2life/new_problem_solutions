@@ -11,6 +11,7 @@ DEPLOY_IMAGE_REF="${DEPLOY_IMAGE_REF:-problems-solution:deploy}"
 GHCR_USERNAME="${GHCR_USERNAME:-}"
 GHCR_TOKEN_B64="${GHCR_TOKEN_B64:-}"
 PULL_TIMEOUT="${PULL_TIMEOUT:-300}"
+SKIP_IMAGE_PULL="${SKIP_IMAGE_PULL:-false}"
 
 cd "$APP_DIR"
 
@@ -30,33 +31,43 @@ else
   exit 1
 fi
 
-if [[ -n "$GHCR_USERNAME" && -n "$GHCR_TOKEN_B64" ]]; then
+if [[ "$SKIP_IMAGE_PULL" == "true" ]] && ! docker image inspect "$DEPLOY_IMAGE_REF" >/dev/null 2>&1; then
+  echo "Local image $DEPLOY_IMAGE_REF does not exist; pulling image instead."
+  SKIP_IMAGE_PULL="false"
+fi
+
+if [[ "$SKIP_IMAGE_PULL" != "true" && -n "$GHCR_USERNAME" && -n "$GHCR_TOKEN_B64" ]]; then
   printf '%s' "$GHCR_TOKEN_B64" | base64 -d | docker login ghcr.io -u "$GHCR_USERNAME" --password-stdin
 fi
 
-pull_candidates=(
-  "${IMAGE_REF/ghcr.io/ghcr.nju.edu.cn}"
-  "gh-proxy.org/docker/$IMAGE_REF"
-  "$IMAGE_REF"
-)
+if [[ "$SKIP_IMAGE_PULL" == "true" ]]; then
+  echo "Skipping image pull; restarting with the existing local image."
+else
+  pull_candidates=(
+    "${IMAGE_REF/ghcr.io/ghcr.nju.edu.cn}"
+    "gh-proxy.org/docker/$IMAGE_REF"
+    "$IMAGE_REF"
+  )
 
-pulled_image=""
-for candidate in "${pull_candidates[@]}"; do
-  echo "Pulling image candidate: $candidate"
-  if timeout "$PULL_TIMEOUT" docker pull "$candidate"; then
-    pulled_image="$candidate"
-    break
+  pulled_image=""
+  for candidate in "${pull_candidates[@]}"; do
+    echo "Pulling image candidate: $candidate"
+    if timeout "$PULL_TIMEOUT" docker pull "$candidate"; then
+      pulled_image="$candidate"
+      break
+    fi
+    echo "Failed to pull image candidate: $candidate" >&2
+  done
+
+  if [[ -z "$pulled_image" ]]; then
+    echo "Failed to pull any image candidate for $IMAGE_REF" >&2
+    exit 1
   fi
-  echo "Failed to pull image candidate: $candidate" >&2
-done
 
-if [[ -z "$pulled_image" ]]; then
-  echo "Failed to pull any image candidate for $IMAGE_REF" >&2
-  exit 1
+  docker tag "$pulled_image" "$DEPLOY_IMAGE_REF"
 fi
 
-docker tag "$pulled_image" "$DEPLOY_IMAGE_REF"
 export IMAGE_REF="$DEPLOY_IMAGE_REF"
 
-"${compose[@]}" up -d --remove-orphans
+"${compose[@]}" up -d --force-recreate --remove-orphans
 "${compose[@]}" ps
