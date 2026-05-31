@@ -20,6 +20,16 @@ test('ProblemManager lists newest problems first', () => {
   }
 });
 
+test('ProblemManager builds GitHub URLs from config.yml', () => {
+  const pm = new ProblemManager({ auto_load: false });
+
+  assert.equal(pm.config.github_repository, 'https://github.com/rainboyOJ/rbook_nunjucks');
+  assert.equal(
+    pm.github_url('luogu/5657/index.md'),
+    'https://github.com/rainboyOJ/rbook_nunjucks/blob/main/problems/luogu/5657/index.md',
+  );
+});
+
 test('MarkdownRenderer resolves [[oj/id]] to problem link', () => {
   const pm = new ProblemManager();
   const md = new MarkdownRenderer('', pm);

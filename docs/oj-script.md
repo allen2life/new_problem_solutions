@@ -1,12 +1,12 @@
-# oj.sh 使用文档
+# oj.js 使用文档
 
-`scripts/problem-tools/oj.sh` 是从 `rbook_nunjucks/dotfiles/scripts/oj.sh` 迁移来的命令入口。它会调用本项目中的旧在线题目抓取代码：
+`scripts/problem-tools/oj.js` 是在线题目抓取命令入口。它会调用本项目中的旧在线题目抓取代码：
 
 ```text
 old_scripts/online_judge/index.js
 ```
 
-这个脚本的作用是：根据 OJ 和题号生成对应题目目录，并在目录中创建 `index.md`。
+这个脚本的作用是：根据 OJ 和题号生成对应题目目录，并在目录中创建 `index.md`。每次执行时都会交互询问是否下载原题题面；选择下载时，支持的下载器会额外创建 `problem.md`。
 
 ## 1. 安装
 
@@ -42,7 +42,7 @@ oj hdu 1003
 或者不安装软链，直接从项目根目录运行：
 
 ```bash
-scripts/problem-tools/oj.sh luogu 9094
+scripts/problem-tools/oj.js luogu 9094
 ```
 
 使用题目 URL：
@@ -65,6 +65,14 @@ oj
 Usage: node index.js [oj] [id]
 ```
 
+每次运行都会先询问：
+
+```text
+是否下载对应的题面到 problem.md? [y/N]
+```
+
+输入 `y`、`yes`、`是`、`好` 或 `下载` 会下载题面；直接回车默认不下载。
+
 ## 3. 生成结果
 
 命令会创建或复用下面的目录：
@@ -77,6 +85,12 @@ problems/<oj>/<id>/
 
 ```text
 problems/<oj>/<id>/index.md
+```
+
+如果在交互中选择下载题面，并且当前下载器支持题面抓取，还会生成：
+
+```text
+problems/<oj>/<id>/problem.md
 ```
 
 例如：
@@ -126,6 +140,8 @@ source: ...
 .../index.md 已存在
 ```
 
+`problem.md` 同样不会覆盖已有文件。
+
 ## 4. 支持的来源
 
 当前入口加载了这些抓取器：
@@ -135,6 +151,8 @@ luogu
 vjudge
 codeforces
 ```
+
+目前自动下载 `problem.md` 的实现支持 `luogu`。其他下载器会继续生成 `index.md`，不会生成题面文件。
 
 其中 `vjudge` 抓取器负责一批通过 VJudge 页面访问的 OJ，例如：
 
@@ -167,7 +185,7 @@ oj luogu 9094
 
 ## 6. 依赖说明
 
-`oj.sh` 依赖 Node.js 和项目 npm 依赖。和这个脚本直接相关的依赖主要是：
+`oj.js` 依赖 Node.js 和项目 npm 依赖。和这个脚本直接相关的依赖主要是：
 
 ```text
 cheerio

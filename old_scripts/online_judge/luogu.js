@@ -5,6 +5,7 @@ import { execSync } from "child_process";
 import * as cheerio from 'cheerio'
 
 import { writeFileSync, readFileSync, existsSync } from "fs";
+import path from 'path';
 import Base from './base.js'
 
 class LUOGU extends Base {
@@ -123,7 +124,74 @@ class LUOGU extends Base {
         return true;
     }
 
-    download(id,ojName = 'luogu') {
+    formatSample(sample, index) {
+        let inputData = '';
+        let outputData = '';
+
+        if (Array.isArray(sample) && sample.length >= 2) {
+            inputData = sample[0];
+            outputData = sample[1];
+        } else if (typeof sample === 'object' && sample !== null) {
+            inputData = sample.input || '';
+            outputData = sample.output || '';
+        }
+
+        return `## 输入输出样例 #${index}
+
+### 输入 #${index}
+
+\`\`\`
+${inputData}
+\`\`\`
+
+### 输出 #${index}
+
+\`\`\`
+${outputData}
+\`\`\``;
+    }
+
+    problem_statement_markdown(problem, id) {
+        const sections = [
+            `# ${this.real_id(id)} ${problem.title || ''}`.trim(),
+        ];
+
+        const addSection = (title, content) => {
+            if (typeof content === 'string' && content.trim()) {
+                sections.push(`## ${title}\n\n${content.trim()}`);
+            }
+        };
+
+        addSection('题目背景', problem.background);
+        addSection('题目描述', problem.description);
+        addSection('输入格式', problem.inputFormat || problem.input);
+        addSection('输出格式', problem.outputFormat || problem.output);
+
+        if (Array.isArray(problem.samples) && problem.samples.length > 0) {
+            sections.push(problem.samples.map((sample, index) => this.formatSample(sample, index + 1)).join('\n\n'));
+        }
+
+        addSection('说明/提示', problem.hint);
+
+        return `${sections.join('\n\n')}\n`;
+    }
+
+    save_problem_statement(saveId, problem, id) {
+        const dir = path.join(this._oj_dir(), String(saveId).toLowerCase());
+        const statementPath = path.join(dir, 'problem.md');
+
+        if (existsSync(statementPath)) {
+            console.log(`${statementPath} 已存在`);
+            return statementPath;
+        }
+
+        const mdContent = this.problem_statement_markdown(problem, id);
+        writeFileSync(statementPath, mdContent, { encoding: 'utf-8' });
+        console.log(`[${this._OJ}] 题面保存成功: ${statementPath}`);
+        return statementPath;
+    }
+
+    download(id,ojName = 'luogu', options = {}) {
         let data = this.http(id)
         // console.log(data)
 
@@ -142,13 +210,16 @@ class LUOGU extends Base {
         let save_id = id[0].toLowerCase() == 'p' ? id.slice(1) : id
 
         let md_path = this.save(save_id,md_content)
+        if (options.downloadStatement) {
+            this.save_problem_statement(save_id, problem, id)
+        }
     }
 
-    download_by_link(link) {
+    download_by_link(link, options = {}) {
       let link_split = link.split('/')
       let id = link_split[4]
       this.source = link 
-      this.download(id)
+      this.download(id, 'luogu', options)
         // let id = link.split('/').pop()
         // let real_ojname = link.split('/')[3]
         // this.download(id,real_ojname)

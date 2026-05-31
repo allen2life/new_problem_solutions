@@ -133,6 +133,15 @@ a {
 .markdown-body {
   line-height: 1.8;
   color: #1f2328;
+  overflow-wrap: break-word;
+}
+
+.problem-content-card {
+  overflow: hidden;
+}
+
+.problem-content-card .card-body {
+  overflow-x: auto;
 }
 
 .markdown-body h2,
@@ -146,8 +155,53 @@ a {
 .markdown-body ul,
 .markdown-body ol,
 .markdown-body blockquote,
-.markdown-body pre {
+.markdown-body pre,
+.markdown-body table {
   margin-bottom: 1rem;
+}
+
+.markdown-body table {
+  display: block;
+  width: max-content;
+  max-width: 100%;
+  margin: 1rem auto 1.5rem;
+  overflow-x: auto;
+  border: 1px solid #d0d5dd;
+  border-collapse: collapse;
+  border-spacing: 0;
+  word-break: break-word;
+}
+
+.markdown-body th,
+.markdown-body td {
+  min-width: 4.5rem;
+  padding: 0.42rem 0.58rem;
+  vertical-align: top;
+  border: 1px solid #d0d5dd;
+}
+
+.markdown-body th {
+  font-weight: 700;
+  text-align: center;
+  background: #f3f4f6;
+}
+
+.markdown-body tbody tr:nth-child(even) {
+  background: #fafafa;
+}
+
+.markdown-body tbody tr:hover {
+  background: #f5f9ff;
+}
+
+.markdown-body td > :first-child,
+.markdown-body th > :first-child {
+  margin-top: 0;
+}
+
+.markdown-body td > :last-child,
+.markdown-body th > :last-child {
+  margin-bottom: 0;
 }
 
 .markdown-body pre {

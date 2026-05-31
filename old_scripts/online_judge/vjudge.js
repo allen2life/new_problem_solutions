@@ -56,7 +56,7 @@ class vjudge extends Base {
       return `https://vjudge.net/problem/${pid}`
     }
 
-    download(id,ojName) {
+    download(id,ojName, options = {}) {
         // let pid = id.replace('/','-').toUpperCase();
         let saveOjName = ojName.toLowerCase()
         let pid = ojName + '-' + id
@@ -70,13 +70,13 @@ class vjudge extends Base {
         this.save(`${saveOjName}/${id}`,md_content)
     }
 
-    download_by_link(link) {
+    download_by_link(link, options = {}) {
       let link_split = link.split('/')
       let oj_and_id = link_split[4].split('#')[0]
       let oj = oj_and_id.split('-')[0]
       let id = oj_and_id.split('-')[1]
       this.source = link 
-      this.download(id,oj)
+      this.download(id,oj, options)
         // let id = link.split('/').pop()
         // let real_ojname = link.split('/')[3]
         // this.download(id,real_ojname)

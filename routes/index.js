@@ -60,6 +60,7 @@ export default async function indexRoutes(app) {
     return reply.view('problem.pug', {
       problem,
       content: htmlContent,
+      githubUrl: problemManager.github_url(problem.md_path),
     });
   });
 }

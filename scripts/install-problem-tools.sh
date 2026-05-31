@@ -19,7 +19,9 @@ install_link() {
   local target_file
 
   filename="$(basename "$source_file")"
-  command_name="${filename%.sh}"
+  command_name="$filename"
+  command_name="${command_name%.sh}"
+  command_name="${command_name%.js}"
   if [ "$filename" = "lldb.sh" ]; then
     command_name="r-lldb"
   fi

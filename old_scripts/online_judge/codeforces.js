@@ -47,16 +47,16 @@ class CF extends Base {
       return `https://www.codeforces.com/contest/${contest_id}/problem/${problem_id}`
     }
 
-    download_by_link(link) {
+    download_by_link(link, options = {}) {
       let id = this.get_id_by_link(link)
       this.source = link 
-      this.download(id,this._OJ_NAME)
+      this.download(id,this._OJ_NAME, options)
         // let id = link.split('/').pop()
         // let real_ojname = link.split('/')[3]
         // this.download(id,real_ojname)
     }
 
-    download(id,ojName='codeforces') {
+    download(id,ojName='codeforces', options = {}) {
         // let pid = id.replace('/','-').toUpperCase();
         let pid = id
         // let data = this.http(pid)

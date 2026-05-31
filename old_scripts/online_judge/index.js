@@ -110,12 +110,18 @@ function get_oj_by_name(name) {
 
 // 命令
 let argv = process.argv
-if (argv.length == 3 && argv[2].startsWith('http')) {
+const rawArgs = argv.slice(2)
+const options = {
+  downloadStatement: rawArgs.includes('--download-statement')
+}
+const args = rawArgs.filter((arg) => arg !== '--download-statement')
+
+if (args.length == 1 && args[0].startsWith('http')) {
   for (let oj of online_judges) {
     console.log('check : ' ,oj.name, '...');
-    if (oj.match_by_link( argv[2] )) {
+    if (oj.match_by_link( args[0] )) {
       console.log(" match oj by link : " + oj.name)
-      oj.download_by_link(argv[2])
+      oj.download_by_link(args[0], options)
       break;
     }
   }
@@ -123,19 +129,19 @@ if (argv.length == 3 && argv[2].startsWith('http')) {
 }
 
 
-if(argv.length != 4) {
+if(args.length != 2) {
   console.log('Usage: node index.js [oj] [id]')
   process.exit(1)
 }
 
-let ojName = argv[2]
-let id = argv[3]
+let ojName = args[0]
+let id = args[1]
 
 for ( let oj of online_judges) {
     // console.log( oj.name)
     if( oj.match_by_name(ojName) ) {
         console.log(" match oj : " + oj.name)
-        oj.download(id,ojName)
+        oj.download(id,ojName, options)
         break;
     }
 }
