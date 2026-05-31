@@ -58,8 +58,9 @@ class Base {
   }
 
   save(id,md_content) {
-    console.log(`[${this._OJ}] ${id} 保存中...`)
-    let dir = path.join(this._oj_dir(),id)
+    const saveId = String(id).toLowerCase()
+    console.log(`[${this._OJ}] ${saveId} 保存中...`)
+    let dir = path.join(this._oj_dir(),saveId)
     if (!fs.existsSync(dir)) {
       fs.mkdirSync(dir, { recursive: true });
     }
@@ -71,7 +72,7 @@ class Base {
     else 
     {
       fs.writeFileSync(md_path, md_content, { encoding: 'utf-8' });
-      console.log(`[${this._OJ}] ${id} 保存成功: ${md_path}`)
+      console.log(`[${this._OJ}] ${saveId} 保存成功: ${md_path}`)
     }
 
     // -- 给oj 命令使用,得到 下载的目录

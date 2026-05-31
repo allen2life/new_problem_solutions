@@ -26,7 +26,7 @@ class vjudge extends Base {
 
     match_by_name(oj_name) {
       // console.log(oj_name)
-      const ojList = ['poj', 'hdu','atcoder',"OpenJ_Bailian","CodeForces"];
+      const ojList = ['poj', 'hdu', 'atcoder', 'openj_bailian', 'codeforces'];
       // console.log(ojList.includes(oj_name.toLowerCase()))
       return ojList.includes(oj_name.toLowerCase())
     }
@@ -58,15 +58,16 @@ class vjudge extends Base {
 
     download(id,ojName) {
         // let pid = id.replace('/','-').toUpperCase();
+        let saveOjName = ojName.toLowerCase()
         let pid = ojName + '-' + id
         let data = this.http(pid)
         let md_content = this.render({
           ...data, 
-          oj_name: ojName,
+          oj_name: saveOjName,
           problem_id: id,
           source : this.source ||  this.problem_link(id)
         })
-        this.save(`${ojName}/${id}`,md_content)
+        this.save(`${saveOjName}/${id}`,md_content)
     }
 
     download_by_link(link) {

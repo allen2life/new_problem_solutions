@@ -51,7 +51,7 @@ class NoiOpenJudge extends base {
 
     
     id_path(id) {
-        return join(this._path,id.replace('-','/'));
+        return join(this._path,id.replace('-','/').toLowerCase());
     }
 
     all_dirs(){
@@ -190,7 +190,7 @@ class NoiOpenJudge extends base {
                 // 写入code
                 // 写入 rainboy.md
                 console.log(this.id_path(id))
-                let _path = this.id_path(id) + 'solutions'
+                let _path = join(this.id_path(id), 'solutions')
                 let _code_path = _path + '/rainboy.cpp'
                 mkdirp(_path)
 

@@ -11,6 +11,15 @@ test('ProblemManager find returns problem by oj/id', () => {
   assert.equal(p.problem_id, '3061');
 });
 
+test('ProblemManager lists newest problems first', () => {
+  const pm = new ProblemManager();
+  const problems = pm.getAll();
+
+  for (let i = 1; i < problems.length; i += 1) {
+    assert.ok((problems[i - 1].dateA || 0) >= (problems[i].dateA || 0));
+  }
+});
+
 test('MarkdownRenderer resolves [[oj/id]] to problem link', () => {
   const pm = new ProblemManager();
   const md = new MarkdownRenderer('', pm);

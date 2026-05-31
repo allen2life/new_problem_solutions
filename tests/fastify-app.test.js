@@ -1,6 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { buildApp } from '../app.js';
+import ProblemManager from '../lib/problem.js';
 
 test('Fastify app renders the index page', async () => {
   const app = await buildApp({ logger: false });
@@ -32,8 +33,14 @@ test('Fastify app returns paginated problem JSON', async () => {
   assert.match(response.headers['content-type'], /application\/json/);
 
   const body = response.json();
+  const expectedProblems = new ProblemManager().getAll().slice(0, 2);
+
   assert.equal(body.data.length, 2);
   assert.equal(body.pagination.limit, 2);
+  assert.deepEqual(
+    body.data.map((p) => `${p.oj}/${p.problem_id}`),
+    expectedProblems.map((p) => `${p.oj}/${p.problem_id}`),
+  );
 
   await app.close();
 });

@@ -122,12 +122,12 @@ class Base {
     //有些oj不能转,如果不能转,重载这个函数为throw
     id_path(pid) {
         let first_idx = pid.indexOf('-');
-        return join(this._relative_path,pid.slice(first_idx+1).replace(/-/g,'/'))
+        return join(this._relative_path,pid.slice(first_idx+1).replace(/-/g,'/').toLowerCase())
     }
 
     //根据文件的名字,得到绝对路径
     dir_to_path(dir) {
-        return join(this._path,dir)
+        return join(this._path,String(dir).toLowerCase())
     }
 
     link_remove_first(link){
