@@ -3,7 +3,7 @@ using namespace std;
 
 const int N = 2005;
 int a[N];
-int dp[N];   // dp[i]: 以 i 结尾的最长上升子序列长度
+int dp[N];   // dp[i]: 以 i 结尾的最长不下降子序列长度
 long long cnt[N]; // cnt[i]: 达到 dp[i] 长度的方案数
 
 int main() {
@@ -24,7 +24,7 @@ int main() {
         int max_len = 1;
         for (int i = 0; i < n; i++) {
             for (int j = 0; j < i; j++) {
-                if (a[j] < a[i]) { // 严格上升
+                if (a[j] <= a[i]) { // 非递减
                     if (dp[j] + 1 > dp[i]) {
                         // 找到了更长的子序列，更新长度和方案数
                         dp[i] = dp[j] + 1;
