@@ -23,6 +23,8 @@
 
 - Node.js 18+
 - npm
+- Docker 24+（可选，用 Docker 部署时需要）
+- Docker Compose 插件（可选，用 `docker compose` 部署时需要）
 
 ## 3. 启动网站服务
 
@@ -38,11 +40,128 @@ npm start
 - 网站首页：`http://127.0.0.1:3000/`
 - API 文档：`http://127.0.0.1:3000/api`
 
-## 4. 使用 MCP（给 AI 调用）
+## 4. 使用 Docker 安装与启动
+
+项目已经提供 `Dockerfile` 和 `docker-compose.yml`。Docker 镜像启动时会执行 `npm start`，并自动扫描 `problems/` 生成 `problems.json`。
+
+Docker 镜像会由 GitHub Actions 推送到 GHCR：
+
+```text
+ghcr.io/rainboyoj/new_problem_solutions:master
+```
+
+国内 VPS 如果拉取 `ghcr.io` 较慢，可以优先使用下面两个加速地址：
+
+```text
+ghcr.nju.edu.cn/rainboyoj/new_problem_solutions:master
+gh-proxy.org/docker/ghcr.io/rainboyoj/new_problem_solutions:master
+```
+
+### 4.1 从 GHCR 拉取镜像
+
+推荐顺序是先拉国内加速镜像，失败后再试原始 GHCR：
+
+```bash
+docker pull ghcr.nju.edu.cn/rainboyoj/new_problem_solutions:master
+docker tag ghcr.nju.edu.cn/rainboyoj/new_problem_solutions:master problems-solution:deploy
+```
+
+如果 `ghcr.nju.edu.cn` 不可用，再试：
+
+```bash
+docker pull gh-proxy.org/docker/ghcr.io/rainboyoj/new_problem_solutions:master
+docker tag gh-proxy.org/docker/ghcr.io/rainboyoj/new_problem_solutions:master problems-solution:deploy
+```
+
+最后 fallback 到原始 GHCR：
+
+```bash
+docker pull ghcr.io/rainboyoj/new_problem_solutions:master
+docker tag ghcr.io/rainboyoj/new_problem_solutions:master problems-solution:deploy
+```
+
+如果 GHCR package 不是 Public，需要先登录：
+
+```bash
+docker login ghcr.io -u YOUR_GITHUB_USERNAME
+```
+
+密码使用 GitHub Personal Access Token，至少需要 `read:packages` 权限。
+
+### 4.2 本地构建镜像
+
+在项目根目录执行：
+
+```bash
+docker build -t problems-solution:deploy .
+```
+
+### 4.3 使用 Docker Compose 启动
+
+```bash
+docker compose up -d
+```
+
+默认配置会把本机 `./problems` 只读挂载到容器的 `/app/problems`，并把容器 `3000` 端口映射到本机 `127.0.0.1:3300`。
+
+访问地址：
+
+- 网站首页：`http://127.0.0.1:3300/`
+- API 文档：`http://127.0.0.1:3300/api`
+
+查看运行状态和日志：
+
+```bash
+docker compose ps
+docker compose logs -f problems-solution
+```
+
+停止服务：
+
+```bash
+docker compose down
+```
+
+也可以不重新 tag，直接指定镜像地址启动：
+
+```bash
+IMAGE_REF=ghcr.nju.edu.cn/rainboyoj/new_problem_solutions:master docker compose up -d
+```
+
+### 4.4 不使用 Compose 直接运行
+
+```bash
+docker run --rm \
+  -p 3000:3000 \
+  -v "$PWD/problems:/app/problems:ro" \
+  problems-solution:deploy
+```
+
+直接运行时访问：`http://127.0.0.1:3000/`
+
+### 4.5 更新部署
+
+使用 GHCR 镜像部署时，拉取新镜像后重启：
+
+```bash
+docker pull ghcr.nju.edu.cn/rainboyoj/new_problem_solutions:master
+docker tag ghcr.nju.edu.cn/rainboyoj/new_problem_solutions:master problems-solution:deploy
+docker compose up -d
+```
+
+本地构建部署时，代码或题目数据更新后重新构建并启动：
+
+```bash
+git pull
+docker build -t problems-solution:deploy .
+docker compose up -d
+```
+
+## 5. 使用 MCP（给 AI 调用）
 
 MCP 服务位于 `./mcp`，它会调用上面的主站 API。
 
-### 4.1 安装与启动
+### 5.1 安装与启动
 
 ```bash
 cd mcp
@@ -52,14 +171,14 @@ TARGET_API_BASE_URL=http://127.0.0.1:3000 npm start
 
 默认监听：`http://127.0.0.1:3333`
 
-### 4.2 MCP 提供的核心工具
+### 5.2 MCP 提供的核心工具
 
 - `search_problems`
 - `get_problem_detail`
 
 详细说明见：`mcp/README.md`
 
-## 5. 项目结构
+## 6. 项目结构
 
 ```text
 .
@@ -75,7 +194,7 @@ TARGET_API_BASE_URL=http://127.0.0.1:3000 npm start
 └── docs/                  # 设计与计划文档
 ```
 
-## 6. 常用命令
+## 7. 常用命令
 
 ### 根项目
 
@@ -99,7 +218,7 @@ npm start
 npm run start:stdio
 ```
 
-## 7. 开发说明
+## 8. 开发说明
 
 - 题目数据来自 `problems/`，启动时会扫描并用于检索。
 - 如需扩展 AI 能力，优先在 `mcp/src/tools/` 下新增工具。
