@@ -2,9 +2,9 @@
 
 目标：让本项目从“题解文章集合”逐步变成“读题、写题、验证、复盘”的长期训练系统。
 
-## P0：先修基础设施
+## P0：先修基础设施（已完成）
 
-### 1. 修正题目扫描规则
+### 1. 修正题目扫描规则（已完成）
 
 问题：`.gitignore` 已经忽略 `problem-analysis-workspace/`，但 `lib/problem.js` 的 `scanProblems()` 仍会递归扫描 `problems/**/*.md`。
 
@@ -17,7 +17,7 @@
 
 价值：避免过程文档、对拍记录、临时调试材料被网站误收录。
 
-### 2. 增加题目目录一致性检查器
+### 2. 增加题目目录一致性检查器（已完成）
 
 建议脚本：
 
@@ -37,7 +37,7 @@ scripts/problem-analysis-tools/check_problem.py problems/luogu/1001
 
 价值：写完题后能快速确认题目目录不会破坏网站渲染和题库索引。
 
-### 3. 新建统一题目创建命令
+### 3. 新建统一题目创建命令（已完成）
 
 建议命令：
 
@@ -68,21 +68,28 @@ problems/luogu/1001/
 
 ## P1：提升验证效率
 
-### 4. 增加样例运行器
+### 4. 增加样例运行器（已完成）
 
 建议命令：
 
 ```bash
-run-samples problems/luogu/1001
+check_sample.py problems/luogu/1001
 ```
 
 功能：
 
-- [ ] 自动编译 `main.cpp`。
-- [ ] 自动识别 `in1/out1`、`in2/out2`。
-- [ ] 自动识别 `data/*.in` 与 `data/*.out` 或 `data/*.ans`。
-- [ ] 逐组运行并 diff。
-- [ ] 失败时显示输入、期望输出、实际输出。
+- [x] 自动编译 `main.cpp`。
+- [x] 自动识别 `in1/out1`、`in2/out2`。
+- [x] 自动识别 `data/*.in` 与 `data/*.out` 或 `data/*.ans`。
+- [x] 逐组运行并 diff。
+- [x] 失败时显示输入、期望输出、实际输出。
+
+补充约定：
+
+- [x] 无参数时在当前目录查找样例数据。
+- [x] 命令名使用 `check_sample.py`，不使用 `run-samples`。
+- [x] 没有答案文件时运行程序并标记为 `NO_ANSWER`。
+- [x] 编译产物放在临时目录，不污染题目目录。
 
 价值：比手动 `b 1 -i in1` 更适合批量检查样例和本地数据。
 
@@ -229,6 +236,6 @@ review-list
 1. 修 `lib/problem.js` 跳过过程目录。
 2. 写 `check_problem.py`。
 3. 写 `new-problem` 命令。
-4. 写 `run-samples`。
+4. 写 `check_sample.py`。
 5. 做 `check-analysis`。
 6. 再做学习状态字段和复盘系统。

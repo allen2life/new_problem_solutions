@@ -243,7 +243,7 @@ problems/<oj>/<problem_id>/
 使用 oj-problem-format-spec，规范 problems/luogu/1001/index.md
 ```
 
-### 6.3 随机数据与对拍脚本
+### 6.3 随机数据、样例检查与对拍脚本
 
 通用脚本放在：
 
@@ -278,6 +278,22 @@ cd problems/luogu/1001
 python3 ../../../scripts/problem-analysis-tools/duipai-human.py
 ```
 
+样例运行器：
+
+```bash
+cd problems/luogu/1001
+python3 ../../../scripts/problem-analysis-tools/check_sample.py
+```
+
+也可以从项目根目录指定题目目录：
+
+```bash
+python3 scripts/problem-analysis-tools/check_sample.py problems/luogu/1001
+python3 scripts/problem-analysis-tools/check_sample.py problems/luogu/1001 --source main.cpp --timeout 2
+```
+
+`check_sample.py` 会自动查找 `main.cpp`，没有时回退到 `1.cpp`。它会识别 `in/out`、`in1/out1`、`data/*.in` 与同名 `.out/.ans`；如果只有输入没有答案，会运行并标记为 `NO_ANSWER`。
+
 对拍失败时会保存：
 
 ```text
@@ -292,7 +308,20 @@ problems/<oj>/<problem_id>/problem-analysis-workspace/duipai-report.md
 
 这些过程目录和失败样例目录已加入 `.gitignore`。
 
-## 7. 项目结构
+## 7. 工具使用
+
+| 工具 | 位置 | 文档 |
+| --- | --- | --- |
+| `check_sample.py` | `scripts/problem-analysis-tools/check_sample.py` | [`docs/tools/check_sample.md`](docs/tools/check_sample.md) |
+| `check_problem.py` | `scripts/problem-analysis-tools/check_problem.py` | [`docs/tools/check_problem.md`](docs/tools/check_problem.md) |
+| `new-problem` / `new-problem.py` | `scripts/problem-analysis-tools/new-problem.py` | [`docs/tools/new-problem.md`](docs/tools/new-problem.md) |
+| `gen_random.py` | `scripts/problem-analysis-tools/gen_random.py` | [`docs/tools/gen_random.md`](docs/tools/gen_random.md) |
+| `duipai.py` | `scripts/problem-analysis-tools/duipai.py` | [`docs/tools/duipai.md`](docs/tools/duipai.md) |
+| `duipai-human.py` | `scripts/problem-analysis-tools/duipai-human.py` | [`docs/tools/duipai-human.md`](docs/tools/duipai-human.md) |
+
+旧版写题辅助脚本位于 `scripts/problem-tools/`，统一说明见 [`docs/problem-tools.md`](docs/problem-tools.md)。
+
+## 8. 项目结构
 
 ```text
 .
@@ -310,7 +339,7 @@ problems/<oj>/<problem_id>/problem-analysis-workspace/duipai-report.md
 └── docs/                  # 设计与计划文档
 ```
 
-## 8. 常用命令
+## 9. 常用命令
 
 ### 根项目
 
@@ -323,6 +352,7 @@ npm start
 
 ```bash
 python3 scripts/problem-analysis-tools/gen_random.py --pattern array -n 5
+python3 scripts/problem-analysis-tools/check_sample.py problems/luogu/1001
 python3 scripts/problem-analysis-tools/duipai.py --gen problems/luogu/1001/gen.py --user problems/luogu/1001/main.cpp --brute problems/luogu/1001/brute.cpp -n 200
 ```
 
@@ -341,7 +371,7 @@ npm start
 npm run start:stdio
 ```
 
-## 9. 开发说明
+## 10. 开发说明
 
 - 题目数据来自 `problems/`，启动时会扫描并用于检索。
 - 如需扩展 AI 能力，优先在 `mcp/src/tools/` 下新增工具。

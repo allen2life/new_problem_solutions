@@ -1,0 +1,42 @@
+# new-problem.py
+
+位置：
+
+```text
+scripts/problem-analysis-tools/new-problem.py
+```
+
+作用：按新题目结构创建题目目录。
+
+## 基本用法
+
+```bash
+python3 scripts/problem-analysis-tools/new-problem.py luogu 1001
+```
+
+如果已经通过 `scripts/install-problem-tools.sh` 安装到 `~/.local/bin`，可以使用：
+
+```bash
+new-problem luogu 1001
+```
+
+## 生成结构
+
+```text
+problems/<oj>/<problem_id>/
+├── index.md
+├── main.cpp
+├── brute.cpp
+├── gen.py
+└── problem-analysis-workspace/
+```
+
+## 常用参数
+
+```bash
+python3 scripts/problem-analysis-tools/new-problem.py luogu 1001 --title "A+B Problem" --source https://example.com
+python3 scripts/problem-analysis-tools/new-problem.py luogu 1001 --no-brute --no-gen
+python3 scripts/problem-analysis-tools/new-problem.py luogu 1001 --no-workspace
+```
+
+脚本不会覆盖已有文件。
