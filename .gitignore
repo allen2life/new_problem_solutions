@@ -4,3 +4,5 @@ problems.json
 *.log
 .DS_Store
 .worktrees/
+problems/**/problem-analysis-workspace/
+problems/**/duipai-failed/
