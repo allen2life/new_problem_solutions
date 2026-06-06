@@ -2,6 +2,24 @@
 
 本文档说明 `scripts/problem-tools/` 下的写题辅助工具。它们主要用于在 `problems/<oj>/<id>/` 目录中完成日常写题流程：下载样例、编译运行、批量测试、对拍和画图辅助。
 
+## 专属文档
+
+| 工具 | 作用 | 文档 |
+| --- | --- | --- |
+| `b` | 编译并运行 C++ 程序 | [`tools/problem-tools-b.md`](tools/problem-tools-b.md) |
+| `duipai.py` | 旧版交互式对拍 | [`tools/problem-tools-duipai.md`](tools/problem-tools-duipai.md) |
+| `one-duipai.py` | 单组输入并排 diff | [`tools/problem-tools-one-duipai.md`](tools/problem-tools-one-duipai.md) |
+| `test-data.py` | 批量数据 diff 评测 | [`tools/problem-tools-test-data.md`](tools/problem-tools-test-data.md) |
+| `randint.py` | 生成一行随机整数 | [`tools/problem-tools-randint.md`](tools/problem-tools-randint.md) |
+| `input2dot.py` | 边列表转 Graphviz dot | [`tools/problem-tools-input2dot.md`](tools/problem-tools-input2dot.md) |
+| `dot2png.py` | dot 转 PNG | [`tools/problem-tools-dot2png.md`](tools/problem-tools-dot2png.md) |
+| `luogu.py` | 下载洛谷样例 | [`tools/problem-tools-luogu.md`](tools/problem-tools-luogu.md) |
+| `oj` | 旧版在线题目抓取入口 | [`tools/problem-tools-oj.md`](tools/problem-tools-oj.md) |
+| `r-lldb` | 选择输入并启动 LLDB | [`tools/problem-tools-r-lldb.md`](tools/problem-tools-r-lldb.md) |
+| `nvimsizer` | Neovim 双栏查看 | [`tools/problem-tools-nvimsizer.md`](tools/problem-tools-nvimsizer.md) |
+| `transfer` | 上传文件到 transfer.sh | [`tools/problem-tools-transfer.md`](tools/problem-tools-transfer.md) |
+| `r-list-all-scripts.py` | 列出旧工具脚本 | [`tools/problem-tools-r-list-all-scripts.md`](tools/problem-tools-r-list-all-scripts.md) |
+
 ## 1. 安装
 
 ### 1.1 安装系统依赖

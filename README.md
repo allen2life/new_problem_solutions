@@ -290,9 +290,10 @@ python3 ../../../scripts/problem-analysis-tools/check_sample.py
 ```bash
 python3 scripts/problem-analysis-tools/check_sample.py problems/luogu/1001
 python3 scripts/problem-analysis-tools/check_sample.py problems/luogu/1001 --source main.cpp --timeout 2
+python3 scripts/problem-analysis-tools/check_sample.py problems/luogu/1001 --timeout 1 --memory-mb 256
 ```
 
-`check_sample.py` 会自动查找 `main.cpp`，没有时回退到 `1.cpp`。它会识别 `in/out`、`in1/out1`、`data/*.in` 与同名 `.out/.ans`；如果只有输入没有答案，会运行并标记为 `NO_ANSWER`。
+`check_sample.py` 会自动查找 `main.cpp`，没有时回退到 `1.cpp`。它会识别 `in/out`、`in1/out1`、`data/*.in` 与同名 `.out/.ans`；如果只有输入没有答案，会运行并标记为 `NO_ANSWER`。`--timeout` 控制时间限制，`--memory-mb` 控制内存判定线，内部默认额外给 16MB 保护余量。
 
 对拍失败时会保存：
 
@@ -310,6 +311,8 @@ problems/<oj>/<problem_id>/problem-analysis-workspace/duipai-report.md
 
 ## 7. 工具使用
 
+### 7.1 题解分析工具
+
 | 工具 | 位置 | 文档 |
 | --- | --- | --- |
 | `check_sample.py` | `scripts/problem-analysis-tools/check_sample.py` | [`docs/tools/check_sample.md`](docs/tools/check_sample.md) |
@@ -319,7 +322,25 @@ problems/<oj>/<problem_id>/problem-analysis-workspace/duipai-report.md
 | `duipai.py` | `scripts/problem-analysis-tools/duipai.py` | [`docs/tools/duipai.md`](docs/tools/duipai.md) |
 | `duipai-human.py` | `scripts/problem-analysis-tools/duipai-human.py` | [`docs/tools/duipai-human.md`](docs/tools/duipai-human.md) |
 
-旧版写题辅助脚本位于 `scripts/problem-tools/`，统一说明见 [`docs/problem-tools.md`](docs/problem-tools.md)。
+### 7.2 旧版写题辅助工具
+
+总览见 [`docs/problem-tools.md`](docs/problem-tools.md)。
+
+| 工具 | 位置 | 文档 |
+| --- | --- | --- |
+| `b` | `scripts/problem-tools/b` | [`docs/tools/problem-tools-b.md`](docs/tools/problem-tools-b.md) |
+| `duipai.py` | `scripts/problem-tools/duipai.py` | [`docs/tools/problem-tools-duipai.md`](docs/tools/problem-tools-duipai.md) |
+| `one-duipai.py` | `scripts/problem-tools/one-duipai.py` | [`docs/tools/problem-tools-one-duipai.md`](docs/tools/problem-tools-one-duipai.md) |
+| `test-data.py` | `scripts/problem-tools/test-data.py` | [`docs/tools/problem-tools-test-data.md`](docs/tools/problem-tools-test-data.md) |
+| `randint.py` | `scripts/problem-tools/randint.py` | [`docs/tools/problem-tools-randint.md`](docs/tools/problem-tools-randint.md) |
+| `input2dot.py` | `scripts/problem-tools/input2dot.py` | [`docs/tools/problem-tools-input2dot.md`](docs/tools/problem-tools-input2dot.md) |
+| `dot2png.py` | `scripts/problem-tools/dot2png.py` | [`docs/tools/problem-tools-dot2png.md`](docs/tools/problem-tools-dot2png.md) |
+| `luogu.py` | `scripts/problem-tools/luogu.py` | [`docs/tools/problem-tools-luogu.md`](docs/tools/problem-tools-luogu.md) |
+| `oj` | `scripts/problem-tools/oj.js` | [`docs/tools/problem-tools-oj.md`](docs/tools/problem-tools-oj.md) |
+| `r-lldb` | `scripts/problem-tools/lldb.sh` | [`docs/tools/problem-tools-r-lldb.md`](docs/tools/problem-tools-r-lldb.md) |
+| `nvimsizer` | `scripts/problem-tools/nvimsizer.sh` | [`docs/tools/problem-tools-nvimsizer.md`](docs/tools/problem-tools-nvimsizer.md) |
+| `transfer` | `scripts/problem-tools/transfer.sh` | [`docs/tools/problem-tools-transfer.md`](docs/tools/problem-tools-transfer.md) |
+| `r-list-all-scripts.py` | `scripts/problem-tools/r-list-all-scripts.py` | [`docs/tools/problem-tools-r-list-all-scripts.md`](docs/tools/problem-tools-r-list-all-scripts.md) |
 
 ## 8. 项目结构
 
