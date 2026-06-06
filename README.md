@@ -178,7 +178,121 @@ TARGET_API_BASE_URL=http://127.0.0.1:3000 npm start
 
 详细说明见：`mcp/README.md`
 
-## 6. 项目结构
+## 6. 题目解析工作流（给 AI 与手写题解使用）
+
+本仓库提供两类本地 skill：
+
+- `oj-problem-format-spec`：只规定题解 Markdown 的格式、目录结构、frontmatter、章节标题和代码嵌入方式。
+- `oj-problem-analysis-writer`：负责写题目解析内容，并根据过程文档生成正式 `index.md`。
+
+两个 skill 位于：
+
+```text
+.agents/skills/oj-problem-format-spec/SKILL.md
+.agents/skills/oj-problem-analysis-writer/SKILL.md
+```
+
+### 6.1 标准题目目录
+
+新题目只使用目录型结构：
+
+```text
+problems/<oj>/<problem_id>/
+├── index.md
+├── main.cpp
+├── brute.cpp
+├── gen.py
+└── problem-analysis-workspace/
+    ├── 01-problem-understanding.md
+    ├── 02-observation-and-model.md
+    ├── 03-solution-derivation.md
+    ├── 04-correctness-and-edge-cases.md
+    ├── 05-complexity-and-implementation.md
+    ├── 06-final-index-draft.md
+    └── duipai-report.md
+```
+
+正式电子书内容写入 `index.md`，代码固定为 `main.cpp`，并在 `index.md` 中使用：
+
+```markdown
+@include-code(./main.cpp, cpp)
+```
+
+`problem-analysis-workspace/` 是每道题的学习和推导过程目录，已通过 `.gitignore` 忽略，不作为最终电子书内容提交。
+
+### 6.2 使用 skill 写题解
+
+推荐流程：
+
+1. 在 `problems/<oj>/<problem_id>/` 下准备 `main.cpp`。
+2. 如果要对拍，准备 `brute.cpp` 和 `gen.py`。
+3. 让 AI 使用 `oj-problem-analysis-writer` 生成或补全 `problem-analysis-workspace/*.md`。
+4. AI 根据 `06-final-index-draft.md` 和 `oj-problem-format-spec` 写入正式 `index.md`。
+5. 人工检查 `index.md` 的题意、思路、复杂度和代码引用。
+
+示例提示：
+
+```text
+使用 oj-problem-analysis-writer，解析 problems/luogu/1001/
+根据 main.cpp 和过程文档生成 index.md
+```
+
+如果只需要创建或修正格式骨架，使用：
+
+```text
+使用 oj-problem-format-spec，规范 problems/luogu/1001/index.md
+```
+
+### 6.3 随机数据与对拍脚本
+
+通用脚本放在：
+
+```text
+scripts/problem-analysis-tools/
+```
+
+随机数据生成：
+
+```bash
+python3 scripts/problem-analysis-tools/gen_random.py --pattern array -n 10 --min 1 --max 100
+python3 scripts/problem-analysis-tools/gen_random.py --pattern tree -n 20
+python3 scripts/problem-analysis-tools/gen_random.py --pattern graph -n 10 -m 15
+python3 scripts/problem-analysis-tools/gen_random.py --pattern string -n 12 --charset abc
+python3 scripts/problem-analysis-tools/gen_random.py --pattern permutation -n 10
+```
+
+对拍（给 Agent 和自动化使用，纯命令行）：
+
+```bash
+python3 scripts/problem-analysis-tools/duipai.py \
+  --gen problems/luogu/1001/gen.py \
+  --user problems/luogu/1001/main.cpp \
+  --brute problems/luogu/1001/brute.cpp \
+  -n 200
+```
+
+人工交互式对拍：
+
+```bash
+cd problems/luogu/1001
+python3 ../../../scripts/problem-analysis-tools/duipai-human.py
+```
+
+对拍失败时会保存：
+
+```text
+problems/<oj>/<problem_id>/duipai-failed/
+```
+
+对拍记录默认写入：
+
+```text
+problems/<oj>/<problem_id>/problem-analysis-workspace/duipai-report.md
+```
+
+这些过程目录和失败样例目录已加入 `.gitignore`。
+
+## 7. 项目结构
 
 ```text
 .
@@ -190,17 +304,26 @@ TARGET_API_BASE_URL=http://127.0.0.1:3000 npm start
 ├── public/                # 静态资源
 ├── problems/              # 题目 Markdown 数据（本地数据源）
 ├── scripts/problem-tools/ # 写题辅助脚本
+├── scripts/problem-analysis-tools/ # 题解分析、随机数据与对拍脚本
+├── .agents/skills/        # 本仓库使用的本地 AI skills
 ├── mcp/                   # MCP 网关服务
 └── docs/                  # 设计与计划文档
 ```
 
-## 7. 常用命令
+## 8. 常用命令
 
 ### 根项目
 
 ```bash
 npm test
 npm start
+```
+
+题目解析工具：
+
+```bash
+python3 scripts/problem-analysis-tools/gen_random.py --pattern array -n 5
+python3 scripts/problem-analysis-tools/duipai.py --gen problems/luogu/1001/gen.py --user problems/luogu/1001/main.cpp --brute problems/luogu/1001/brute.cpp -n 200
 ```
 
 源码阅读路径见：`docs/source-guide.md`
@@ -218,7 +341,7 @@ npm start
 npm run start:stdio
 ```
 
-## 8. 开发说明
+## 9. 开发说明
 
 - 题目数据来自 `problems/`，启动时会扫描并用于检索。
 - 如需扩展 AI 能力，优先在 `mcp/src/tools/` 下新增工具。
