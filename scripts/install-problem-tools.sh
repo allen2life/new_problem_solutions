@@ -3,6 +3,7 @@ set -euo pipefail
 
 SCRIPT_DIR="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" >/dev/null 2>&1 && pwd)"
 TOOLS_DIR="$SCRIPT_DIR/problem-tools"
+ANALYSIS_TOOLS_DIR="$SCRIPT_DIR/problem-analysis-tools"
 BIN_DIR="${HOME}/.local/bin"
 
 if [ ! -d "$TOOLS_DIR" ]; then
@@ -25,6 +26,9 @@ install_link() {
   if [ "$filename" = "lldb.sh" ]; then
     command_name="r-lldb"
   fi
+  if [ "$filename" = "new-problem.py" ]; then
+    command_name="new-problem"
+  fi
   target_file="$BIN_DIR/$command_name"
 
   chmod +x "$source_file"
@@ -43,10 +47,17 @@ install_link() {
   echo "link $target_file -> $source_file"
 }
 
-for script in "$TOOLS_DIR"/*; do
-  [ -f "$script" ] || continue
-  install_link "$script"
-done
+install_dir_scripts() {
+  local dir="$1"
+  [ -d "$dir" ] || return 0
+  for script in "$dir"/*; do
+    [ -f "$script" ] || continue
+    install_link "$script"
+  done
+}
+
+install_dir_scripts "$TOOLS_DIR"
+install_dir_scripts "$ANALYSIS_TOOLS_DIR"
 
 cat <<EOF
 

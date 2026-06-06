@@ -5,10 +5,11 @@ import ProblemManager from '../lib/problem.js';
 
 test('ProblemManager find returns problem by oj/id', () => {
   const pm = new ProblemManager();
-  const p = pm.find('poj', '3061');
+  const p = pm.find('OpenJ_Bailian', '1651');
   assert.ok(p);
-  assert.equal(p.oj, 'poj');
-  assert.equal(p.problem_id, '3061');
+  assert.equal(p.oj, 'OpenJ_Bailian');
+  assert.equal(p.problem_id, '1651');
+  assert.equal(p.md_path, 'OpenJ_Bailian/1651/index.md');
 });
 
 test('ProblemManager lists newest problems first', () => {
@@ -33,10 +34,20 @@ test('ProblemManager builds GitHub URLs from config.yml', () => {
 test('MarkdownRenderer resolves [[oj/id]] to problem link', () => {
   const pm = new ProblemManager();
   const md = new MarkdownRenderer('', pm);
-  md.md_content = 'See [[poj/3061]] now.';
+  md.md_content = 'See [[OpenJ_Bailian/1651]] now.';
   const html = md.toHTML();
-  assert.match(html, /href="\/problems\/poj\/3061"/);
+  assert.match(html, /href="\/problems\/OpenJ_Bailian\/1651"/);
   assert.match(html, /class="problem-link"/);
+});
+
+test('ProblemManager scans only formal index.md problem pages', () => {
+  const pm = new ProblemManager({ auto_load: false });
+  const files = pm.scanProblems();
+
+  assert.ok(files.length > 0);
+  assert.ok(files.every((file) => file.endsWith('/index.md')));
+  assert.ok(files.every((file) => !file.includes('problem-analysis-workspace/')));
+  assert.ok(files.every((file) => !file.includes('duipai-failed/')));
 });
 
 test('MarkdownRenderer renders TOC and KaTeX math', () => {

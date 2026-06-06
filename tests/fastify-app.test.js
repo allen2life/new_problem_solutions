@@ -50,13 +50,13 @@ test('Fastify app returns a problem detail page', async () => {
 
   const response = await app.inject({
     method: 'GET',
-    url: '/problems/poj/3061',
+    url: '/problems/OpenJ_Bailian/1651',
   });
 
   assert.equal(response.statusCode, 200);
   assert.match(response.headers['content-type'], /text\/html/);
-  assert.match(response.body, /3061/);
-  assert.match(response.body, /href="https:\/\/github\.com\/rainboyOJ\/rbook_nunjucks\/blob\/main\/problems\/poj\/poj3061\.md"/);
+  assert.match(response.body, /1651/);
+  assert.match(response.body, /href="https:\/\/github\.com\/rainboyOJ\/rbook_nunjucks\/blob\/main\/problems\/OpenJ_Bailian\/1651\/index\.md"/);
   assert.match(response.body, />GitHub</);
 
   await app.close();
