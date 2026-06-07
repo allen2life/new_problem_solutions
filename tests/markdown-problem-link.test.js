@@ -119,11 +119,31 @@ test('MarkdownRenderer includes code relative to markdown file', () => {
   const html = md.toHTML();
 
   assert.doesNotMatch(html, /@include-code/);
-  assert.match(html, /line-numbers-mode|language-cpp|language-clike/);
-  assert.match(html, /int main/);
+  assert.match(html, /class="language-cpp line-numbers-mode code-block"/);
+  assert.match(html, /class="code-copy-button" type="button" data-code-copy/);
+  assert.match(html, /class="line-numbers-wrapper" aria-hidden="true">1\n2\n3/);
+  assert.match(html, /<span class="token function">main<\/span>/);
   assert.match(html, /std/);
   assert.match(html, /cin/);
-  assert.match(html, /<span class="token operator">><\/span><span class="token operator">><\/span>/);
+  assert.match(html, /<span class="token operator">>><\/span>/);
+});
+
+test('MarkdownRenderer renders plain fences with copy button and line numbers', () => {
+  const md = new MarkdownRenderer('');
+  md.md_content = [
+    '```cpp',
+    '#include <bits/stdc++.h>',
+    'int main() { return 0; }',
+    '```',
+  ].join('\n');
+
+  const html = md.toHTML();
+
+  assert.match(html, /class="language-cpp line-numbers-mode code-block"/);
+  assert.match(html, /<span class="code-info-label">cpp<\/span>/);
+  assert.match(html, /data-code-copy aria-label="复制代码">复制<\/button>/);
+  assert.match(html, /class="line-numbers-wrapper" aria-hidden="true">1\n2<\/span>/);
+  assert.match(html, /<span class="token macro property">/);
 });
 
 test('MarkdownRenderer supports migrated rbook markdown extensions', () => {
