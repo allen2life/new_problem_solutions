@@ -11,6 +11,28 @@ const __dirname = path.dirname(__filename);
 const projectDir = path.resolve(__dirname, '../..');
 const indexJsPath = path.join(projectDir, 'old_scripts/online_judge/index.js');
 
+function printHelp() {
+  console.log(`Usage: oj [options]
+
+Wrapper around old_scripts/online_judge/index.js.
+
+Before forwarding arguments, this wrapper asks whether to add:
+  --download-statement
+
+Options:
+  -h, --help   Show this help message
+
+Examples:
+  oj --help
+  oj luogu P1001
+`);
+}
+
+if (process.argv.includes('-h') || process.argv.includes('--help')) {
+  printHelp();
+  process.exit(0);
+}
+
 function ask(question) {
   if (!process.stdin.isTTY) {
     return Promise.resolve('');

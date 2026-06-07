@@ -20,6 +20,12 @@ r-list-all-scripts.py
 r-list-all-scripts.py
 ```
 
+查看帮助：
+
+```bash
+r-list-all-scripts.py --help
+```
+
 输出示例：
 
 ```text
@@ -34,4 +40,3 @@ duipai.py            - 自动化对拍工具，可进行多次测试
 ## 注意事项
 
 这个脚本的说明文本是硬编码的。如果新增工具或改名，需要同步更新 `scripts/problem-tools/r-list-all-scripts.py`。
-

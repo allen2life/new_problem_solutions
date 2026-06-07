@@ -30,6 +30,12 @@ export TRANSFER_URL="http://your-transfer-sh-url"
 transfer 1.cpp
 ```
 
+查看帮助：
+
+```bash
+transfer --help
+```
+
 上传成功后会输出：
 
 ```text
@@ -42,4 +48,3 @@ transfer 1.cpp
 - 必须提供一个已存在的文件。
 - 依赖 `curl`。
 - 上传目标文件名会追加 `.txt`。
-

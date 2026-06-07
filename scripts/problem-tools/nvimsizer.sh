@@ -1,8 +1,25 @@
 #!/bin/bash
 
+usage() {
+    cat <<'EOF'
+Usage: nvimsizer <main-file> <side-file>
+
+Open two files in Neovim vertical split and resize the side window according
+to the longest line in <side-file>.
+
+Options:
+  -h, --help   Show this help message
+EOF
+}
+
+if [ "${1:-}" = "-h" ] || [ "${1:-}" = "--help" ]; then
+    usage
+    exit 0
+fi
+
 # 检查参数数量
 if [ "$#" -ne 2 ]; then
-    echo "使用方法: $0 <主文件> <侧边文件>"
+    usage
     exit 1
 fi
 

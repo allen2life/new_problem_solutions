@@ -5,8 +5,12 @@
 
 import os
 import sys
+import argparse
 
 def main():
+    parser = argparse.ArgumentParser(description="列出 scripts/problem-tools/ 下的工具脚本及功能说明")
+    parser.parse_args()
+
     # 定义工具脚本及其说明
     tools = {
         "b": "快速编译C++程序，支持g++和clang++",

@@ -6,6 +6,30 @@ TOOLS_DIR="$SCRIPT_DIR/problem-tools"
 ANALYSIS_TOOLS_DIR="$SCRIPT_DIR/problem-analysis-tools"
 BIN_DIR="${HOME}/.local/bin"
 
+usage() {
+  cat <<'EOF'
+Usage: install-problem-tools.sh [--help]
+
+Install problem writing helper commands into ~/.local/bin by creating symlinks.
+
+Installed groups:
+  scripts/problem-tools/
+  scripts/problem-analysis-tools/
+
+Special command names:
+  lldb.sh         -> r-lldb
+  new-problem.py  -> new-problem
+
+Make sure ~/.local/bin is in PATH:
+  export PATH="$HOME/.local/bin:$PATH"
+EOF
+}
+
+if [[ "${1:-}" == "-h" || "${1:-}" == "--help" ]]; then
+  usage
+  exit 0
+fi
+
 if [ ! -d "$TOOLS_DIR" ]; then
   echo "problem tools directory not found: $TOOLS_DIR" >&2
   exit 1

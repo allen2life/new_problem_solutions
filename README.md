@@ -318,6 +318,14 @@ problems/<oj>/<problem_id>/problem-analysis-workspace/duipai-report.md
 
 ## 7. 工具使用
 
+所有用户可直接运行的工具都支持：
+
+```bash
+<tool> --help
+```
+
+内部支撑库 `scripts/problem-tools/mylib/` 不作为用户命令使用。
+
 ### 7.1 题解分析工具
 
 | 工具 | 位置 | 文档 |

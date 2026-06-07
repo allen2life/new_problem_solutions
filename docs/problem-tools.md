@@ -2,6 +2,14 @@
 
 本文档说明 `scripts/problem-tools/` 下的写题辅助工具。它们主要用于在 `problems/<oj>/<id>/` 目录中完成日常写题流程：下载样例、编译运行、批量测试、对拍和画图辅助。
 
+所有用户可直接运行的工具都支持：
+
+```bash
+<工具名> --help
+```
+
+`scripts/problem-tools/mylib/` 是内部支撑库，不作为用户命令使用。
+
 ## 专属文档
 
 | 工具 | 作用 | 文档 |
@@ -66,6 +74,7 @@ source ~/.zshrc
 ```bash
 b --version
 randint.py 3
+luogu.py --help
 ```
 
 ## 2. 推荐题目目录

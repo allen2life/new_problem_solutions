@@ -6,6 +6,29 @@ YELLOW='\033[1;33m'
 RED='\033[0;31m'
 NC='\033[0m' # No Color
 
+# --- 帮助信息 ---
+usage() {
+    cat <<'EOF'
+Usage: transfer <file>
+
+Upload a file to a self-hosted transfer.sh compatible service.
+
+Environment:
+  TRANSFER_URL   Base upload URL, for example http://your-transfer-sh-url
+
+Examples:
+  transfer ./my_document.txt
+
+Options:
+  -h, --help   Show this help message
+EOF
+}
+
+if [ "${1:-}" = "-h" ] || [ "${1:-}" = "--help" ]; then
+    usage
+    exit 0
+fi
+
 # --- 检查环境变量 ---
 # 从环境变量 TRANSFER_URL 获取上传地址
 # 如果变量未设置或为空,则打印错误并退出
@@ -18,15 +41,8 @@ fi
 
 BASE_URL="$TRANSFER_URL"
 
-# --- 帮助信息 ---
-usage() {
-    echo "一个使用 cURL 上传文件到 transfer.sh 的脚本"
-    echo ""
-    echo -e "${YELLOW}用法:${NC}"
-    echo "  $0 <文件路径>"
-    echo ""
-    echo -e "${YELLOW}示例:${NC}"
-    echo "  $0 ./my_document.txt"
+usage_error() {
+    usage
     exit 1
 }
 
@@ -35,7 +51,7 @@ usage() {
 # 检查是否提供了文件路径参数
 if [ -z "$1" ]; then
     echo -e "${RED}错误: 请提供要上传的文件路径。${NC}"
-    usage
+    usage_error
 fi
 
 FILE_PATH="$1"

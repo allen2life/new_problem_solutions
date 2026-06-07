@@ -20,6 +20,12 @@ nvimsizer
 nvimsizer 1.cpp in
 ```
 
+查看帮助：
+
+```bash
+nvimsizer --help
+```
+
 参数：
 
 ```text
@@ -38,4 +44,3 @@ nvim -O <主文件> <侧边文件>
 
 - 左边看代码，右边看样例输入。
 - 左边改 `index.md`，右边参考输出或临时笔记。
-

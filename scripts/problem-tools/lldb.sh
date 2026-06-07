@@ -11,6 +11,31 @@
 # Usage: ./lldb-run.sh <path_to_your_executable>
 # ==============================================================================
 
+usage() {
+    cat <<'EOF'
+Usage: r-lldb <executable>
+
+Launch LLDB for an executable after interactively selecting an input file from
+the current directory.
+
+Dependencies:
+  gum
+  lldb
+
+Inside LLDB this wrapper defines:
+  rr  process launch -i <selected_input>
+  u   thread until %1
+
+Options:
+  -h, --help   Show this help message
+EOF
+}
+
+if [ "${1:-}" = "-h" ] || [ "${1:-}" = "--help" ]; then
+    usage
+    exit 0
+fi
+
 # --- Dependency Check ---
 # 确保 gum 命令存在
 if ! command -v gum &> /dev/null; then

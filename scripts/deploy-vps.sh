@@ -13,6 +13,32 @@ GHCR_TOKEN_B64="${GHCR_TOKEN_B64:-}"
 PULL_TIMEOUT="${PULL_TIMEOUT:-300}"
 SKIP_IMAGE_PULL="${SKIP_IMAGE_PULL:-false}"
 
+usage() {
+  cat <<'EOF'
+Usage: deploy-vps.sh [--help]
+
+Deploy the app on a VPS using git and Docker Compose.
+
+Environment variables:
+  APP_DIR             App directory on the server. Default: /srv/rbook
+  SERVICE_NAME        Docker Compose service name. Default: problems-solution
+  BRANCH              Git branch to deploy. Default: master
+  NODE_ENV            Node environment. Default: production
+  COMPOSE_PROJECT_NAME Compose project name. Default: problems-solution
+  IMAGE_REF           Image to pull. Default: ghcr.io/rainboyoj/new_problem_solutions:master
+  DEPLOY_IMAGE_REF    Local image tag used by compose. Default: problems-solution:deploy
+  GHCR_USERNAME       Optional GHCR username for docker login
+  GHCR_TOKEN_B64      Optional base64 encoded GHCR token
+  PULL_TIMEOUT        docker pull timeout seconds. Default: 300
+  SKIP_IMAGE_PULL     Use existing local image when true. Default: false
+EOF
+}
+
+if [[ "${1:-}" == "-h" || "${1:-}" == "--help" ]]; then
+  usage
+  exit 0
+fi
+
 cd "$APP_DIR"
 
 echo "Deploying $(pwd) from branch $BRANCH"

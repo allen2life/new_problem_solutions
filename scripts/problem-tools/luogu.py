@@ -6,6 +6,7 @@
 """
 
 import sys
+import argparse
 import urllib.request
 import urllib.error
 import http.cookiejar
@@ -15,14 +16,6 @@ import os
 import gzip
 import subprocess
 from pathlib import Path
-
-# 添加 gum 模块路径
-sys.path.insert(0, str(Path(__file__).resolve().parent / 'mylib'))
-try:
-    from gum import input as gum_input
-except ImportError:
-    print("警告: 无法导入 gum 模块，将使用普通 input()")
-    gum_input = None
 
 class Luogu:
     def __init__(self):
@@ -344,10 +337,35 @@ class Luogu:
         
         return text
 
+def load_gum_input():
+    sys.path.insert(0, str(Path(__file__).resolve().parent / 'mylib'))
+    try:
+        from gum import input as gum_input
+        return gum_input
+    except ImportError:
+        print("警告: 无法导入 gum 模块，将使用普通 input()")
+        return None
+
+
+def parse_args():
+    parser = argparse.ArgumentParser(
+        description="下载洛谷题目样例数据到当前目录",
+        epilog="""示例:
+  luogu.py P1001
+  luogu.py 1001
+  luogu.py B3634
+  luogu.py        # 交互输入题号""",
+        formatter_class=argparse.RawDescriptionHelpFormatter,
+    )
+    parser.add_argument("problem_id", nargs="?", help="洛谷题号，例如 P1001、1001、B3634")
+    return parser.parse_args()
+
+
 def main():
-    # 检查是否提供了题目ID参数
-    if len(sys.argv) < 2:
+    args = parse_args()
+    if args.problem_id is None:
         # 如果没有提供参数，使用 gum.input 或普通 input 获取题目ID
+        gum_input = load_gum_input()
         if gum_input:
             problem_id = gum_input(
                 placeholder="请输入题目ID (例如: 1001 或 B3634)",
@@ -362,7 +380,7 @@ def main():
             print("未输入题目ID，程序退出。")
             sys.exit(1)
     else:
-        problem_id = sys.argv[1]
+        problem_id = args.problem_id
     
     # 创建洛谷对象并下载样例数据
     luogu = Luogu()

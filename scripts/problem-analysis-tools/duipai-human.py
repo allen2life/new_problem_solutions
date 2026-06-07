@@ -3,6 +3,7 @@
 
 from __future__ import annotations
 
+import argparse
 from pathlib import Path
 import subprocess
 import sys
@@ -18,6 +19,15 @@ def ask(prompt: str, default: str) -> str:
 
 
 def main() -> int:
+    parser = argparse.ArgumentParser(
+        description="Interactive wrapper around duipai.py",
+        epilog="""示例:
+  cd problems/luogu/1001
+  python3 ../../../scripts/problem-analysis-tools/duipai-human.py""",
+        formatter_class=argparse.RawDescriptionHelpFormatter,
+    )
+    parser.parse_args()
+
     cwd = Path.cwd()
     default_gen = "gen.py" if (cwd / "gen.py").exists() else ""
     default_user = "main.cpp" if (cwd / "main.cpp").exists() else ""
