@@ -59,6 +59,7 @@ Before writing final `index.md`, read:
 Final `index.md` must follow that format:
 
 - frontmatter at top
+- frontmatter `tags` must be reviewed and updated for this problem
 - `[[TOC]]`
 - `### 题意`
 - `### 思路`
@@ -229,7 +230,7 @@ problem_id: ""
 title: ""
 date: YYYY-MM-DD HH:mm
 toc: true
-tags: []
+tags: ["算法标签", "数据结构标签"]
 categories: []
 source:
 ---
@@ -252,6 +253,8 @@ source:
 
 ### 总结
 ```
+
+Do not leave `tags: []` in the draft unless the problem is genuinely impossible to classify from available materials. Choose concise Chinese tags that help users search and review problems later, such as algorithm family, data structure, implementation technique, or difficulty-relevant pattern.
 
 ## Final Article Style
 
@@ -278,6 +281,9 @@ The `### 代码` section still contains only the final accepted/optimized soluti
 
 Before updating `index.md`, check consistency with `main.cpp` when it exists:
 
+- The frontmatter `tags` are updated from the solved content, not left as a stale placeholder.
+- Tags should describe the final solution and important prerequisite ideas, for example `模拟`, `枚举`, `动态规划`, `贪心`, `图论`, `树形结构`, `最短路`, `二分`, `前缀和`, `数学`, `组合计数`, `高精度`, `字符串`, `数据结构`.
+- If the existing `index.md` already has useful tags, preserve them when still accurate and add missing tags.
 - The algorithm description roughly matches the implementation.
 - The complexity can be explained from the code structure.
 - The code section uses `@include-code(./main.cpp, cpp)`.
@@ -331,6 +337,7 @@ Only run 对拍 when `gen.py`, `main.cpp`, and `brute.cpp` exist and are runnabl
 - Do not overwrite user-written process notes without preserving useful content.
 - Do not write full code into `index.md`; use `@include-code(./brute.cpp, cpp)` in `### 思路` and `@include-code(./main.cpp, cpp)` in `### 代码`.
 - Do not claim `brute.cpp` is trusted unless its correctness is clear enough for small data.
+- Do not finish final `index.md` with `tags: []` or irrelevant inherited tags when enough information exists to classify the problem.
 
 ## Final Response
 
@@ -340,5 +347,6 @@ After editing, report briefly:
 - which process Markdown files were created or updated;
 - whether `brute.cpp` was created or updated;
 - whether `index.md` was written from `06-final-index-draft.md`;
+- which `tags` were written into `index.md` frontmatter;
 - whether 对拍 was run and where the report is;
 - any missing fields, code files, or verification material.
