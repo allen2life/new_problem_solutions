@@ -49,6 +49,14 @@ $ timeout: echo "2"
 # 检查题解格式
 ptool check_problem <problem_dir>
 
+% check-relations
+# 检查当前题目的 pre/common 关系字段
+ptool check_relations <problem_dir>
+
+% check-relations-all
+# 检查全仓库题目关系字段
+ptool check_relations --all
+
 % check-sample
 # 使用默认 main.cpp 检查样例
 ptool check_sample <problem_dir> --timeout <timeout>

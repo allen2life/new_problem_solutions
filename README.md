@@ -180,16 +180,18 @@ TARGET_API_BASE_URL=http://127.0.0.1:3000 npm start
 
 ## 6. 题目解析工作流（给 AI 与手写题解使用）
 
-本仓库提供两类本地 skill：
+本仓库提供三类本地 skill：
 
 - `oj-problem-format-spec`：只规定题解 Markdown 的格式、目录结构、frontmatter、章节标题和代码嵌入方式。
 - `oj-problem-analysis-writer`：负责写题目解析内容，完成辅助理解和对拍的 `brute.cpp`，并根据过程文档生成正式 `index.md`。
+- `oj-problem-relation-writer`：负责维护题目之间的 `pre` / `common` 关系字段，给后续题目学习图使用。
 
-两个 skill 位于：
+三个 skill 位于：
 
 ```text
 .agents/skills/oj-problem-format-spec/SKILL.md
 .agents/skills/oj-problem-analysis-writer/SKILL.md
+.agents/skills/oj-problem-relation-writer/SKILL.md
 ```
 
 ### 6.1 标准题目目录
@@ -224,7 +226,7 @@ problems/<oj>/<problem_id>/
 @include-code(./main.cpp, cpp)
 ```
 
-`problem-analysis-workspace/` 是每道题的学习和推导过程目录，已通过 `.gitignore` 忽略，不作为最终电子书内容提交。
+`problem-analysis-workspace/` 是每道题的学习和推导过程目录，已通过 `.gitignore` 忽略，不作为最终电子书内容提交。`problem-relation-workspace/` 用于记录低置信度关系候选，也保持本地忽略。
 
 ### 6.2 使用 skill 写题解
 
@@ -402,6 +404,7 @@ alias rbook-navi='command navi --path "$RBOOK_REPO/scripts/navi"'
 | --- | --- | --- |
 | `check_sample.py` | `scripts/problem-analysis-tools/check_sample.py` | [`docs/tools/check_sample.md`](docs/tools/check_sample.md) |
 | `check_problem.py` | `scripts/problem-analysis-tools/check_problem.py` | [`docs/tools/check_problem.md`](docs/tools/check_problem.md) |
+| `check_relations.py` | `scripts/problem-analysis-tools/check_relations.py` | [`docs/tools/check_relations.md`](docs/tools/check_relations.md) |
 | `new-problem` / `new-problem.py` | `scripts/problem-analysis-tools/new-problem.py` | [`docs/tools/new-problem.md`](docs/tools/new-problem.md) |
 | `fetch_problem.py` | `scripts/problem-analysis-tools/fetch_problem.py` | [`docs/tools/fetch_problem.md`](docs/tools/fetch_problem.md) |
 | `fetch_problem` | `scripts/navi/rbook-shell.zsh` | [`docs/tools/rbook-shell.md`](docs/tools/rbook-shell.md) |

@@ -14,8 +14,10 @@ description: Standardize the writing format and Markdown skeleton for this repos
 - 讲解双指针、DP、图论等算法内容。
 - 重写已有正文的题目解析。
 - 判断 `tags` 和 `categories` 的具体算法标签是否准确。
+- 判断或维护题目之间的 `pre` / `common` 关系。
 
 算法解析内容由另一个题目解析 skill 填写。本 skill 只保证文章结构稳定、字段完整、代码嵌入格式统一。
+题目关系元数据由 `oj-problem-relation-writer` 维护。
 
 注意：最终题目解析允许在 `### 思路` 中嵌入 `brute.cpp`，作为帮助读者理解题意和朴素做法的代码；正式提交代码仍固定放在 `### 代码` 中并引用 `main.cpp`。
 
@@ -78,6 +80,8 @@ date: 2025-11-28 15:41
 toc: true
 tags: []
 categories: []
+pre: []
+common: []
 source: https://vjudge.net/problem/POJ-3061
 ---
 ```
@@ -91,7 +95,24 @@ source: https://vjudge.net/problem/POJ-3061
 - `toc`：固定为 `true`。
 - `tags`：数组格式；本 skill 不负责填具体算法标签。
 - `categories`：数组格式；本 skill 不负责填具体分类。
+- `pre`：数组格式，表示当前题的前置题；本 skill 不负责判断具体关系。
+- `common`：数组格式，表示和当前题相似的题；本 skill 不负责判断具体关系。
 - `source`：题目来源；不知道时留空，不编造。
+
+`pre` / `common` 的元素格式由 `oj-problem-relation-writer` 维护：
+
+```yaml
+pre:
+  - oj: "luogu"
+    problem_id: "P1002"
+    reason: "网格路径计数 DP 的基础版本"
+common:
+  - oj: "luogu"
+    problem_id: "P1002"
+    reason: "同样是带限制的网格 DP"
+```
+
+关系字段是可选扩展字段。修改已有文件时，如果原文件没有 `pre` / `common`，本格式 skill 不强制补充；如果已经存在，则按标准顺序保留在 `categories` 后、`source` 前。
 
 修改已有文件时：
 
@@ -243,6 +264,7 @@ source:
 - 改变正文中的算法结论。
 - 重新判断复杂度。
 - 修改 `tags`、`categories` 的具体内容，除非用户明确要求或只是整理数组格式。
+- 判断或修改 `pre`、`common` 的具体关系，除非用户明确要求或只是整理数组格式。
 - 强制把已有可读正文改成模板化空骨架。
 
 ## 输出检查清单
@@ -252,6 +274,7 @@ source:
 - Markdown 文件位于 `problems/<oj>/<problem_id>/index.md`。
 - frontmatter 在文件最开头。
 - frontmatter 包含 `oj`、`problem_id`、`title`、`date`、`toc`、`tags`、`categories`、`source`。
+- 如果存在 `pre` / `common`，它们位于 `categories` 后、`source` 前，且为数组格式。
 - frontmatter 字段顺序符合规范。
 - frontmatter 后有 `[[TOC]]`。
 - 正文包含 `### 题意`、`### 思路`、`### 代码`、`### 复杂度`、`### 总结`。

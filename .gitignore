@@ -9,4 +9,5 @@ tmp/
 docs/superpowers/
 **/*/__pycache__/
 problems/**/problem-analysis-workspace/
+problems/**/problem-relation-workspace/
 problems/**/duipai-failed/
