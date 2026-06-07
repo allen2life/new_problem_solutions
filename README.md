@@ -329,11 +329,20 @@ problems/<oj>/<problem_id>/problem-analysis-workspace/duipai-report.md
 也可以用 navi 作为交互式 cheatsheet：
 
 ```bash
-./install.sh
 navi --path scripts/navi
 ```
 
-`./install.sh` 会把仓库内的 `scripts/navi/ptool` 安装到 `~/.local/bin/ptool`。navi cheatsheet 中的命令会通过 `ptool` 自动定位当前 Git 仓库根目录，避免在每条命令里重复写长路径。这个根目录安装器以后也可以继续扩展，用来安装其他仓库脚本。
+推荐把仓库脚本目录加入 `~/.zshrc` 的 `PATH`。把 `RBOOK_REPO` 改成你本机 clone 后的真实路径：
+
+```bash
+cat >> ~/.zshrc <<'EOF'
+export RBOOK_REPO="$HOME/path/to/抽离rbook中的题目"
+export PATH="$RBOOK_REPO/scripts/navi:$RBOOK_REPO/scripts/problem-analysis-tools:$RBOOK_REPO/scripts/problem-tools:$PATH"
+EOF
+source ~/.zshrc
+```
+
+这样 `ptool`、`check_sample.py`、`r-cgdb.sh` 等脚本可以作为普通命令直接调用。navi cheatsheet 中的命令会通过 `ptool` 定位仓库根目录，避免在每条命令里重复写长路径。
 
 `ptool` 也可以直接在终端使用：
 

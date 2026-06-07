@@ -10,22 +10,20 @@ scripts/navi/problem-tools.cheat
 
 ## 使用方式
 
-先安装 navi 辅助 wrapper：
+先把仓库脚本目录加入 shell `PATH`。把 `RBOOK_REPO` 改成你本机 clone 后的真实路径：
 
 ```bash
-./install.sh
+cat >> ~/.zshrc <<'EOF'
+export RBOOK_REPO="$HOME/path/to/抽离rbook中的题目"
+export PATH="$RBOOK_REPO/scripts/navi:$RBOOK_REPO/scripts/problem-analysis-tools:$RBOOK_REPO/scripts/problem-tools:$PATH"
+EOF
+source ~/.zshrc
 ```
 
-安装后会创建：
-
-```text
-~/.local/bin/ptool -> scripts/navi/ptool
-```
-
-确保 `~/.local/bin` 在 `PATH` 中：
+确认 `ptool` 可用：
 
 ```bash
-export PATH="$HOME/.local/bin:$PATH"
+ptool --help
 ```
 
 然后直接指定仓库内 cheatsheet 路径：

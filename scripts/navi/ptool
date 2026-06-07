@@ -34,9 +34,19 @@ EOF
 
 find_repo() {
   local repo
+  if [ -n "${RBOOK_REPO:-}" ]; then
+    repo="$RBOOK_REPO"
+    if [ ! -d "$repo/scripts/problem-analysis-tools" ]; then
+      echo "Error: RBOOK_REPO 不是 rbook 题目库：$repo" >&2
+      return 1
+    fi
+    printf '%s\n' "$repo"
+    return 0
+  fi
+
   repo="$(git rev-parse --show-toplevel 2>/dev/null || true)"
   if [ -z "$repo" ]; then
-    echo "Error: 你不在任何 Git 仓库中，无法定位 rbook 根目录。" >&2
+    echo "Error: 你不在任何 Git 仓库中，且没有设置 RBOOK_REPO，无法定位 rbook 根目录。" >&2
     return 1
   fi
   if [ ! -d "$repo/scripts/problem-analysis-tools" ]; then

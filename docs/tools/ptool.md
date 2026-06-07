@@ -14,24 +14,22 @@ ptool
 
 作用：给 navi 和人工命令行使用的统一 wrapper。它会自动定位当前 Git 仓库根目录，然后代理执行本仓库的写题工具，避免在 navi cheatsheet 中重复写长路径。
 
-## 安装
+## 配置 PATH
 
-在仓库根目录执行：
-
-```bash
-./install.sh
-```
-
-安装后会创建：
-
-```text
-~/.local/bin/ptool -> scripts/navi/ptool
-```
-
-确保 `~/.local/bin` 在 `PATH` 中：
+把仓库脚本目录加入 `~/.zshrc`。把 `RBOOK_REPO` 改成你本机 clone 后的真实路径：
 
 ```bash
-export PATH="$HOME/.local/bin:$PATH"
+cat >> ~/.zshrc <<'EOF'
+export RBOOK_REPO="$HOME/path/to/抽离rbook中的题目"
+export PATH="$RBOOK_REPO/scripts/navi:$RBOOK_REPO/scripts/problem-analysis-tools:$RBOOK_REPO/scripts/problem-tools:$PATH"
+EOF
+source ~/.zshrc
+```
+
+确认命令可用：
+
+```bash
+ptool --help
 ```
 
 ## 基本用法
@@ -92,6 +90,7 @@ ptool --cd problems/luogu/1001 graph-directed in1 graph.png
 
 ## 注意事项
 
-- 必须在本仓库内或本仓库的子目录中运行。
-- 如果当前 Git 仓库不是本项目，`ptool` 会直接报错。
+- 如果设置了 `RBOOK_REPO`，可以从任意目录运行。
+- 如果没有设置 `RBOOK_REPO`，必须在本仓库内或本仓库的子目录中运行。
+- 如果当前 Git 仓库不是本项目，且没有设置 `RBOOK_REPO`，`ptool` 会直接报错。
 - `ptool` 是 navi 的辅助入口，不替代各工具自己的 `--help`。
