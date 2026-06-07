@@ -57,6 +57,14 @@ ptool check_relations <problem_dir>
 # 检查全仓库题目关系字段
 ptool check_relations --all
 
+% list-tags
+# 列出题解 frontmatter 已使用的 tags
+ptool list_tags
+
+% list-tags-plain
+# 每行输出一个 tag，方便 agent 选择标签
+ptool list_tags --format plain
+
 % check-sample
 # 使用默认 main.cpp 检查样例
 ptool check_sample <problem_dir> --timeout <timeout>

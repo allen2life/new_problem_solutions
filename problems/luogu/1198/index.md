@@ -6,6 +6,10 @@ date: 2026-01-17 20:30
 toc: true
 tags: ["单调栈","todo","bit","线段树"]
 desc: ""
+pre:
+  - oj: "luogu"
+    problem_id: "P2947"
+    reason: "先掌握单调栈求下一个更大元素的基本模板，再理解在线末尾追加 + 区间最大值的多解法对比。"
 source: https://www.luogu.com.cn/problem/P1198
 ---
 

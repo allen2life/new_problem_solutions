@@ -7,8 +7,7 @@ toc: true
 tags: ["二分"]
 desc: ""
 source: https://www.luogu.com.cn/problem/P1493
-pre:
- - luogu,P1314
+pre: []
 book:
  - bookid
 ---

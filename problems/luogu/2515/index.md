@@ -6,9 +6,15 @@ date: 2025-12-30 17:19
 toc: true
 tags: ["scc","树形dp"]
 desc: ""
-source: https://www.luogu.com.cn/problem/P2515
 pre:
- - luogu,P2014
+  - oj: "luogu"
+    problem_id: "P2014"
+    reason: "树形背包原型题，P2515 缩点后转化为该模型。"
+  - oj: "luogu"
+    problem_id: "P3387"
+    reason: "需要先掌握 Tarjan 缩点，把循环依赖压成 DAG 或树结构。"
+common: []
+source: https://www.luogu.com.cn/problem/P2515
 book:
  - scc
  - tree_dp

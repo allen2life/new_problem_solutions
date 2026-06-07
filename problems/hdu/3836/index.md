@@ -6,6 +6,11 @@ date: 2026-01-09 11:24
 toc: true
 tags: ["强连通分量"]
 desc: "最小添加多少条边变成强连通图"
+pre:
+  - oj: "luogu"
+    problem_id: "P2746"
+    reason: "同样是缩点后用源点和汇点数量求最少补边，P2746 包含更完整的两问模型。"
+common: []
 source: https://vjudge.net/problem/HDU-3836
 ---
 

@@ -7,8 +7,7 @@ toc: true
 tags: ["sosdp"]
 desc: "容斥原理,组合数学,sosdp"
 source: https://vjudge.net/problem/CodeForces-449D
-pre:
- - CodeForces,383E
+pre: []
 book:
  - sosdp
 ---

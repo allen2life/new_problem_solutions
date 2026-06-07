@@ -1,7 +1,7 @@
 ---
 oj: "OpenJ_Bailian"
-problem_id: "1041"
-title: "John&#39;s trip"
+problem_id: "2566"
+title: "Bound Found"
 date: 2026-01-08 17:11
 toc: true
 tags: ["双指针"]
@@ -213,4 +213,3 @@ signed main () {
    - 总复杂度：$O(N \log N + K \cdot N)$。对于题目给定的范围（$N=10^5$），这是完全可以接受的。
 2. **空间复杂度**：
    - 使用了 `pre` 数组存储前缀和，空间为 $O(N)$。
-

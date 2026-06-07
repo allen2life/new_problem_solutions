@@ -6,9 +6,15 @@ date: 2025-12-29 11:04
 toc: true
 tags: ["scc","dag"]
 desc: "scc +dag"
-source: https://www.luogu.com.cn/problem/P2341
 pre:
- - luogu,P1314
+  - oj: "luogu"
+    problem_id: "P2863"
+    reason: "需要先掌握统计 SCC 大小，再在缩点 DAG 上分析出度为 0 的分量。"
+common:
+  - oj: "POJ"
+    problem_id: "2186"
+    reason: "同为受欢迎的牛模型，缩点后判断唯一汇点 SCC。"
+source: https://www.luogu.com.cn/problem/P2341
 book:
  - bookid
 ---

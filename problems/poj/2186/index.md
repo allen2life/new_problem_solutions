@@ -6,6 +6,11 @@ date: 2025-12-29 14:07
 toc: true
 tags: ["scc"]
 desc: ""
+pre: []
+common:
+  - oj: "luogu"
+    problem_id: "P2341"
+    reason: "同为受欢迎的牛模型，缩点后判断唯一汇点 SCC。"
 source: https://vjudge.net/problem/POJ-2186#author=chencheng0601
 ---
 

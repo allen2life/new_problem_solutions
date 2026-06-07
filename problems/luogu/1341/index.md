@@ -6,6 +6,14 @@ date: 2025-12-19 08:07
 toc: true
 tags: ["欧拉路"]
 desc: "欧拉路入门题目"
+pre:
+  - oj: "HDU"
+    problem_id: "1878"
+    reason: "先掌握欧拉回路度数判定条件，再学 Hierholzer 算法构造最小字典序路径，注意自环处理。"
+common:
+  - oj: "OpenJ_Bailian"
+    problem_id: "1041"
+    reason: "同为 Hierholzer 算法求最小字典序欧拉路，对比有向图和无向图的处理差异。"
 source: https://www.luogu.com.cn/problem/P1341
 ---
 

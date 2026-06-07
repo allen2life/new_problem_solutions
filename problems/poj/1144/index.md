@@ -7,8 +7,11 @@ toc: true
 tags: ["割点"]
 desc: "割点的模板"
 source: https://vjudge.net/problem/POJ-1144#author=DeepSeek_zh
-pre:
- - luogu,P1314
+pre: []
+common:
+  - oj: "POJ"
+    problem_id: "1523"
+    reason: "同为割点判定模板题，POJ 1523 额外引入 v-BCC 分解视角，适合对比学习。"
 book:
  - bookid
 ---

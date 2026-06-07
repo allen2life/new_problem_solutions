@@ -6,6 +6,10 @@ date: 2026-02-02 09:06
 toc: true
 tags: ["费用流"]
 desc: "最长,k可重区间集问题,资源受限的区间调度问题"
+pre:
+  - oj: "luogu"
+    problem_id: "P4014"
+    reason: "先掌握基本费用流建模，再理解 K 可重区间集问题中离散化链式主干道的特殊建图。"
 source: https://www.luogu.com.cn/problem/P3358
 ---
 

@@ -8,7 +8,13 @@ tags: ["v-bcc"]
 desc: "一个很好的考查点双连通分量的题目"
 source: https://www.luogu.com.cn/problem/P3225
 pre:
- - luogu,P1314
+  - oj: "POJ"
+    problem_id: "1523"
+    reason: "先通过 SPF 理解 v-BCC 分解和割点与点双的关系，再处理矿场搭建中的分类计数。"
+common:
+  - oj: "HDU"
+    problem_id: "3394"
+    reason: "同为对 v-BCC 按割点个数/边数进行分类计数的题目，训练目标相似。"
 book:
  - bcc
 ---

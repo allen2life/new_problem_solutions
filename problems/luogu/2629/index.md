@@ -8,7 +8,13 @@ tags: ["单调队列"]
 desc: ""
 source: https://www.luogu.com.cn/problem/P2629
 pre:
- - luogu,P1314
+  - oj: "luogu"
+    problem_id: "P1714"
+    reason: "先掌握前缀和 + 单调队列求滑动窗口最小值，再处理断环成链 + 窗口验证的组合。"
+common:
+  - oj: "luogu"
+    problem_id: "P1714"
+    reason: "同为前缀和 + 单调队列求滑动窗口最小值，P2629 额外加入环形处理和条件验证。"
 book:
  - bookid
 ---

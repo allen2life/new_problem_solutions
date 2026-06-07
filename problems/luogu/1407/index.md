@@ -6,9 +6,12 @@ date: 2025-12-29 20:51
 toc: true
 tags: ["二分图","scc"]
 desc: "画画图就想出来了"
-source: https://www.luogu.com.cn/problem/P1407
 pre:
- - luogu,P1314
+  - oj: "HDU"
+    problem_id: "1269"
+    reason: "需要先掌握 Tarjan 求 SCC，再把交替环判定转化为同一强连通分量。"
+common: []
+source: https://www.luogu.com.cn/problem/P1407
 book:
  - bookid
 ---

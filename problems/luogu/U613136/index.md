@@ -7,8 +7,7 @@ toc: true
 tags: ["贪心","背包"]
 desc: ""
 source: https://www.luogu.com.cn/problem/U613136
-pre:
- - luogu,P1314
+pre: []
 book:
  - bookid
 ---

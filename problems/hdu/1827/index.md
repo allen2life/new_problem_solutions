@@ -6,9 +6,12 @@ date: 2026-01-09 10:45
 toc: true
 tags: []
 desc: ""
-source: https://vjudge.net/problem/HDU-1827
 pre:
- - luogu,P1314
+  - oj: "HDU"
+    problem_id: "1269"
+    reason: "需要先掌握 Tarjan 求 SCC，再在源 SCC 中取最小通知代价。"
+common: []
+source: https://vjudge.net/problem/HDU-1827
 book:
  - bookid
 ---

@@ -6,6 +6,11 @@ date: 2025-12-24 14:35
 toc: true
 tags: ["二分"]
 desc: ""
+pre: []
+common:
+  - oj: "luogu"
+    problem_id: "P1678"
+    reason: "同为在有序数组中使用二分查找定位目标值的基本应用。"
 source: https://vjudge.net/problem/atcoder-abc248_d#author=DeepSeek_zh
 ---
 

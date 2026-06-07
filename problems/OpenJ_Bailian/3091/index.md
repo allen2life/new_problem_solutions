@@ -6,6 +6,10 @@ date: 2026-01-05 12:24
 toc: true
 tags: ["双连通分量"]
 desc: "边双连通分量模板题"
+pre:
+  - oj: "POJ"
+    problem_id: "1144"
+    reason: "需要先掌握 Tarjan 算法和 DFS 遍历框架，再理解桥的判断条件 low[v] > dfn[u] 与割点的区别。"
 source: https://vjudge.net/problem/OpenJ_Bailian-3091#author=DeepSeek_zh
 ---
 

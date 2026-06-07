@@ -6,6 +6,10 @@ date: 2026-01-29 22:51
 toc: true
 tags: ["高精度","dp"]
 desc: "用python 不用手写高精度"
+pre:
+  - oj: "POJ"
+    problem_id: "3176"
+    reason: "先掌握线性递推 DP 的基本思想，再处理 Tiling 中的递推公式推导和高精度输出。"
 source: https://vjudge.net/problem/OpenJ_Bailian-2506#author=GPT_zh
 ---
 

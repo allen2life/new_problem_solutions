@@ -6,6 +6,14 @@ date: 2026-01-08 17:11
 toc: true
 tags: ["欧拉路"]
 desc: "字典序最小欧拉路"
+pre:
+  - oj: "HDU"
+    problem_id: "1878"
+    reason: "先掌握欧拉回路判定条件，再学 Hierholzer 算法构造字典序最小的欧拉回路。"
+common:
+  - oj: "luogu"
+    problem_id: "P1341"
+    reason: "同为 Hierholzer 算法求最小字典序欧拉路，HDU 1878 是无向图模板。"
 source: https://vjudge.net/problem/OpenJ_Bailian-1041#author=GPT_zh
 ---
 

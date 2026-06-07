@@ -6,6 +6,10 @@ date: 2025-12-30 17:17
 toc: true
 tags: ["树形dp"]
 desc: "分组背包模型的树形DP,模板"
+pre:
+  - oj: "HDU"
+    problem_id: "2602"
+    reason: "先掌握 0/1 背包的基本概念和一维 DP 优化，再理解树形 DP 中的分组背包转移。"
 source: https://www.luogu.com.cn/problem/P2014
 ---
 

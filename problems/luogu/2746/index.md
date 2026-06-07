@@ -6,9 +6,12 @@ date: 2025-12-29 11:17
 toc: true
 tags: ["scc","dag"]
 desc: "考察dag的性质: 最少添加多少条边 可以使DAG 缩成一点"
-source: https://www.luogu.com.cn/problem/P2746
 pre:
- - luogu,P1314
+  - oj: "luogu"
+    problem_id: "P3387"
+    reason: "需要先会 Tarjan 缩点并把原图变成 DAG，再统计源点和汇点。"
+common: []
+source: https://www.luogu.com.cn/problem/P2746
 book:
  - scc
 ---

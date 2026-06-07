@@ -7,8 +7,11 @@ toc: true
 tags: ["单调队列"]
 desc: ""
 source: https://www.luogu.com.cn/problem/P2032
-pre:
- - luogu,P1314
+pre: []
+common:
+  - oj: "luogu"
+    problem_id: "P1714"
+    reason: "同为单调队列维护滑动窗口的应用，P2032 为窗口最大值模板，P1714 为前缀和 + 窗口最小值。"
 book:
  - bookid
 ---

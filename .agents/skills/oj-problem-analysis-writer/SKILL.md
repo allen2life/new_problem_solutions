@@ -282,7 +282,15 @@ The `### 代码` section still contains only the final accepted/optimized soluti
 Before updating `index.md`, check consistency with `main.cpp` when it exists:
 
 - The frontmatter `tags` are updated from the solved content, not left as a stale placeholder.
+- Before choosing tags, query the repository's existing tag set and prefer accurate existing tags over inventing new variants:
+
+```bash
+python3 scripts/problem-analysis-tools/list_tags.py
+python3 scripts/problem-analysis-tools/list_tags.py --format plain
+```
+
 - Tags should describe the final solution and important prerequisite ideas, for example `模拟`, `枚举`, `动态规划`, `贪心`, `图论`, `树形结构`, `最短路`, `二分`, `前缀和`, `数学`, `组合计数`, `高精度`, `字符串`, `数据结构`.
+- If an existing tag is accurate, reuse it exactly. Only introduce a new tag when the current tag set has no precise fit.
 - If the existing `index.md` already has useful tags, preserve them when still accurate and add missing tags.
 - The algorithm description roughly matches the implementation.
 - The complexity can be explained from the code structure.
@@ -302,6 +310,7 @@ scripts/problem-analysis-tools/
 
 Available tools:
 
+- `list_tags.py`: list existing tags in all problem explanations; use it before writing frontmatter tags.
 - `gen_random.py`: generic random data generator for arrays, trees, graphs, strings, and permutations.
 - `duipai.py`: non-interactive stress testing script for agents and automation.
 - `duipai-human.py`: interactive wrapper for humans; it calls `duipai.py`.

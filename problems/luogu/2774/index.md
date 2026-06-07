@@ -6,6 +6,14 @@ date: 2026-01-18 20:12
 toc: true
 tags: ["最小割","二分图"]
 desc: "二分图最小权点覆盖"
+pre:
+  - oj: "HDU"
+    problem_id: "3549"
+    reason: "先掌握最大流 = 最小割的基本概念，再理解网格图黑白染色的最小割建图。"
+common:
+  - oj: "luogu"
+    problem_id: "P3749"
+    reason: "同为最小割建模题，都使用 S-正权-T-负权的建图结构，对比不同应用场景。"
 source: https://www.luogu.com.cn/problem/P2774
 ---
 

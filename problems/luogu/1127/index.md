@@ -8,7 +8,13 @@ tags: ["欧拉路","todo"]
 desc: "有向图字典序最小欧拉路径"
 source: https://www.luogu.com.cn/problem/P1127
 pre:
- - hdu,1116
+  - oj: "HDU"
+    problem_id: "1116"
+    reason: "先掌握有向图欧拉路径的入度/出度判定条件，再学 Hierholzer 算法输出字典序最小路径。"
+common:
+  - oj: "HDU"
+    problem_id: "1116"
+    reason: "同为有向图欧拉路径问题，HDU 1116 只判定存在性，P1127 额外要求输出路径。"
 ---
 
 [[TOC]]

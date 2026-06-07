@@ -7,8 +7,7 @@ toc: true
 tags: []
 desc: ""
 source: https://vjudge.net/problem/HDU-2029
-pre:
- - luogu,P1314
+pre: []
 book:
  - bookid
 ---

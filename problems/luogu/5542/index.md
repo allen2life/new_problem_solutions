@@ -7,8 +7,7 @@ toc: true
 tags: [二维差分, 二维前缀和]
 desc: "在 1000×1000 网格上画 N 个矩形，求恰好被 K 层油漆覆盖的面积"
 source: https://www.luogu.com.cn/problem/P5542
-pre:
- - luogu,P1314
+pre: []
 book:
  - bookid
 ---

@@ -6,6 +6,10 @@ date: 2026-01-08 22:47
 toc: true
 tags: ["欧拉路"]
 desc: "欧拉路建模:De Bruijn 序列 "
+pre:
+  - oj: "HDU"
+    problem_id: "1878"
+    reason: "先掌握欧拉回路判定条件，再理解 De Bruijn 序列的隐式图建模和 Hierholzer 构造。"
 source: https://vjudge.net/problem/OpenJ_Bailian-1392
 ---
 

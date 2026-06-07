@@ -50,6 +50,50 @@ test('ProblemManager scans only formal index.md problem pages', () => {
   assert.ok(files.every((file) => !file.includes('duipai-failed/')));
 });
 
+test('ProblemManager resolves pre, successor, and common relations', () => {
+  const pm = new ProblemManager({ auto_load: false });
+  pm.problems = [
+    {
+      oj: 'luogu',
+      problem_id: 'P1',
+      title: 'Base',
+      url: '/problems/luogu/P1',
+      pre: [],
+      common: [{ oj: 'HDU', problem_id: '1000', reason: '同一模型。' }],
+    },
+    {
+      oj: 'luogu',
+      problem_id: 'P2',
+      title: 'Advanced',
+      url: '/problems/luogu/P2',
+      pre: [{ oj: 'luogu', problem_id: 'P1', reason: '基础题。' }],
+      common: [],
+    },
+    {
+      oj: 'HDU',
+      problem_id: '1000',
+      title: 'Similar',
+      url: '/problems/HDU/1000',
+      pre: [],
+      common: [],
+    },
+  ];
+  pm.buildIndex();
+
+  const relations = pm.getRelations(pm.find('luogu', 'P1'));
+
+  assert.equal(relations.predecessors.length, 0);
+  assert.deepEqual(
+    relations.successors.map((item) => `${item.oj}/${item.problem_id}`),
+    ['luogu/P2'],
+  );
+  assert.deepEqual(
+    relations.common.map((item) => `${item.oj}/${item.problem_id}`),
+    ['HDU/1000'],
+  );
+  assert.equal(relations.hasAny, true);
+});
+
 test('MarkdownRenderer renders TOC and KaTeX math', () => {
   const pm = new ProblemManager();
   const md = new MarkdownRenderer('', pm);

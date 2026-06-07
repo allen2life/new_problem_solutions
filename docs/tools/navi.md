@@ -128,6 +128,7 @@ style:
 - `problem_status.py`
 - `check_problem.py`
 - `check_relations.py`
+- `list_tags.py`
 - `check_sample.py`
 - `data_tool.py`
 - `gen_random.py`

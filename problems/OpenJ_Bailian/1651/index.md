@@ -6,6 +6,7 @@ date: 2026-01-05 11:12
 toc: true
 tags: ["区间dp"]
 desc: "就是石子合并"
+pre: []
 source: https://vjudge.net/problem/OpenJ_Bailian-1651#author=GPT_zh
 ---
 

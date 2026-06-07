@@ -6,6 +6,10 @@ date: 2026-01-16 15:34
 toc: true
 tags: ["网络流"]
 desc: "很有启发的点限制(每个点只能选一次)的网络流"
+pre:
+  - oj: "HDU"
+    problem_id: "3549"
+    reason: "先掌握最大流 Dinic 模板，再学习拆点法将点限制转化为边限制。"
 source: https://www.luogu.com.cn/problem/P2766
 ---
 

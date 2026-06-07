@@ -8,7 +8,13 @@ tags: ["割点","v-bcc"]
 desc: "cut-code vbcc 两种解法"
 source: https://vjudge.net/problem/POJ-1523#author=DeepSeek_zh
 pre:
- - luogu,P1314
+  - oj: "POJ"
+    problem_id: "1144"
+    reason: "更基础的割点模板题，先掌握 Tarjan 求割点后再学习 v-BCC 分解视角。"
+common:
+  - oj: "POJ"
+    problem_id: "1144"
+    reason: "同为割点判定模板题，POJ 1144 更简练，适合入门后对比。"
 book:
  - bookid
 ---

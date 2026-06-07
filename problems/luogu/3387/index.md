@@ -6,9 +6,12 @@ date: 2025-12-29 10:52
 toc: true
 tags: ["scc","dag"]
 desc: "scc 然后dag"
-source: https://www.luogu.com.cn/problem/P3387
 pre:
- - luogu,P1314
+  - oj: "HDU"
+    problem_id: "1269"
+    reason: "先掌握 Tarjan 求 SCC，再理解缩点后在 DAG 上做 DP。"
+common: []
+source: https://www.luogu.com.cn/problem/P3387
 book:
  - bookid
 ---

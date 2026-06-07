@@ -6,6 +6,10 @@ date: 2026-01-08 15:26
 toc: true
 tags: ["欧拉路"]
 desc: "考察对欧拉路和异或运算的理解"
+pre:
+  - oj: "HDU"
+    problem_id: "1878"
+    reason: "先掌握无向图欧拉回路/路径的度数判定条件，再处理异或贡献的计算。"
 source: https://vjudge.net/problem/HDU-5883#author=muyangren907
 ---
 

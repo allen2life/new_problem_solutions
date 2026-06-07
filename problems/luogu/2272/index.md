@@ -6,9 +6,12 @@ date: 2025-12-29 21:29
 toc: true
 tags: ["scc","dag","dp"]
 desc: ""
-source: https://www.luogu.com.cn/problem/P2272
 pre:
- - luogu,P1314
+  - oj: "luogu"
+    problem_id: "P3387"
+    reason: "需要先掌握缩点后在 DAG 上做路径 DP，再扩展到最长半连通子图计数。"
+common: []
+source: https://www.luogu.com.cn/problem/P2272
 book:
  - bookid
 ---

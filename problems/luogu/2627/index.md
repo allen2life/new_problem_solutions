@@ -6,6 +6,10 @@ date: 2026-01-05 10:39
 toc: true
 tags: ["dp","单调队列"]
 desc: "单调队列优化dp题目"
+pre:
+  - oj: "luogu"
+    problem_id: "P2032"
+    reason: "先掌握单调队列维护滑动窗口的基本写法，再理解 DP + 单调队列优化的 g(j) 变换技巧。"
 source: https://www.luogu.com.cn/problem/P2627
 ---
 

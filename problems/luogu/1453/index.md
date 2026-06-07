@@ -7,8 +7,7 @@ toc: true
 tags: []
 desc: "基环树上的最大独立集"
 source: https://www.luogu.com.cn/problem/P1453
-pre:
- - luogu,P2607
+pre: []
 book:
  - bookid
 ---

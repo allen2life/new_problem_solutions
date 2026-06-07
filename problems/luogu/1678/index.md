@@ -6,6 +6,11 @@ date: 2026-01-02 18:07
 toc: true
 tags: ["二分"]
 desc: "二分找最接近的数"
+pre: []
+common:
+  - oj: "atcoder"
+    problem_id: "abc248_d"
+    reason: "同为在有序数组中使用二分查找定位目标值的应用。"
 source: https://www.luogu.com.cn/problem/P1678
 ---
 

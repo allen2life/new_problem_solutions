@@ -405,6 +405,7 @@ alias rbook-navi='command navi --path "$RBOOK_REPO/scripts/navi"'
 | `check_sample.py` | `scripts/problem-analysis-tools/check_sample.py` | [`docs/tools/check_sample.md`](docs/tools/check_sample.md) |
 | `check_problem.py` | `scripts/problem-analysis-tools/check_problem.py` | [`docs/tools/check_problem.md`](docs/tools/check_problem.md) |
 | `check_relations.py` | `scripts/problem-analysis-tools/check_relations.py` | [`docs/tools/check_relations.md`](docs/tools/check_relations.md) |
+| `list_tags.py` | `scripts/problem-analysis-tools/list_tags.py` | [`docs/tools/list_tags.md`](docs/tools/list_tags.md) |
 | `new-problem` / `new-problem.py` | `scripts/problem-analysis-tools/new-problem.py` | [`docs/tools/new-problem.md`](docs/tools/new-problem.md) |
 | `fetch_problem.py` | `scripts/problem-analysis-tools/fetch_problem.py` | [`docs/tools/fetch_problem.md`](docs/tools/fetch_problem.md) |
 | `fetch_problem` | `scripts/navi/rbook-shell.zsh` | [`docs/tools/rbook-shell.md`](docs/tools/rbook-shell.md) |

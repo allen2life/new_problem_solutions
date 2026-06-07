@@ -7,8 +7,7 @@ toc: true
 tags: []
 desc: ""
 source: https://www.luogu.com.cn/problem/P2367
-pre:
- - luogu,P1314
+pre: []
 book:
  - bookid
 ---

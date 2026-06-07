@@ -8,7 +8,9 @@ tags: ["好题","v-bcc","二分图染色"]
 desc: "图论中的奇偶环排斥,BCC奇环传染定理,一个神奇的题目"
 source: https://vjudge.net/problem/POJ-2942#author=muyangren907
 pre:
- - luogu,P1314
+  - oj: "POJ"
+    problem_id: "1523"
+    reason: "需要先掌握 v-BCC 分解和边入栈的 Tarjan 写法，再结合二分图染色处理奇环传染定理。"
 book:
  - bookid
 ---

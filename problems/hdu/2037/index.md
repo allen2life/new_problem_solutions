@@ -7,8 +7,7 @@ toc: true
 tags: ["贪心"]
 desc: "求最多不相交区间的数量"
 source: https://vjudge.net/problem/HDU-2037
-pre:
- - luogu,P1314
+pre: []
 book:
  - bookid
 ---

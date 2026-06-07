@@ -6,9 +6,12 @@ date: 2025-12-29 10:31
 toc: true
 tags: ["scc","模板题目"]
 desc: "求scc数量,scc模板题目"
+pre: []
+common:
+  - oj: "luogu"
+    problem_id: "P2863"
+    reason: "同为 Tarjan 求 SCC 的基础模板题，都是直接验证强连通分量性质。"
 source: https://vjudge.net/problem/HDU-1269
-pre:
- - luogu,P1314
 book:
  - scc
 ---

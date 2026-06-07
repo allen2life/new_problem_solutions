@@ -7,8 +7,7 @@ toc: true
 tags: ['差分']
 desc: ""
 source: https://www.luogu.com.cn/problem/P9094
-pre:
- - luogu,P9094
+pre: []
 book:
  - 差分
 ---

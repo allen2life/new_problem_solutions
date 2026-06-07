@@ -7,8 +7,7 @@ toc: true
 tags: ["基环树","贪心"]
 desc: "O(n)基环树dfs字典序最小问题(贪心)"
 source: https://www.luogu.com.cn/problem/P5049
-pre:
-    - luogu,P5022
+pre: []
 ---
 
 [[TOC]]

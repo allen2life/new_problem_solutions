@@ -8,7 +8,9 @@ tags: ["费用流","环形均分纸牌"]
 desc: "环形均分纸牌"
 source: https://www.luogu.com.cn/problem/P4016
 pre:
- - luogu,P4015
+  - oj: "luogu"
+    problem_id: "P4014"
+    reason: "先掌握基本费用流建模，再理解环形均分纸牌的费用流建模或中位数解法。"
 ---
 
 [[TOC]]

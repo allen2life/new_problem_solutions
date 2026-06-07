@@ -6,6 +6,7 @@ date: 2025-12-31 10:40
 toc: true
 tags: ["单调栈"]
 desc: "单调栈模板题目"
+pre: []
 source: https://www.luogu.com.cn/problem/P2947
 ---
 

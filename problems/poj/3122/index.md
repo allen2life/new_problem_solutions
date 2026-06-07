@@ -6,6 +6,11 @@ date: 2025-12-25 10:23
 toc: true
 tags: ["二分"]
 desc: "实数二分"
+pre: []
+common:
+  - oj: "luogu"
+    problem_id: "P1873"
+    reason: "同为基础二分答案模板题，POJ 3122 为实数二分，P1873 为整数二分，对比例题。"
 source: https://vjudge.net/problem/POJ-3122#author=DeepSeek_zh
 ---
 

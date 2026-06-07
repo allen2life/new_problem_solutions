@@ -6,6 +6,14 @@ date: 2026-01-09 14:43
 toc: true
 tags: ["双连通分量","todo"]
 desc: "无向图简单环判定"
+pre:
+  - oj: "POJ"
+    problem_id: "1523"
+    reason: "需要先掌握 v-BCC 分解和边入栈的 Tarjan 写法，才能对每个 BCC 统计 V_cnt 和 E_cnt。"
+common:
+  - oj: "luogu"
+    problem_id: "P3225"
+    reason: "同为对 v-BCC 内节点进行计数和分类的题目，对比理解不同应用场景。"
 source: https://vjudge.net/problem/HDU-3394#author=xinjun
 ---
 

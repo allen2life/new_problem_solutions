@@ -6,6 +6,14 @@ date: 2026-01-11 10:07
 toc: true
 tags: ["网络流","二分图匹配"]
 desc: "又是dag最小路径覆盖"
+pre:
+  - oj: "luogu"
+    problem_id: "P2764"
+    reason: "先掌握静态 DAG 最小路径覆盖的拆点法和公式 n - 最大匹配，再处理动态加点增广。"
+common:
+  - oj: "luogu"
+    problem_id: "P2764"
+    reason: "同为 DAG 最小路径覆盖模型，对比静态建图和动态加点两种实现。"
 source: https://www.luogu.com.cn/problem/P2765
 ---
 

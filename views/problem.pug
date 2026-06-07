@@ -3,6 +3,19 @@ extends layout.pug
 block title
   | #{problem.title} - 题目列表
 
+mixin relationGroup(title, items)
+  if items && items.length
+    .problem-relation-group
+      .problem-relation-heading #{title}
+      .problem-relation-list
+        each item in items
+          a.problem-relation-item(class=item.missing ? 'is-missing' : '', href=item.url)
+            span.problem-relation-code #{item.oj} #{item.problem_id}
+            if item.title
+              span.problem-relation-name #{item.title}
+            if item.reason
+              span.problem-relation-reason #{item.reason}
+
 block content
   nav(aria-label="breadcrumb")
     ol.breadcrumb
@@ -40,6 +53,11 @@ block content
             p
               strong 日期:
               |  #{problem.date}
+      if relations && relations.hasAny
+        .problem-relations
+          +relationGroup('前置题目', relations.predecessors)
+          +relationGroup('后置题目', relations.successors)
+          +relationGroup('相似题目', relations.common)
 
   .card.problem-content-card
     .card-body

@@ -78,6 +78,24 @@ test('Fastify app renders TOC and KaTeX on markdown problem pages', async () => 
   await app.close();
 });
 
+test('Fastify app renders problem relation lists on detail pages', async () => {
+  const app = await buildApp({ logger: false });
+
+  const response = await app.inject({
+    method: 'GET',
+    url: '/problems/luogu/P3387',
+  });
+
+  assert.equal(response.statusCode, 200);
+  assert.match(response.body, /前置题目/);
+  assert.match(response.body, /后置题目/);
+  assert.match(response.body, /HDU 1269/);
+  assert.match(response.body, /P2746/);
+  assert.match(response.body, /P2272/);
+
+  await app.close();
+});
+
 test('Fastify app returns JSON 404s under /api', async () => {
   const app = await buildApp({ logger: false });
 

@@ -8,7 +8,13 @@ tags: ["分数规划",'树形DP']
 desc: "分数规划 + 树上分组背包(优化形态)"
 source: https://www.luogu.com.cn/problem/P4322
 pre:
- - luogu,P1642
+  - oj: "luogu"
+    problem_id: "P1642"
+    reason: "先掌握分数规划 + 树形背包 DP 的基本组合，再学 sz 优化避免 O(NK²) 超时。"
+common:
+  - oj: "luogu"
+    problem_id: "P1642"
+    reason: "同为分数规划 + 树形背包的组合，P1642 数据较小无需优化，P4322 必须 sz 优化。"
 book:
  - 分数规划
  - 树形DP

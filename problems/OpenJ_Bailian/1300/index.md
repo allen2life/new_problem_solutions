@@ -6,6 +6,14 @@ date: 2026-01-08 22:14
 toc: true
 tags: ["欧拉路"]
 desc: "欧拉回路模板题判定"
+pre:
+  - oj: "HDU"
+    problem_id: "1878"
+    reason: "先掌握无向图欧拉回路的基本度数条件，再处理含指定起点终点的路径判定。"
+common:
+  - oj: "HDU"
+    problem_id: "1878"
+    reason: "同为无向图欧拉回路判定题，对比基本条件与含起终点限制的条件。"
 source: https://vjudge.net/problem/OpenJ_Bailian-1300
 ---
 

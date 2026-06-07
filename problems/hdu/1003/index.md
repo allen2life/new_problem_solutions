@@ -6,6 +6,11 @@ date: 2025-12-26 16:12
 toc: true
 tags: ["dp","经典题"]
 desc: "经典题:最大子段和"
+pre: []
+common:
+  - oj: "POJ"
+    problem_id: "3176"
+    reason: "同为线性 DP 基础题，最大子段和与数字三角形都属于递推类 DP 的入门训练。"
 source: https://vjudge.net/problem/HDU-1003#author=DeepSeek_zh
 ---
 

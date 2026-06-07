@@ -111,6 +111,7 @@ export default async function apiRoutes(app) {
       tags: problem.tags || [],
       md_path: problem.md_path,
       url: problem.url,
+      relations: problemManager.getRelations(problem),
       html_content: content.html_content,
       md_content: content.md_content,
     });

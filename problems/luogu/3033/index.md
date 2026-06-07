@@ -7,8 +7,7 @@ toc: true
 tags: ["二分图"]
 desc: "二分图最大独立集,最大独立集 = 节点总数 - 最大匹配数"
 source: https://www.luogu.com.cn/problem/P3033
-pre:
- - luogu,P2825
+pre: []
 ---
 
 [[TOC]]

@@ -8,7 +8,16 @@ tags: ["分数规划","树形DP"]
 desc: "分数规划+树形DP(树上连通块)"
 source: https://www.luogu.com.cn/problem/P1642
 pre:
- - luogu,P2014
+  - oj: "luogu"
+    problem_id: "P2014"
+    reason: "先掌握树形背包 DP 的基本转移，再结合分数规划处理树上连通块选点。"
+  - oj: "POJ"
+    problem_id: "2976"
+    reason: "先掌握 01 分数规划中的 D(x) = a_i - x*b_i 变换，再应用到树形 DP 的验证中。"
+common:
+  - oj: "luogu"
+    problem_id: "P4322"
+    reason: "同为分数规划 + 树形背包的组合问题，P4322 数据更大需要 sz 优化避免 TLE。"
 book:
  - 分数规划
  - 树形Dp

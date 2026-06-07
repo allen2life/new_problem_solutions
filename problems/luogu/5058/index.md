@@ -8,7 +8,9 @@ tags: []
 desc: ""
 source: https://www.luogu.com.cn/problem/P5058
 pre:
- - luogu,P1314
+  - oj: "POJ"
+    problem_id: "1144"
+    reason: "需要先掌握 Tarjan 求割点的基本框架，再理解如何在 DFS 中判断割点是否分隔特定两点。"
 book:
  - bookid
 ---

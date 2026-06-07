@@ -6,6 +6,10 @@ date: 2025-12-24 16:16
 toc: true
 tags: ["二分","单调队列"]
 desc: "给定一个长度为n的序列，求出在所有长度在[S,T]之间的连续子序列中，平均值最大的那个子序列的平均值。"
+pre:
+  - oj: "luogu"
+    problem_id: "P1873"
+    reason: "先掌握二分答案的基本框架，再结合前缀和与单调队列求滑动窗口最小值。"
 source: https://www.luogu.com.cn/problem/P1419
 ---
 

@@ -7,8 +7,7 @@ toc: true
 tags: []
 desc: ""
 source: https://vjudge.net/problem/POJ-2388#author=DeepSeek_zh
-pre:
- - luogu,P1314
+pre: []
 book:
  - bookid
 ---

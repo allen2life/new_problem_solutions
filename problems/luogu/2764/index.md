@@ -6,6 +6,14 @@ date: 2025-12-26 14:36
 toc: true
 tags: ["网络流","二分图"]
 desc: "DAG 最小路径覆盖"
+pre:
+  - oj: "HDU"
+    problem_id: "3549"
+    reason: "先掌握最大流 Dinic 模板，再理解 DAG 最小路径覆盖的拆点法建模。"
+common:
+  - oj: "luogu"
+    problem_id: "P2765"
+    reason: "同为 DAG 最小路径覆盖模型，P2764 为静态建图，P2765 为动态加点增广。"
 source: https://www.luogu.com.cn/problem/P2764
 ---
 

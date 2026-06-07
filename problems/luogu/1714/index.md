@@ -8,7 +8,13 @@ tags: ["前缀和","单调队列"]
 desc: "前缀和+单调队列"
 source: https://www.luogu.com.cn/problem/P1714
 pre:
- - luogu,P1314
+  - oj: "luogu"
+    problem_id: "P2032"
+    reason: "先掌握单调队列维护滑动窗口的基本写法，再结合前缀和求滑动窗口最小值。"
+common:
+  - oj: "luogu"
+    problem_id: "P2032"
+    reason: "同为单调队列 + 滑动窗口的应用，P2032 为直接窗口最大/小值，P1714 为前缀和上的窗口最小值。"
 book:
  - bookid
 ---

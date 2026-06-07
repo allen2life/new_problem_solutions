@@ -6,6 +6,7 @@ date: 2026-01-05 10:48
 toc: true
 tags: ["背包"]
 desc: "就是01背包"
+pre: []
 source: https://vjudge.net/problem/HDU-2602#author=DeepSeek_zh
 ---
 

@@ -6,6 +6,10 @@ date: 2026-01-18 19:42
 toc: true
 tags: ["最大权闭合子图"]
 desc: "垃圾语文题,整个题目最大的难度就是在理解题目的意思"
+pre:
+  - oj: "luogu"
+    problem_id: "P2774"
+    reason: "先理解最小割中 S-正权-T-负权的建图思想，再处理最大权闭合子图结合区间 DP 依赖的多层建模。"
 source: https://www.luogu.com.cn/problem/P3749
 ---
 

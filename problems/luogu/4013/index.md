@@ -8,7 +8,9 @@ tags: ["费用流"]
 desc: "费用流走路"
 source: https://www.luogu.com.cn/problem/P4013
 pre:
-    - luogu,P2045
+  - oj: "luogu"
+    problem_id: "P4014"
+    reason: "先掌握基本的费用流（MCMF）建模，再处理数字梯形中三级容量分层控制的拆点技巧。"
 ---
 
 [[TOC]]

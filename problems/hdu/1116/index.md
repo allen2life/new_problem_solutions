@@ -6,6 +6,14 @@ date: 2026-01-07 20:03
 toc: true
 tags: ["欧拉路"]
 desc: "有向图的欧拉路径（Eulerian Path）存在性判定"
+pre:
+  - oj: "HDU"
+    problem_id: "1878"
+    reason: "先掌握无向图欧拉回路的度数条件，再理解有向图的入度/出度判定条件。"
+common:
+  - oj: "luogu"
+    problem_id: "P1127"
+    reason: "同为有向图欧拉路径建模（单词/字母为边），P1127 额外要求输出字典序最小路径。"
 source: https://vjudge.net/problem/HDU-1116#author=201830221033
 ---
 

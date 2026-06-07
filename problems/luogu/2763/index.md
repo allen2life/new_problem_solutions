@@ -6,6 +6,10 @@ date: 2026-01-11 21:06
 toc: true
 tags: ["网络流","二分图"]
 desc: ""
+pre:
+  - oj: "HDU"
+    problem_id: "3549"
+    reason: "先掌握最大流 Dinic 模板，再学习将二分图多重匹配转化为最大流建图。"
 source: https://www.luogu.com.cn/problem/P2763
 ---
 

@@ -6,6 +6,11 @@ date: 2026-01-05 12:30
 toc: true
 tags: ["欧拉回路"]
 desc: "欧拉回路模板题"
+pre: []
+common:
+  - oj: "OpenJ_Bailian"
+    problem_id: "1300"
+    reason: "同为无向图欧拉回路/路径的度数判定题，适合对比基础条件和含指定起终点的条件。"
 source: https://vjudge.net/problem/HDU-1878
 ---
 

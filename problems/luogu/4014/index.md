@@ -6,6 +6,14 @@ date: 2026-01-11 22:58
 toc: true
 tags: ["费用流"]
 desc: "最小费用,最大费用"
+pre:
+  - oj: "HDU"
+    problem_id: "3549"
+    reason: "先掌握最大流 Dinic 模板，再学习在残余网络上加入费用维度的 MCMF 算法。"
+common:
+  - oj: "luogu"
+    problem_id: "P4015"
+    reason: "同为基本费用流供需匹配问题，P4014 为二分图最佳完美匹配模板，P4015 为运输供需模型。"
 source: https://www.luogu.com.cn/problem/P4014
 ---
 

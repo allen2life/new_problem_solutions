@@ -7,8 +7,7 @@ toc: true
 tags: ["最长生成树","01背包"]
 desc: "严格次小生成树代码,有条件(最低消耗)的背包问题"
 source: https://www.luogu.com.cn/problem/P4180
-pre:
- - luogu,P2918
+pre: []
 book:
  - 分数规划
 ---

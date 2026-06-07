@@ -6,6 +6,10 @@ date: 2026-01-30 23:47
 toc: true
 tags: ["费用流"]
 desc: ""
+pre:
+  - oj: "luogu"
+    problem_id: "P4014"
+    reason: "先掌握基本费用流建模，再理解修车问题中将调度顺序展开为维度拆点的思维。"
 source: https://www.luogu.com.cn/problem/P2053
 ---
 

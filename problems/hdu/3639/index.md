@@ -6,9 +6,12 @@ date: 2026-01-09 12:14
 toc: true
 tags: ["强连通分量"]
 desc: "受欢迎的牛的加强版,dag上能到达点u的点的数量"
-source: https://vjudge.net/problem/HDU-3639
 pre:
- - luogu,P2341
+  - oj: "luogu"
+    problem_id: "P2341"
+    reason: "需要先理解缩点后汇点和可达性分析，再统计反向 DAG 可达人数。"
+common: []
+source: https://vjudge.net/problem/HDU-3639
 ---
 
 [[TOC]]
