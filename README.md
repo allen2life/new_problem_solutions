@@ -326,10 +326,10 @@ problems/<oj>/<problem_id>/problem-analysis-workspace/duipai-report.md
 
 内部支撑库 `scripts/problem-tools/mylib/` 不作为用户命令使用。
 
-也可以用 navi 作为交互式 cheatsheet：
+也可以用 navi 作为交互式 cheatsheet。需要目录跳转能力时，推荐使用下面配置后的 `rbook-navi`，不要直接用 `command navi --path ...`：
 
 ```bash
-navi --path scripts/navi
+rbook-navi
 ```
 
 推荐在仓库目录内用 `git` 生成真实路径，然后把仓库脚本目录加入 `~/.zshrc` 的 `PATH`：
@@ -344,7 +344,7 @@ EOF
 source ~/.zshrc
 ```
 
-这样 `ptool`、`check_sample.py`、`r-cgdb.sh` 等脚本可以作为普通命令直接调用；`fetch_problem` 会在抓题后自动进入对应题目目录。navi cheatsheet 中的命令会通过 `ptool` 或 shell 函数定位仓库根目录，避免在每条命令里重复写长路径。
+这样 `ptool`、`check_sample.py`、`r-cgdb.sh` 等脚本可以作为普通命令直接调用；`rbook-navi` 会打开本仓库 cheatsheet，并在当前 shell 执行选中的命令；`fetch_problem` 会在抓题后自动进入对应题目目录；`rbook_cd_problem` 可以用 `fzf` 选择 OJ 和题号目录后跳转。navi cheatsheet 中的命令会通过 `ptool` 或 shell 函数定位仓库根目录，避免在每条命令里重复写长路径。
 
 人类开始写新题时推荐使用：
 
@@ -359,6 +359,16 @@ fetch_problem https://www.luogu.com.cn/problem/P1001
 ptool fetch_problem luogu P1001 --json
 ```
 
+已有题目目录跳转推荐使用：
+
+```bash
+rbook_cd_problem
+rbook_cd_problem luogu
+rbook_cd_problem luogu 1001
+```
+
+其中无参数和只传 OJ 的形式会用 `fzf` 选择目录。
+
 `ptool` 也可以直接在终端使用：
 
 ```bash
@@ -367,76 +377,22 @@ ptool check_sample problems/luogu/1001
 ptool --cd problems/luogu/1001 old r-cgdb
 ```
 
-推荐配置一个 alias，让 navi 默认使用本仓库的 cheatsheet：
-
-```bash
-rbook-navi() {
-  local repo
-  repo="$(git rev-parse --show-toplevel 2>/dev/null)" || {
-    echo "rbook-navi: 请在本仓库目录内运行" >&2
-    return 1
-  }
-  command navi --path "$repo/scripts/navi" "$@"
-}
-```
-
-把它写入 `~/.zshrc`：
-
-```bash
-cat >> ~/.zshrc <<'EOF'
-rbook-navi() {
-  local repo
-  repo="$(git rev-parse --show-toplevel 2>/dev/null)" || {
-    echo "rbook-navi: 请在本仓库目录内运行" >&2
-    return 1
-  }
-  command navi --path "$repo/scripts/navi" "$@"
-}
-EOF
-source ~/.zshrc
-```
-
-之后直接使用：
+`rbook-navi` 已由 `scripts/navi/rbook-shell.zsh` 提供，配置完成后直接使用：
 
 ```bash
 rbook-navi
+rbook-navi --query cd
 rbook-navi --query duipai
 rbook-navi --query sample
 ```
 
-如果你希望 `rbook-navi` 从任意目录都能使用，也可以让 `git` 生成当前仓库路径后写入 `RBOOK_REPO`：
+不要把 `rbook-navi` 配成 alias：
 
 ```bash
-repo="$(git rev-parse --show-toplevel)"
-export RBOOK_REPO="$repo"
 alias rbook-navi='command navi --path "$RBOOK_REPO/scripts/navi"'
 ```
 
-写入 `~/.zshrc`：
-
-```bash
-repo="$(git rev-parse --show-toplevel)"
-cat >> ~/.zshrc <<EOF
-export RBOOK_REPO="$repo"
-alias rbook-navi='command navi --path "$RBOOK_REPO/scripts/navi"'
-EOF
-source ~/.zshrc
-```
-
-如果希望覆盖 `navi` 命令本身，也可以写成：
-
-```bash
-navi() {
-  local repo
-  if repo="$(git rev-parse --show-toplevel 2>/dev/null)" && [ -d "$repo/scripts/navi" ]; then
-    command navi --path "$repo/scripts/navi" "$@"
-  else
-    command navi "$@"
-  fi
-}
-```
-
-这种写法会让当前 shell 在本仓库内默认搜索本仓库 cheatsheet；不在本仓库内时回退到系统 `navi`。如果还想避免覆盖系统命令，建议使用 `rbook-navi` 这个独立函数。
+这种 alias 会让 navi 在子进程里执行命令，导致 `rbook_cd_problem: command not found`，也不能保留 `cd`。新的 `rbook-shell.zsh` 会自动清理旧 alias。
 
 说明见 [`docs/tools/navi.md`](docs/tools/navi.md)。
 
@@ -449,6 +405,7 @@ navi() {
 | `new-problem` / `new-problem.py` | `scripts/problem-analysis-tools/new-problem.py` | [`docs/tools/new-problem.md`](docs/tools/new-problem.md) |
 | `fetch_problem.py` | `scripts/problem-analysis-tools/fetch_problem.py` | [`docs/tools/fetch_problem.md`](docs/tools/fetch_problem.md) |
 | `fetch_problem` | `scripts/navi/rbook-shell.zsh` | [`docs/tools/rbook-shell.md`](docs/tools/rbook-shell.md) |
+| `rbook_cd_problem` | `scripts/navi/rbook-shell.zsh` | [`docs/tools/rbook-shell.md`](docs/tools/rbook-shell.md) |
 | `problem_status.py` | `scripts/problem-analysis-tools/problem_status.py` | [`docs/tools/problem_status.md`](docs/tools/problem_status.md) |
 | `gen_random.py` | `scripts/problem-analysis-tools/gen_random.py` | [`docs/tools/gen_random.md`](docs/tools/gen_random.md) |
 | `duipai.py` | `scripts/problem-analysis-tools/duipai.py` | [`docs/tools/duipai.md`](docs/tools/duipai.md) |

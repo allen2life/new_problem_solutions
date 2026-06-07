@@ -10,6 +10,7 @@ Usage:
   ptool --cd <problem_dir> old <script_name> [arguments...]
   ptool graph <input_file> <output_png>
   ptool graph-directed <input_file> <output_png>
+  ptool list-ojs
   ptool list-problems
 
 Locate the current rbook git repository and run scripts from:
@@ -20,6 +21,7 @@ Conveniences:
   - ".py" can be omitted: ptool check_sample ...
   - "--cd <problem_dir>" runs the tool inside a problem directory.
   - "old" runs scripts from scripts/problem-tools/.
+  - "list-ojs" prints OJ directories for navi.
   - "list-problems" prints problems/<oj>/<problem_id> directories for navi.
 
 Examples:
@@ -88,6 +90,13 @@ shift
 if [ "$script_name" = "list-problems" ]; then
   find "$repo/problems" -mindepth 2 -maxdepth 2 -type d \
     | sed "s|$repo/||" \
+    | sort
+  exit 0
+fi
+
+if [ "$script_name" = "list-ojs" ]; then
+  find "$repo/problems" -mindepth 1 -maxdepth 1 -type d \
+    | sed "s|$repo/problems/||" \
     | sort
   exit 0
 fi

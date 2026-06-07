@@ -66,9 +66,10 @@ ptool --cd problems/luogu/1001 duipai-human
 ptool --cd problems/luogu/1001 shrink_failed
 ```
 
-列出题目目录，主要给 navi 变量选择使用：
+列出 OJ 目录和题目目录，主要给 navi 变量选择使用：
 
 ```bash
+ptool list-ojs
 ptool list-problems
 ```
 
