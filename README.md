@@ -332,17 +332,32 @@ problems/<oj>/<problem_id>/problem-analysis-workspace/duipai-report.md
 navi --path scripts/navi
 ```
 
-推荐把仓库脚本目录加入 `~/.zshrc` 的 `PATH`。把 `RBOOK_REPO` 改成你本机 clone 后的真实路径：
+推荐在仓库目录内用 `git` 生成真实路径，然后把仓库脚本目录加入 `~/.zshrc` 的 `PATH`：
 
 ```bash
-cat >> ~/.zshrc <<'EOF'
-export RBOOK_REPO="$HOME/path/to/抽离rbook中的题目"
-export PATH="$RBOOK_REPO/scripts/navi:$RBOOK_REPO/scripts/problem-analysis-tools:$RBOOK_REPO/scripts/problem-tools:$PATH"
+repo="$(git rev-parse --show-toplevel)"
+cat >> ~/.zshrc <<EOF
+export RBOOK_REPO="$repo"
+export PATH="\$RBOOK_REPO/scripts/navi:\$RBOOK_REPO/scripts/problem-analysis-tools:\$RBOOK_REPO/scripts/problem-tools:\$PATH"
+source "\$RBOOK_REPO/scripts/navi/rbook-shell.zsh"
 EOF
 source ~/.zshrc
 ```
 
-这样 `ptool`、`check_sample.py`、`r-cgdb.sh` 等脚本可以作为普通命令直接调用。navi cheatsheet 中的命令会通过 `ptool` 定位仓库根目录，避免在每条命令里重复写长路径。
+这样 `ptool`、`check_sample.py`、`r-cgdb.sh` 等脚本可以作为普通命令直接调用；`fetch_problem` 会在抓题后自动进入对应题目目录。navi cheatsheet 中的命令会通过 `ptool` 或 shell 函数定位仓库根目录，避免在每条命令里重复写长路径。
+
+人类开始写新题时推荐使用：
+
+```bash
+fetch_problem luogu P1001
+fetch_problem https://www.luogu.com.cn/problem/P1001
+```
+
+它会调用底层 `fetch_problem.py` 创建题目结构，然后进入 `problems/<oj>/<problem_id>/`。如果是脚本、agent 或 CI，需要稳定输出，不需要改变当前目录，继续使用：
+
+```bash
+ptool fetch_problem luogu P1001 --json
+```
 
 `ptool` 也可以直接在终端使用：
 
@@ -389,18 +404,20 @@ rbook-navi --query duipai
 rbook-navi --query sample
 ```
 
-如果你希望使用固定路径，也可以自己指定仓库目录。把下面的 `RBOOK_REPO` 改成你本机 clone 后的真实路径：
+如果你希望 `rbook-navi` 从任意目录都能使用，也可以让 `git` 生成当前仓库路径后写入 `RBOOK_REPO`：
 
 ```bash
-export RBOOK_REPO="$HOME/path/to/抽离rbook中的题目"
+repo="$(git rev-parse --show-toplevel)"
+export RBOOK_REPO="$repo"
 alias rbook-navi='command navi --path "$RBOOK_REPO/scripts/navi"'
 ```
 
 写入 `~/.zshrc`：
 
 ```bash
-cat >> ~/.zshrc <<'EOF'
-export RBOOK_REPO="$HOME/path/to/抽离rbook中的题目"
+repo="$(git rev-parse --show-toplevel)"
+cat >> ~/.zshrc <<EOF
+export RBOOK_REPO="$repo"
 alias rbook-navi='command navi --path "$RBOOK_REPO/scripts/navi"'
 EOF
 source ~/.zshrc
@@ -431,6 +448,7 @@ navi() {
 | `check_problem.py` | `scripts/problem-analysis-tools/check_problem.py` | [`docs/tools/check_problem.md`](docs/tools/check_problem.md) |
 | `new-problem` / `new-problem.py` | `scripts/problem-analysis-tools/new-problem.py` | [`docs/tools/new-problem.md`](docs/tools/new-problem.md) |
 | `fetch_problem.py` | `scripts/problem-analysis-tools/fetch_problem.py` | [`docs/tools/fetch_problem.md`](docs/tools/fetch_problem.md) |
+| `fetch_problem` | `scripts/navi/rbook-shell.zsh` | [`docs/tools/rbook-shell.md`](docs/tools/rbook-shell.md) |
 | `problem_status.py` | `scripts/problem-analysis-tools/problem_status.py` | [`docs/tools/problem_status.md`](docs/tools/problem_status.md) |
 | `gen_random.py` | `scripts/problem-analysis-tools/gen_random.py` | [`docs/tools/gen_random.md`](docs/tools/gen_random.md) |
 | `duipai.py` | `scripts/problem-analysis-tools/duipai.py` | [`docs/tools/duipai.md`](docs/tools/duipai.md) |

@@ -1,14 +1,34 @@
-# fetch_problem.py
+# fetch_problem.py / fetch_problem
 
 位置：
 
 ```text
 scripts/problem-analysis-tools/fetch_problem.py
+scripts/navi/rbook-shell.zsh
 ```
 
 作用：把在线 OJ 题目抓取到当前电子书的新题目目录结构中。
 
+`fetch_problem.py` 是底层脚本入口，适合 agent、脚本、CI 使用，不会改变当前 shell 目录。
+
+`fetch_problem` 是给人类使用的 shell 函数，定义在 `scripts/navi/rbook-shell.zsh`。它会调用 `fetch_problem.py`，成功后自动进入对应题目目录，方便马上开始写 `main.cpp`。
+
 ## 基本用法
+
+人类写题推荐先配置 shell 函数，然后使用：
+
+```bash
+fetch_problem luogu P1001
+fetch_problem https://www.luogu.com.cn/problem/P1001
+```
+
+执行成功后会进入：
+
+```text
+problems/luogu/1001/
+```
+
+如果还没有配置 shell 函数，或者你是在脚本/agent 里调用，使用底层脚本：
 
 ```bash
 python3 scripts/problem-analysis-tools/fetch_problem.py luogu P1001
@@ -36,6 +56,28 @@ luogu P1001 -> problems/luogu/1001/
 ```
 
 但 `index.md` 中的 `problem_id` 仍然写 `P1001`。
+
+## 配置 fetch_problem 函数
+
+在仓库目录内执行：
+
+```bash
+repo="$(git rev-parse --show-toplevel)"
+cat >> ~/.zshrc <<EOF
+export RBOOK_REPO="$repo"
+export PATH="\$RBOOK_REPO/scripts/navi:\$RBOOK_REPO/scripts/problem-analysis-tools:\$RBOOK_REPO/scripts/problem-tools:\$PATH"
+source "\$RBOOK_REPO/scripts/navi/rbook-shell.zsh"
+EOF
+source ~/.zshrc
+```
+
+确认函数可用：
+
+```bash
+type fetch_problem
+```
+
+注意：只有被当前 shell `source` 的函数才能在命令执行后改变当前目录。直接运行 `fetch_problem.py` 或通过 `ptool fetch_problem` 都不能让你的终端自动进入题目目录。
 
 ## 支持能力
 
@@ -86,6 +128,7 @@ python3 scripts/problem-analysis-tools/fetch_problem.py luogu P1001 --force-inde
 只预览将要写入的路径：
 
 ```bash
+fetch_problem luogu P1001 --dry-run
 python3 scripts/problem-analysis-tools/fetch_problem.py luogu P1001 --dry-run
 ```
 
@@ -94,6 +137,8 @@ python3 scripts/problem-analysis-tools/fetch_problem.py luogu P1001 --dry-run
 ```bash
 python3 scripts/problem-analysis-tools/fetch_problem.py luogu P1001 --json
 ```
+
+`fetch_problem --dry-run`、`fetch_problem --json`、`fetch_problem --self-test` 和 `fetch_problem --help` 不会自动进入题目目录。
 
 JSON 会包含：
 
@@ -142,4 +187,4 @@ python3 scripts/problem-analysis-tools/fetch_problem.py --self-test
 - POJ/HDU 原站题面抓取。
 - 题目标签、时间限制、内存限制的跨 OJ 统一解析。
 
-旧 `scripts/problem-tools/oj.js` 第一版暂不修改。新题建议优先使用 `fetch_problem.py`。
+旧 `scripts/problem-tools/oj.js` 第一版暂不修改。人工写题建议使用 `fetch_problem` shell 函数；agent、脚本和 CI 建议使用 `fetch_problem.py`。

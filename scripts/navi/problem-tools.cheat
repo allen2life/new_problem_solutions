@@ -6,18 +6,18 @@ $ oj: echo "luogu"
 $ problem_id: echo "1001"
 
 % fetch-problem
-# 抓取题面和样例到新题目结构
-ptool fetch_problem <oj> <problem_id>
+# 抓取题面和样例，并进入题目目录
+fetch_problem <oj> <problem_id>
 
 % fetch-url
-# 通过题目 URL 抓取到新题目结构
-ptool fetch_problem <problem_url>
+# 通过题目 URL 抓取，并进入题目目录
+fetch_problem <problem_url>
 
 $ problem_url: echo "https://www.luogu.com.cn/problem/P1001"
 
 % fetch-dry
 # 预览抓题结果，不写入文件
-ptool fetch_problem <oj> <problem_id> --dry-run
+fetch_problem <oj> <problem_id> --dry-run
 
 % fetch-json
 # 抓取题目并输出 JSON，给 agent 或脚本使用

@@ -16,12 +16,14 @@ ptool
 
 ## 配置 PATH
 
-把仓库脚本目录加入 `~/.zshrc`。把 `RBOOK_REPO` 改成你本机 clone 后的真实路径：
+在仓库目录内用 `git` 生成真实路径，然后把仓库脚本目录加入 `~/.zshrc`：
 
 ```bash
-cat >> ~/.zshrc <<'EOF'
-export RBOOK_REPO="$HOME/path/to/抽离rbook中的题目"
-export PATH="$RBOOK_REPO/scripts/navi:$RBOOK_REPO/scripts/problem-analysis-tools:$RBOOK_REPO/scripts/problem-tools:$PATH"
+repo="$(git rev-parse --show-toplevel)"
+cat >> ~/.zshrc <<EOF
+export RBOOK_REPO="$repo"
+export PATH="\$RBOOK_REPO/scripts/navi:\$RBOOK_REPO/scripts/problem-analysis-tools:\$RBOOK_REPO/scripts/problem-tools:\$PATH"
+source "\$RBOOK_REPO/scripts/navi/rbook-shell.zsh"
 EOF
 source ~/.zshrc
 ```
@@ -41,6 +43,14 @@ ptool check_sample problems/luogu/1001
 ptool fetch_problem luogu P1001
 ptool problem_status problems/luogu/1001
 ```
+
+`ptool fetch_problem` 适合脚本、agent 或需要 JSON 输出的场景，不会改变当前终端目录。人类开始写新题时，如果希望抓题后自动进入题目目录，使用 `fetch_problem` shell 函数：
+
+```bash
+fetch_problem luogu P1001
+```
+
+说明见 [`rbook-shell.md`](rbook-shell.md)。
 
 `.py` 后缀可以省略：
 
