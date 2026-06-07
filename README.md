@@ -183,7 +183,7 @@ TARGET_API_BASE_URL=http://127.0.0.1:3000 npm start
 本仓库提供两类本地 skill：
 
 - `oj-problem-format-spec`：只规定题解 Markdown 的格式、目录结构、frontmatter、章节标题和代码嵌入方式。
-- `oj-problem-analysis-writer`：负责写题目解析内容，并根据过程文档生成正式 `index.md`。
+- `oj-problem-analysis-writer`：负责写题目解析内容，完成辅助理解和对拍的 `brute.cpp`，并根据过程文档生成正式 `index.md`。
 
 两个 skill 位于：
 
@@ -212,7 +212,13 @@ problems/<oj>/<problem_id>/
     └── duipai-report.md
 ```
 
-正式电子书内容写入 `index.md`，代码固定为 `main.cpp`，并在 `index.md` 中使用：
+正式电子书内容写入 `index.md`。`### 思路` 中引用 `brute.cpp` 帮助读者理解朴素做法：
+
+```markdown
+@include-code(./brute.cpp, cpp)
+```
+
+正式提交代码固定为 `main.cpp`，并在 `### 代码` 中使用：
 
 ```markdown
 @include-code(./main.cpp, cpp)
@@ -225,10 +231,11 @@ problems/<oj>/<problem_id>/
 推荐流程：
 
 1. 在 `problems/<oj>/<problem_id>/` 下准备 `main.cpp`。
-2. 如果要对拍，准备 `brute.cpp` 和 `gen.py`。
+2. 使用 `oj-problem-analysis-writer` 完成或修正 `brute.cpp`。
 3. 让 AI 使用 `oj-problem-analysis-writer` 生成或补全 `problem-analysis-workspace/*.md`。
 4. AI 根据 `06-final-index-draft.md` 和 `oj-problem-format-spec` 写入正式 `index.md`。
-5. 人工检查 `index.md` 的题意、思路、复杂度和代码引用。
+5. 如果要对拍，再准备或补全 `gen.py` 并运行对拍脚本。
+6. 人工检查 `index.md` 的题意、思路、复杂度和代码引用。
 
 示例提示：
 

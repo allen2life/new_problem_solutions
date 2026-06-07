@@ -17,6 +17,8 @@ description: Standardize the writing format and Markdown skeleton for this repos
 
 算法解析内容由另一个题目解析 skill 填写。本 skill 只保证文章结构稳定、字段完整、代码嵌入格式统一。
 
+注意：最终题目解析允许在 `### 思路` 中嵌入 `brute.cpp`，作为帮助读者理解题意和朴素做法的代码；正式提交代码仍固定放在 `### 代码` 中并引用 `main.cpp`。
+
 ## 使用 Grill-Me
 
 如果用户要求先 `grill me`，按这个顺序一次只问一个问题，并给推荐答案：
@@ -25,9 +27,10 @@ description: Standardize the writing format and Markdown skeleton for this repos
 2. 是否使用固定章节标题？
 3. 是否强制最小 frontmatter 字段？
 4. 是否统一使用 `@include-code(...)` 嵌入代码？
-5. 空章节是否使用 HTML 注释占位？
-6. 是否负责文件命名和存放路径？
-7. 修改已有题解时，是强制套模板还是只修正格式？
+5. 是否允许在 `### 思路` 中嵌入 `@include-code(./brute.cpp, cpp)` 辅助理解？
+6. 空章节是否使用 HTML 注释占位？
+7. 是否负责文件命名和存放路径？
+8. 修改已有题解时，是强制套模板还是只修正格式？
 
 能从本仓库已有文件判断的问题，不要问用户。
 
@@ -141,7 +144,7 @@ TODO
 
 ## 代码嵌入
 
-代码章节统一使用：
+正式代码章节统一使用：
 
 ```markdown
 @include-code(./main.cpp, cpp)
@@ -150,13 +153,28 @@ TODO
 规则：
 
 - 路径必须相对当前 Markdown 文件。
-- 固定引用同目录 `main.cpp`。
+- `### 代码` 固定引用同目录 `main.cpp`。
 - 不在 Markdown 中粘贴完整代码。
 - 如果暂时没有代码文件，保留代码章节，并使用 HTML 注释说明：
 
 ```markdown
 <!-- 缺少对应代码文件 -->
 ```
+
+`### 思路` 中可以嵌入朴素解：
+
+```markdown
+先看一个可以直接验证想法的朴素解：
+
+@include-code(./brute.cpp, cpp)
+```
+
+规则：
+
+- `brute.cpp` 用于解释朴素想法和辅助对拍。
+- `brute.cpp` 不替代 `main.cpp`。
+- `brute.cpp` 不放在 `### 代码` 中。
+- 如果只是格式修正且缺少 `brute.cpp`，可以先保留 HTML 注释；真正写题目解析时由 `oj-problem-analysis-writer` 完成 `brute.cpp`。
 
 ## 新建文章模板
 
@@ -181,6 +199,10 @@ source:
 <!-- 由题目解析 skill 填写 -->
 
 ### 思路
+
+先看一个可以直接验证想法的朴素解：
+
+@include-code(./brute.cpp, cpp)
 
 <!-- 由题目解析 skill 填写 -->
 
@@ -211,6 +233,7 @@ source:
 - 将明显的章节标题统一为固定标题。
 - 补缺失章节。
 - 将完整代码块替换为 `@include-code(...)`，前提是对应代码文件存在。
+- 在 `### 思路` 中保留或补充 `@include-code(./brute.cpp, cpp)`，用于朴素解说明。
 - 为缺失内容添加 HTML 注释占位。
 
 不要做：
@@ -233,7 +256,8 @@ source:
 - frontmatter 后有 `[[TOC]]`。
 - 正文包含 `### 题意`、`### 思路`、`### 代码`、`### 复杂度`、`### 总结`。
 - 空章节使用 HTML 注释占位。
-- 代码章节使用 `@include-code(./main.cpp, cpp)` 或缺失代码注释。
+- `### 思路` 可以使用 `@include-code(./brute.cpp, cpp)` 说明朴素解。
+- `### 代码` 使用 `@include-code(./main.cpp, cpp)` 或缺失代码注释。
 - 没有粘贴完整代码。
 - 没有编造题目标题、来源、算法标签或解析内容。
 

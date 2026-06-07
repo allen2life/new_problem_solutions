@@ -1,6 +1,6 @@
 ---
 name: oj-problem-analysis-writer
-description: Write Chinese OJ problem analysis content for this repository's ebook. Use this skill whenever the user asks to write a 题目解析, generate learning notes for an OJ problem, fill problems/<oj>/<problem_id>/index.md, turn problem-analysis-workspace/*.md into a final article, or use random data / 对拍 scripts while preparing a problem explanation. This skill writes analysis content and must follow oj-problem-format-spec for the final index.md.
+description: Write Chinese OJ problem analysis content for this repository's ebook. Use this skill whenever the user asks to write a 题目解析, generate learning notes for an OJ problem, fill problems/<oj>/<problem_id>/index.md, turn problem-analysis-workspace/*.md into a final article, create a teaching brute.cpp, or use random data / 对拍 scripts while preparing a problem explanation. This skill writes analysis content, must complete brute.cpp, and must follow oj-problem-format-spec for the final index.md.
 ---
 
 # OJ 题目解析写作
@@ -41,10 +41,10 @@ Required for final article:
 
 - `index.md`
 - `main.cpp`
+- `brute.cpp`
 
 Optional but useful for verification:
 
-- `brute.cpp`
 - `gen.py`
 - `problem-analysis-workspace/duipai-report.md`
 
@@ -66,6 +66,7 @@ Final `index.md` must follow that format:
 - `### 复杂度`
 - `### 总结`
 - `@include-code(./main.cpp, cpp)`
+- `@include-code(./brute.cpp, cpp)` in `### 思路`
 
 ## Source Priority
 
@@ -73,15 +74,43 @@ Use information in this order:
 
 1. `problem-analysis-workspace/*.md`
 2. `main.cpp`
-3. existing `index.md`
-4. problem statement text or source URL provided by the user
-5. `oj-problem-format-spec`
+3. `brute.cpp`
+4. existing `index.md`
+5. problem statement text or source URL provided by the user
+6. `oj-problem-format-spec`
 
 If workspace files already exist, read them first and preserve useful user-written content. Do not overwrite process notes blindly.
 
 ## Process Documents
 
 If `problem-analysis-workspace/` or its stage files do not exist, create them and fill them progressively.
+
+## Required `brute.cpp`
+
+This skill must finish a teaching brute-force solution before the final `index.md` is considered complete.
+
+Path:
+
+```text
+problems/<oj>/<problem_id>/brute.cpp
+```
+
+Purpose:
+
+- help the reader understand the problem through the most direct correct idea;
+- provide a trusted small-data solution for 对拍;
+- make the bottleneck of the naive method explicit before deriving `main.cpp`.
+
+Rules:
+
+- If `brute.cpp` already exists, read it and improve it if needed.
+- If `brute.cpp` does not exist, create it.
+- It must be a complete C++17 program with the same input/output format as `main.cpp`.
+- Prefer direct enumeration, simulation, or another clearly correct small-data method.
+- Use straightforward variable names and a few useful Chinese comments when they help understanding.
+- High complexity is acceptable, but it must be described as small-data/verification code.
+- If the brute-force correctness is uncertain, record the uncertainty in `04-correctness-and-edge-cases.md` and do not claim reliable 对拍.
+- Do not deliver a final `index.md` without a completed `brute.cpp`, unless the user explicitly pauses or changes this requirement.
 
 ### `01-problem-understanding.md`
 
@@ -139,6 +168,8 @@ Required sections:
 ## 与代码实现的对应关系
 ```
 
+This file should explain how `brute.cpp` represents the naive idea, why it is too slow for full constraints, and which bottleneck motivates `main.cpp`.
+
 ### `04-correctness-and-edge-cases.md`
 
 Purpose: explain why the solution is correct and what edge cases matter.
@@ -156,6 +187,8 @@ Required sections:
 
 ## 对拍或手工验证记录
 ```
+
+This file should state whether `brute.cpp` is reliable enough for 对拍. If 对拍 was not run, record why.
 
 ### `05-complexity-and-implementation.md`
 
@@ -181,6 +214,8 @@ Required sections:
 
 Do not write line-by-line code commentary. Explain only the key implementation correspondence.
 
+Also mention how the optimized implementation differs from `brute.cpp`.
+
 ### `06-final-index-draft.md`
 
 Purpose: draft the final article before updating `index.md`.
@@ -205,6 +240,10 @@ source:
 
 ### 思路
 
+先看一个可以直接验证想法的朴素解：
+
+@include-code(./brute.cpp, cpp)
+
 ### 代码
 
 @include-code(./main.cpp, cpp)
@@ -221,11 +260,19 @@ The final `index.md` should be concise but still teach the idea.
 In `### 思路`, keep a compressed layered progression:
 
 1. briefly state why the naive idea is not enough;
-2. state the key observation;
-3. explain the final method;
-4. mention the important implementation correspondence.
+2. include `@include-code(./brute.cpp, cpp)` as the teaching brute-force solution;
+3. state the bottleneck of `brute.cpp`;
+4. state the key observation;
+5. explain the final method;
+6. mention the important implementation correspondence.
 
 Do not turn `index.md` into a raw dump of all process notes. The detailed learning path belongs in `problem-analysis-workspace/*.md`.
+
+The `### 代码` section still contains only the final accepted/optimized solution:
+
+```markdown
+@include-code(./main.cpp, cpp)
+```
 
 ## Consistency Check
 
@@ -234,6 +281,8 @@ Before updating `index.md`, check consistency with `main.cpp` when it exists:
 - The algorithm description roughly matches the implementation.
 - The complexity can be explained from the code structure.
 - The code section uses `@include-code(./main.cpp, cpp)`.
+- The `### 思路` section uses `@include-code(./brute.cpp, cpp)`.
+- `brute.cpp` is complete and matches the same input/output format.
 - Key implementation details mentioned in the article exist in the code.
 - If no verification was run, say so in the process notes; do not imply proof by testing.
 
@@ -260,6 +309,8 @@ problems/<oj>/<problem_id>/
   gen.py
 ```
 
+`brute.cpp` is required. `gen.py` is not strictly required for the final article, but create or complete it when the input format is clear and random small data can be generated reasonably.
+
 Recommended command:
 
 ```bash
@@ -270,7 +321,7 @@ python3 scripts/problem-analysis-tools/duipai.py \
   -n 200
 ```
 
-Only run 对拍 when `gen.py`, `main.cpp`, and `brute.cpp` exist or the user asks for it. If 对拍 is not possible, record that it was not run.
+Only run 对拍 when `gen.py`, `main.cpp`, and `brute.cpp` exist and are runnable, or when the user asks for it. If 对拍 is not possible, record that it was not run and why.
 
 ## Safety Rules
 
@@ -278,7 +329,8 @@ Only run 对拍 when `gen.py`, `main.cpp`, and `brute.cpp` exist or the user ask
 - Do not claim a solution is accepted unless there is evidence.
 - Do not claim 对拍 was run unless the script actually ran.
 - Do not overwrite user-written process notes without preserving useful content.
-- Do not write full code into `index.md`; use `@include-code(./main.cpp, cpp)`.
+- Do not write full code into `index.md`; use `@include-code(./brute.cpp, cpp)` in `### 思路` and `@include-code(./main.cpp, cpp)` in `### 代码`.
+- Do not claim `brute.cpp` is trusted unless its correctness is clear enough for small data.
 
 ## Final Response
 
@@ -286,6 +338,7 @@ After editing, report briefly:
 
 - which problem directory was updated;
 - which process Markdown files were created or updated;
+- whether `brute.cpp` was created or updated;
 - whether `index.md` was written from `06-final-index-draft.md`;
 - whether 对拍 was run and where the report is;
 - any missing fields, code files, or verification material.
