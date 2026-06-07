@@ -4,5 +4,9 @@ problems.json
 *.log
 .DS_Store
 .worktrees/
+tmp/
+.opencode/
+docs/superpowers/
+**/*/__pycache__/
 problems/**/problem-analysis-workspace/
 problems/**/duipai-failed/
