@@ -43,6 +43,7 @@ repo=$(git rev-parse --show-toplevel)
 ## 覆盖工具
 
 - `new-problem.py`
+- `fetch_problem.py`
 - `problem_status.py`
 - `check_problem.py`
 - `check_sample.py`
@@ -57,4 +58,3 @@ repo=$(git rev-parse --show-toplevel)
 - `dot2png.py`
 - `r-lldb`
 - `nvimsizer`
-

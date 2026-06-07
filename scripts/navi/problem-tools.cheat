@@ -6,6 +6,20 @@ repo=$(git rev-parse --show-toplevel) && python3 "$repo/scripts/problem-analysis
 $ oj: echo "luogu"
 $ problem_id: echo "1001"
 
+# Fetch problem statement and samples into the new problem structure
+repo=$(git rev-parse --show-toplevel) && python3 "$repo/scripts/problem-analysis-tools/fetch_problem.py" <oj> <problem_id>
+
+# Fetch problem by URL into the new problem structure
+repo=$(git rev-parse --show-toplevel) && python3 "$repo/scripts/problem-analysis-tools/fetch_problem.py" <problem_url>
+
+$ problem_url: echo "https://www.luogu.com.cn/problem/P1001"
+
+# Preview problem fetch without writing files
+repo=$(git rev-parse --show-toplevel) && python3 "$repo/scripts/problem-analysis-tools/fetch_problem.py" <oj> <problem_id> --dry-run
+
+# Fetch problem and output JSON for agent/script use
+repo=$(git rev-parse --show-toplevel) && python3 "$repo/scripts/problem-analysis-tools/fetch_problem.py" <oj> <problem_id> --json
+
 # Show current problem workflow status
 repo=$(git rev-parse --show-toplevel) && python3 "$repo/scripts/problem-analysis-tools/problem_status.py" <problem_dir>
 

@@ -370,6 +370,7 @@ alias navi='command navi --path /home/rainboy/mycode/抽离rbook中的题目/scr
 | `check_sample.py` | `scripts/problem-analysis-tools/check_sample.py` | [`docs/tools/check_sample.md`](docs/tools/check_sample.md) |
 | `check_problem.py` | `scripts/problem-analysis-tools/check_problem.py` | [`docs/tools/check_problem.md`](docs/tools/check_problem.md) |
 | `new-problem` / `new-problem.py` | `scripts/problem-analysis-tools/new-problem.py` | [`docs/tools/new-problem.md`](docs/tools/new-problem.md) |
+| `fetch_problem.py` | `scripts/problem-analysis-tools/fetch_problem.py` | [`docs/tools/fetch_problem.md`](docs/tools/fetch_problem.md) |
 | `problem_status.py` | `scripts/problem-analysis-tools/problem_status.py` | [`docs/tools/problem_status.md`](docs/tools/problem_status.md) |
 | `gen_random.py` | `scripts/problem-analysis-tools/gen_random.py` | [`docs/tools/gen_random.md`](docs/tools/gen_random.md) |
 | `duipai.py` | `scripts/problem-analysis-tools/duipai.py` | [`docs/tools/duipai.md`](docs/tools/duipai.md) |

@@ -142,28 +142,96 @@ data_tool.py copy-samples-to-data problems/luogu/1001
 - 链
 - 星
 
-### [ ] 6. 新增现代化题目抓取工具
+### [x] 6. 新增现代化题目抓取工具
 
-目的：替代或整合旧版 `problem-tools/luogu.py` 和 `problem-tools/oj.js`。
+目的：用 Python 重写 `old_scripts/online_judge/` 里的 JS 抓题逻辑，替代旧版 `problem-tools/luogu.py` 和 `problem-tools/oj.js`，并让输出符合当前题解目录规范。
 
 建议位置：
 
 ```text
 scripts/problem-analysis-tools/fetch_problem.py
+scripts/problem-analysis-tools/fetchers/
 ```
 
 建议能力：
 
-- 支持 `luogu P1001`。
-- 自动写入 `problem.md`。
-- 自动写入 `in1/out1`。
-- 自动填充 `index.md` 的 `title` 和 `source`。
-- 可选和 `new-problem.py` 合并使用。
+- 命令行入口支持 `fetch_problem.py <oj> <problem_id>` 和 `fetch_problem.py <url>`。
+- 默认创建或补齐题目目录并抓取可用内容；`--init` 可以保留为显式语义但不是必需参数。
+- 支持 `--dry-run` 只展示将要抓取和写入的路径，不实际写文件。
+- 默认输出人类可读日志；支持 `--json` 输出结构化结果，包含 `ok`、`oj`、`problem_id`、`problem_dir`、`created`、`skipped`、`written`、`warnings` 等字段，方便 agent 和脚本调用。
+- 新增专属文档 `docs/tools/fetch_problem.md`：
+  - 基本用法和 URL 用法。
+  - 支持的 OJ 和第一版能力边界。
+  - 输出目录结构。
+  - 覆盖策略：`--force-statement`、`--force-samples`、`--force-index-meta`。
+  - `--dry-run` 和 `--json`。
+  - 抓取失败时的行为。
+  - 第一版未实现能力清单。
+- 更新 README 的“工具使用”章节，链接到 `docs/tools/fetch_problem.md`。
+- 抓取失败策略：
+  - 如果命令行已经能确定 OJ 和题号，例如 `fetch_problem.py luogu P1001`，即使网络或解析失败，也创建/补齐 skeleton，并明确提示题面/样例抓取失败。
+  - 如果输入是 URL，且能解析出 OJ 和题号，也可以创建/补齐 skeleton。
+  - 如果 URL 无法识别 OJ 或题号，直接失败，不创建目录。
+- 使用 Python provider 架构重构旧 JS：
+  - `BaseFetcher`：统一 OJ 名称匹配、URL 匹配、题目目录、文件写入、覆盖策略。
+  - `LuoguFetcher`：重写 `luogu.js`，解析 `#lentille-context` JSON。
+  - `CodeforcesFetcher`：重写 `codeforces.js` 的 ID/URL 解析和 skeleton 生成能力。
+  - `VJudgeFetcher`：重写 `vjudge.js` 的 VJudge 标题抓取和 `poj/hdu/atcoder/openj_bailian/codeforces` 分发能力。
+- Luogu 第一版做完整能力：
+  - 支持 `luogu P1001` 和 Luogu 题目 URL。
+  - 目录名沿用旧规则，`P1001` 和 `1001` 都保存到 `problems/luogu/1001/`，但 `index.md` 的 `problem_id` 保留展示 ID `P1001`。
+  - 自动写入 `problem.md`，仅作为原题面归档，不写题解、不套 `oj-problem-format-spec`、不包含 `@include-code`。
+  - 自动写入根目录样例 `in1/out1`，并在需要时生成 `in`。
+  - 第一版不自动写入 `data/` 目录；样例整理、复制到 `data/` 交给 `data_tool.py`。
+  - 自动填充 `index.md` 的 `title` 和 `source`。
+- 其他 OJ 的目录名保留原始题号，例如 `codeforces 165E -> problems/codeforces/165E/`，`poj 1000 -> problems/poj/1000/`。
+- 自动创建或补齐当前新结构：
+  - `index.md`
+  - `main.cpp`
+  - `brute.cpp`
+  - `gen.py`
+  - `problem-analysis-workspace/`
+- 创建题目目录时通过 import 复用模板/创建逻辑，不使用 subprocess 调用脚本。
+- 建议把 `new-problem.py` 里的可复用逻辑抽到 `scripts/problem_analysis_lib/problem_scaffold.py`：
+  - `new-problem.py` 只保留 CLI 参数解析。
+  - `fetch_problem.py` import `problem_scaffold.py` 创建或补齐题目目录。
+- 文件写入遵守“默认不覆盖用户已有内容”：
+  - 默认不覆盖 `index.md`、`main.cpp`、`brute.cpp`、`gen.py`、`problem-analysis-workspace/*.md`。
+  - 已存在的 `problem.md`、`in1/out1`、`in2/out2`、`in` 默认跳过。
+  - `--force-statement` 只允许重新写 `problem.md`。
+  - `--force-samples` 只允许重新写样例。
+  - `--force-index-meta` 只允许更新 `index.md` frontmatter 里的 `title/source`，不修改正文。
+  - 不提供粗暴的全局 `--force`，避免误伤手写题解。
+- 代码中增加中文注释，重点解释 provider 分发、URL/ID 解析、Luogu JSON 提取、样例格式兼容和文件覆盖策略。
+- 抓取依赖策略：
+  - HTTP 优先使用 Python 标准库 `urllib.request`；如果项目已有 `requests`，可以复用。
+  - HTML 解析使用 `bs4/BeautifulSoup`；如果环境缺少依赖，在文档里写清楚安装方式。
+  - 第一版不引入 Playwright/Selenium 等浏览器自动化工具。
+- 增加离线 fixture/self-test，避免默认验证依赖真实 OJ 网络：
+  - 建议保存 Luogu 最小测试 fixture，例如 `scripts/problem-analysis-tools/tests/fixtures/luogu_p1001.html`。
+  - 测试 `LuoguFetcher` 能从 fixture 中解析 `problem_id`、`title`、`source`、`problem.md` 内容和 `in1/out1`。
+  - 真实联网抓取只作为手动验证，不作为默认测试依赖。
+  - 如果仓库没有正式测试框架，第一版可以提供 `fetch_problem.py --self-test`。
+
+第一版明确不实现的能力，后续不要忘记：
+
+- [ ] Codeforces 完整题面抓取。
+- [ ] Codeforces 样例抓取。
+- [ ] VJudge 代理页面里的完整题面抓取。
+- [ ] VJudge 代理页面里的样例抓取。
+- [ ] 各 OJ 的登录态、Cookie、反爬失败重试。
+- [ ] AtCoder 原站题面抓取。
+- [ ] POJ/HDU 原站题面抓取。
+- [ ] 题目标签、时间限制、内存限制的跨 OJ 统一解析。
+- [ ] 第一版先不修改旧 `problem-tools/oj.js`，只在文档里标记推荐使用 `fetch_problem.py`；等新工具稳定后，再决定把 `oj.js` 改成调用新 Python 或标记废弃。
 
 示例：
 
 ```bash
 python3 scripts/problem-analysis-tools/fetch_problem.py luogu P1001 --init
+python3 scripts/problem-analysis-tools/fetch_problem.py https://www.luogu.com.cn/problem/P1001 --init
+python3 scripts/problem-analysis-tools/fetch_problem.py codeforces 165E --init
+python3 scripts/problem-analysis-tools/fetch_problem.py poj 1000 --init
 ```
 
 ### [ ] 7. 新增批量题目规范审计工具

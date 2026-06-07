@@ -8,6 +8,18 @@ scripts/problem-tools/oj.js
 
 作用：包装旧版在线题目抓取入口 `old_scripts/online_judge/index.js`。
 
+新题建议优先使用新版 Python 工具：
+
+```bash
+python3 scripts/problem-analysis-tools/fetch_problem.py luogu P1001
+```
+
+说明见：
+
+```text
+docs/tools/fetch_problem.md
+```
+
 安装后命令名：
 
 ```text
