@@ -1,0 +1,148 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+usage() {
+  cat <<'EOF'
+Usage:
+  ptool <script_name> [arguments...]
+  ptool --cd <problem_dir> <script_name> [arguments...]
+  ptool old <script_name> [arguments...]
+  ptool --cd <problem_dir> old <script_name> [arguments...]
+  ptool graph <input_file> <output_png>
+  ptool graph-directed <input_file> <output_png>
+  ptool list-problems
+
+Locate the current rbook git repository and run scripts from:
+
+  scripts/problem-analysis-tools/
+
+Conveniences:
+  - ".py" can be omitted: ptool check_sample ...
+  - "--cd <problem_dir>" runs the tool inside a problem directory.
+  - "old" runs scripts from scripts/problem-tools/.
+  - "list-problems" prints problems/<oj>/<problem_id> directories for navi.
+
+Examples:
+  ptool new-problem luogu 1001
+  ptool fetch_problem luogu P1001
+  ptool check_sample problems/luogu/1001
+  ptool --cd problems/luogu/1001 duipai-human
+  ptool --cd problems/luogu/1001 old b main
+  ptool --cd problems/luogu/1001 graph in1 graph.png
+EOF
+}
+
+find_repo() {
+  local repo
+  repo="$(git rev-parse --show-toplevel 2>/dev/null || true)"
+  if [ -z "$repo" ]; then
+    echo "Error: 你不在任何 Git 仓库中，无法定位 rbook 根目录。" >&2
+    return 1
+  fi
+  if [ ! -d "$repo/scripts/problem-analysis-tools" ]; then
+    echo "Error: 当前 Git 仓库不是 rbook 题目库：$repo" >&2
+    return 1
+  fi
+  printf '%s\n' "$repo"
+}
+
+if [ "${1:-}" = "-h" ] || [ "${1:-}" = "--help" ]; then
+  usage
+  exit 0
+fi
+
+repo="$(find_repo)"
+
+if [ "$#" -eq 0 ]; then
+  usage
+  exit 1
+fi
+
+workdir="$repo"
+if [ "${1:-}" = "--cd" ]; then
+  if [ "$#" -lt 3 ]; then
+    echo "Error: --cd 需要 <problem_dir> 和 <script_name>。" >&2
+    exit 1
+  fi
+  workdir="$repo/$2"
+  shift 2
+  if [ ! -d "$workdir" ]; then
+    echo "Error: 题目目录不存在：$workdir" >&2
+    exit 1
+  fi
+fi
+
+script_name="$1"
+shift
+
+if [ "$script_name" = "list-problems" ]; then
+  find "$repo/problems" -mindepth 2 -maxdepth 2 -type d \
+    | sed "s|$repo/||" \
+    | sort
+  exit 0
+fi
+
+if [ "$script_name" = "graph" ] || [ "$script_name" = "graph-directed" ]; then
+  if [ "$#" -ne 2 ]; then
+    echo "Error: 用法：ptool $script_name <input_file> <output_png>" >&2
+    exit 1
+  fi
+  input_file="$1"
+  output_png="$2"
+  if [ ! -f "$workdir/$input_file" ]; then
+    echo "Error: 输入文件不存在：$workdir/$input_file" >&2
+    exit 1
+  fi
+  cd "$workdir"
+  if [ "$script_name" = "graph-directed" ]; then
+    tail -n +2 "$input_file" \
+      | python3 "$repo/scripts/problem-tools/input2dot.py" -d \
+      | python3 "$repo/scripts/problem-tools/dot2png.py" -o "$output_png"
+  else
+    tail -n +2 "$input_file" \
+      | python3 "$repo/scripts/problem-tools/input2dot.py" \
+      | python3 "$repo/scripts/problem-tools/dot2png.py" -o "$output_png"
+  fi
+  exit 0
+fi
+
+if [ "$script_name" = "old" ]; then
+  if [ "$#" -eq 0 ]; then
+    echo "Error: old 需要 <script_name>。" >&2
+    exit 1
+  fi
+  old_script="$1"
+  shift
+  target_script="$repo/scripts/problem-tools/$old_script"
+  if [ ! -f "$target_script" ] && [ -f "$target_script.py" ]; then
+    target_script="$target_script.py"
+  fi
+  if [ ! -f "$target_script" ] && [ -f "$target_script.sh" ]; then
+    target_script="$target_script.sh"
+  fi
+  if [ ! -f "$target_script" ]; then
+    echo "Error: 找不到旧工具脚本：$repo/scripts/problem-tools/$old_script" >&2
+    exit 1
+  fi
+  cd "$workdir"
+  case "$target_script" in
+    *.py) exec python3 "$target_script" "$@" ;;
+    *.sh) exec bash "$target_script" "$@" ;;
+    *.js) exec node "$target_script" "$@" ;;
+    *) exec "$target_script" "$@" ;;
+  esac
+fi
+
+if [[ "$script_name" != *".py" ]]; then
+  script_name="${script_name}.py"
+fi
+
+target_script="$repo/scripts/problem-analysis-tools/$script_name"
+
+if [ ! -f "$target_script" ]; then
+  echo "Error: 找不到目标脚本：$target_script" >&2
+  exit 1
+fi
+
+cd "$workdir"
+exec python3 "$target_script" "$@"

@@ -24,6 +24,7 @@
 | `luogu.py` | 下载洛谷样例 | [`tools/problem-tools-luogu.md`](tools/problem-tools-luogu.md) |
 | `oj` | 旧版在线题目抓取入口 | [`tools/problem-tools-oj.md`](tools/problem-tools-oj.md) |
 | `r-lldb` | 选择输入并启动 LLDB | [`tools/problem-tools-r-lldb.md`](tools/problem-tools-r-lldb.md) |
+| `r-cgdb` | 选择可执行文件和输入并启动 CGDB | [`tools/problem-tools-r-cgdb.md`](tools/problem-tools-r-cgdb.md) |
 | `nvimsizer` | Neovim 双栏查看 | [`tools/problem-tools-nvimsizer.md`](tools/problem-tools-nvimsizer.md) |
 | `transfer` | 上传文件到 transfer.sh | [`tools/problem-tools-transfer.md`](tools/problem-tools-transfer.md) |
 | `r-list-all-scripts.py` | 列出旧工具脚本 | [`tools/problem-tools-r-list-all-scripts.md`](tools/problem-tools-r-list-all-scripts.md) |
@@ -322,7 +323,18 @@ r-lldb ./1.out
 
 脚本会让你选择当前目录下名字包含 `in` 的输入文件，然后启动 LLDB。
 
-### 7.3 Neovim 双栏查看
+### 7.3 CGDB 调试
+
+安装后命令名是 `r-cgdb`，避免覆盖系统自带的 `cgdb`：
+
+```bash
+r-cgdb
+r-cgdb ./main.out
+```
+
+脚本会交互式选择可执行文件和输入文件，然后启动 CGDB。
+
+### 7.4 Neovim 双栏查看
 
 ```bash
 nvimsizer 1.cpp in
@@ -330,7 +342,7 @@ nvimsizer 1.cpp in
 
 它会用 Neovim 左右打开两个文件，并根据右侧文件最长行调整窗口宽度。
 
-### 7.4 上传文件
+### 7.5 上传文件
 
 需要先配置自建 transfer.sh 地址：
 

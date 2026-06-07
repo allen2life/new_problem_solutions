@@ -329,19 +329,46 @@ problems/<oj>/<problem_id>/problem-analysis-workspace/duipai-report.md
 也可以用 navi 作为交互式 cheatsheet：
 
 ```bash
+./install.sh
 navi --path scripts/navi
+```
+
+`./install.sh` 会把仓库内的 `scripts/navi/ptool` 安装到 `~/.local/bin/ptool`。navi cheatsheet 中的命令会通过 `ptool` 自动定位当前 Git 仓库根目录，避免在每条命令里重复写长路径。这个根目录安装器以后也可以继续扩展，用来安装其他仓库脚本。
+
+`ptool` 也可以直接在终端使用：
+
+```bash
+ptool list-problems
+ptool check_sample problems/luogu/1001
+ptool --cd problems/luogu/1001 old r-cgdb
 ```
 
 推荐配置一个 alias，让 navi 默认使用本仓库的 cheatsheet：
 
 ```bash
-alias rbook-navi='command navi --path /home/rainboy/mycode/抽离rbook中的题目/scripts/navi'
+rbook-navi() {
+  local repo
+  repo="$(git rev-parse --show-toplevel 2>/dev/null)" || {
+    echo "rbook-navi: 请在本仓库目录内运行" >&2
+    return 1
+  }
+  command navi --path "$repo/scripts/navi" "$@"
+}
 ```
 
 把它写入 `~/.zshrc`：
 
 ```bash
-echo "alias rbook-navi='command navi --path /home/rainboy/mycode/抽离rbook中的题目/scripts/navi'" >> ~/.zshrc
+cat >> ~/.zshrc <<'EOF'
+rbook-navi() {
+  local repo
+  repo="$(git rev-parse --show-toplevel 2>/dev/null)" || {
+    echo "rbook-navi: 请在本仓库目录内运行" >&2
+    return 1
+  }
+  command navi --path "$repo/scripts/navi" "$@"
+}
+EOF
 source ~/.zshrc
 ```
 
@@ -353,13 +380,37 @@ rbook-navi --query duipai
 rbook-navi --query sample
 ```
 
+如果你希望使用固定路径，也可以自己指定仓库目录。把下面的 `RBOOK_REPO` 改成你本机 clone 后的真实路径：
+
+```bash
+export RBOOK_REPO="$HOME/path/to/抽离rbook中的题目"
+alias rbook-navi='command navi --path "$RBOOK_REPO/scripts/navi"'
+```
+
+写入 `~/.zshrc`：
+
+```bash
+cat >> ~/.zshrc <<'EOF'
+export RBOOK_REPO="$HOME/path/to/抽离rbook中的题目"
+alias rbook-navi='command navi --path "$RBOOK_REPO/scripts/navi"'
+EOF
+source ~/.zshrc
+```
+
 如果希望覆盖 `navi` 命令本身，也可以写成：
 
 ```bash
-alias navi='command navi --path /home/rainboy/mycode/抽离rbook中的题目/scripts/navi'
+navi() {
+  local repo
+  if repo="$(git rev-parse --show-toplevel 2>/dev/null)" && [ -d "$repo/scripts/navi" ]; then
+    command navi --path "$repo/scripts/navi" "$@"
+  else
+    command navi "$@"
+  fi
+}
 ```
 
-这种写法会让当前 shell 中的 `navi` 默认只搜索本仓库 cheatsheet；如果还想保留系统其他 navi cheatsheet，建议使用 `rbook-navi` 这个独立 alias。
+这种写法会让当前 shell 在本仓库内默认搜索本仓库 cheatsheet；不在本仓库内时回退到系统 `navi`。如果还想避免覆盖系统命令，建议使用 `rbook-navi` 这个独立函数。
 
 说明见 [`docs/tools/navi.md`](docs/tools/navi.md)。
 
@@ -377,6 +428,7 @@ alias navi='command navi --path /home/rainboy/mycode/抽离rbook中的题目/scr
 | `duipai-human.py` | `scripts/problem-analysis-tools/duipai-human.py` | [`docs/tools/duipai-human.md`](docs/tools/duipai-human.md) |
 | `shrink_failed.py` | `scripts/problem-analysis-tools/shrink_failed.py` | [`docs/tools/shrink_failed.md`](docs/tools/shrink_failed.md) |
 | `data_tool.py` | `scripts/problem-analysis-tools/data_tool.py` | [`docs/tools/data_tool.md`](docs/tools/data_tool.md) |
+| `ptool` | `scripts/navi/ptool` | [`docs/tools/ptool.md`](docs/tools/ptool.md) |
 
 ### 7.2 旧版写题辅助工具
 
@@ -394,6 +446,7 @@ alias navi='command navi --path /home/rainboy/mycode/抽离rbook中的题目/scr
 | `luogu.py` | `scripts/problem-tools/luogu.py` | [`docs/tools/problem-tools-luogu.md`](docs/tools/problem-tools-luogu.md) |
 | `oj` | `scripts/problem-tools/oj.js` | [`docs/tools/problem-tools-oj.md`](docs/tools/problem-tools-oj.md) |
 | `r-lldb` | `scripts/problem-tools/lldb.sh` | [`docs/tools/problem-tools-r-lldb.md`](docs/tools/problem-tools-r-lldb.md) |
+| `r-cgdb` | `scripts/problem-tools/r-cgdb.sh` | [`docs/tools/problem-tools-r-cgdb.md`](docs/tools/problem-tools-r-cgdb.md) |
 | `nvimsizer` | `scripts/problem-tools/nvimsizer.sh` | [`docs/tools/problem-tools-nvimsizer.md`](docs/tools/problem-tools-nvimsizer.md) |
 | `transfer` | `scripts/problem-tools/transfer.sh` | [`docs/tools/problem-tools-transfer.md`](docs/tools/problem-tools-transfer.md) |
 | `r-list-all-scripts.py` | `scripts/problem-tools/r-list-all-scripts.py` | [`docs/tools/problem-tools-r-list-all-scripts.md`](docs/tools/problem-tools-r-list-all-scripts.md) |

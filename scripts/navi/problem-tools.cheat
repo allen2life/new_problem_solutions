@@ -1,123 +1,158 @@
-% rbook, oj, problem, tools
-
-# Create a new problem directory
-repo=$(git rev-parse --show-toplevel) && python3 "$repo/scripts/problem-analysis-tools/new-problem.py" <oj> <problem_id>
+% new-problem
+# 创建新题目目录
+ptool new-problem <oj> <problem_id>
 
 $ oj: echo "luogu"
 $ problem_id: echo "1001"
 
-# Fetch problem statement and samples into the new problem structure
-repo=$(git rev-parse --show-toplevel) && python3 "$repo/scripts/problem-analysis-tools/fetch_problem.py" <oj> <problem_id>
+% fetch-problem
+# 抓取题面和样例到新题目结构
+ptool fetch_problem <oj> <problem_id>
 
-# Fetch problem by URL into the new problem structure
-repo=$(git rev-parse --show-toplevel) && python3 "$repo/scripts/problem-analysis-tools/fetch_problem.py" <problem_url>
+% fetch-url
+# 通过题目 URL 抓取到新题目结构
+ptool fetch_problem <problem_url>
 
 $ problem_url: echo "https://www.luogu.com.cn/problem/P1001"
 
-# Preview problem fetch without writing files
-repo=$(git rev-parse --show-toplevel) && python3 "$repo/scripts/problem-analysis-tools/fetch_problem.py" <oj> <problem_id> --dry-run
+% fetch-dry
+# 预览抓题结果，不写入文件
+ptool fetch_problem <oj> <problem_id> --dry-run
 
-# Fetch problem and output JSON for agent/script use
-repo=$(git rev-parse --show-toplevel) && python3 "$repo/scripts/problem-analysis-tools/fetch_problem.py" <oj> <problem_id> --json
+% fetch-json
+# 抓取题目并输出 JSON，给 agent 或脚本使用
+ptool fetch_problem <oj> <problem_id> --json
 
-# Show current problem workflow status
-repo=$(git rev-parse --show-toplevel) && python3 "$repo/scripts/problem-analysis-tools/problem_status.py" <problem_dir>
+% status
+# 查看当前题目工作流状态
+ptool problem_status <problem_dir>
 
-$ problem_dir: repo=$(git rev-parse --show-toplevel) && find "$repo/problems" -mindepth 2 -maxdepth 2 -type d | sed "s|$repo/||" | sort
+$ problem_dir: ptool list-problems
 
-# Show current problem workflow status and run samples
-repo=$(git rev-parse --show-toplevel) && python3 "$repo/scripts/problem-analysis-tools/problem_status.py" <problem_dir> --run-sample --timeout <timeout>
+% status-sample
+# 查看当前题目状态并运行样例
+ptool problem_status <problem_dir> --run-sample --timeout <timeout>
 
 $ timeout: echo "2"
 
-# Check problem format
-repo=$(git rev-parse --show-toplevel) && python3 "$repo/scripts/problem-analysis-tools/check_problem.py" <problem_dir>
+% check-format
+# 检查题解格式
+ptool check_problem <problem_dir>
 
-# Check samples with default main.cpp
-repo=$(git rev-parse --show-toplevel) && python3 "$repo/scripts/problem-analysis-tools/check_sample.py" <problem_dir> --timeout <timeout>
+% check-sample
+# 使用默认 main.cpp 检查样例
+ptool check_sample <problem_dir> --timeout <timeout>
 
-# Check samples with time and memory limits
-repo=$(git rev-parse --show-toplevel) && python3 "$repo/scripts/problem-analysis-tools/check_sample.py" <problem_dir> --timeout <timeout> --memory-mb <memory_mb>
+% check-limit
+# 带时间和内存限制检查样例
+ptool check_sample <problem_dir> --timeout <timeout> --memory-mb <memory_mb>
 
 $ memory_mb: echo "256"
 
-# List sample and data files
-repo=$(git rev-parse --show-toplevel) && python3 "$repo/scripts/problem-analysis-tools/data_tool.py" list <problem_dir>
+% data-list
+# 列出样例和本地数据文件
+ptool data_tool list <problem_dir>
 
-# Normalize sample and data files to LF
-repo=$(git rev-parse --show-toplevel) && python3 "$repo/scripts/problem-analysis-tools/data_tool.py" normalize <problem_dir>
+% data-normalize
+# 将样例和本地数据文件统一为 LF 换行
+ptool data_tool normalize <problem_dir>
 
-# Copy root samples into data/
-repo=$(git rev-parse --show-toplevel) && python3 "$repo/scripts/problem-analysis-tools/data_tool.py" copy-samples-to-data <problem_dir>
+% data-copy
+# 把题目根目录样例复制到 data/
+ptool data_tool copy-samples-to-data <problem_dir>
 
-# Add one input/answer pair into data/
-repo=$(git rev-parse --show-toplevel) && python3 "$repo/scripts/problem-analysis-tools/data_tool.py" add <problem_dir> --input <input_file> --answer <answer_file> --name <case_name>
+% data-add
+# 添加一组输入和答案到 data/
+ptool data_tool add <problem_dir> --input <input_file> --answer <answer_file> --name <case_name>
 
 $ input_file: echo "in1"
 $ answer_file: echo "out1"
 $ case_name: echo "sample1"
 
-# Generate random array
-repo=$(git rev-parse --show-toplevel) && python3 "$repo/scripts/problem-analysis-tools/gen_random.py" --pattern array -n <n> --min <min_value> --max <max_value>
+% gen-array
+# 生成随机数组
+ptool gen_random --pattern array -n <n> --min <min_value> --max <max_value>
 
 $ n: echo "10"
 $ min_value: echo "1"
 $ max_value: echo "100"
 
-# Generate random tree
-repo=$(git rev-parse --show-toplevel) && python3 "$repo/scripts/problem-analysis-tools/gen_random.py" --pattern tree -n <n>
+% gen-tree
+# 生成随机树
+ptool gen_random --pattern tree -n <n>
 
-# Generate random graph
-repo=$(git rev-parse --show-toplevel) && python3 "$repo/scripts/problem-analysis-tools/gen_random.py" --pattern graph -n <n> -m <m>
+% gen-graph
+# 生成随机图
+ptool gen_random --pattern graph -n <n> -m <m>
 
 $ m: echo "15"
 
-# Run non-interactive duipai
-repo=$(git rev-parse --show-toplevel) && python3 "$repo/scripts/problem-analysis-tools/duipai.py" --gen <problem_dir>/gen.py --user <problem_dir>/main.cpp --brute <problem_dir>/brute.cpp -n <count> --timeout <timeout>
+% duipai
+# 运行非交互式对拍
+ptool duipai --gen <problem_dir>/gen.py --user <problem_dir>/main.cpp --brute <problem_dir>/brute.cpp -n <count> --timeout <timeout>
 
 $ count: echo "200"
 
-# Run duipai with memory limit
-repo=$(git rev-parse --show-toplevel) && python3 "$repo/scripts/problem-analysis-tools/duipai.py" --gen <problem_dir>/gen.py --user <problem_dir>/main.cpp --brute <problem_dir>/brute.cpp -n <count> --timeout <timeout> --memory-mb <memory_mb>
+% duipai-mem
+# 带内存限制运行对拍
+ptool duipai --gen <problem_dir>/gen.py --user <problem_dir>/main.cpp --brute <problem_dir>/brute.cpp -n <count> --timeout <timeout> --memory-mb <memory_mb>
 
-# Run duipai with checker
-repo=$(git rev-parse --show-toplevel) && python3 "$repo/scripts/problem-analysis-tools/duipai.py" --gen <problem_dir>/gen.py --user <problem_dir>/main.cpp --brute <problem_dir>/brute.cpp --checker <checker> -n <count>
+% duipai-checker
+# 使用 checker 运行对拍
+ptool duipai --gen <problem_dir>/gen.py --user <problem_dir>/main.cpp --brute <problem_dir>/brute.cpp --checker <checker> -n <count>
 
 $ checker: echo "checker.py"
 
-# Start interactive duipai in a problem directory
-repo=$(git rev-parse --show-toplevel) && cd "$repo/<problem_dir>" && python3 "$repo/scripts/problem-analysis-tools/duipai-human.py"
+% duipai-human
+# 在题目目录中启动交互式对拍
+ptool --cd <problem_dir> duipai-human
 
-# Shrink failed n + array input
-repo=$(git rev-parse --show-toplevel) && cd "$repo/<problem_dir>" && python3 "$repo/scripts/problem-analysis-tools/shrink_failed.py"
+% shrink
+# 缩小失败的 n 加数组输入反例
+ptool --cd <problem_dir> shrink_failed
 
-# Compile and run C++ using b in a problem directory
-repo=$(git rev-parse --show-toplevel) && cd "$repo/<problem_dir>" && python3 "$repo/scripts/problem-tools/b" <source>
+% b-run
+# 在题目目录中使用 b 编译并运行 C++
+ptool --cd <problem_dir> old b <source>
 
 $ source: echo "main"
 
-# Compile and run C++ using b with input
-repo=$(git rev-parse --show-toplevel) && cd "$repo/<problem_dir>" && python3 "$repo/scripts/problem-tools/b" <source> -i <input_file>
+% b-input
+# 使用 b 编译运行 C++ 并指定输入
+ptool --cd <problem_dir> old b <source> -i <input_file>
 
-# Download Luogu samples into current directory
-repo=$(git rev-parse --show-toplevel) && cd "$repo/<problem_dir>" && python3 "$repo/scripts/problem-tools/luogu.py" <luogu_id>
+% luogu-sample
+# 下载洛谷样例到当前目录
+ptool --cd <problem_dir> old luogu <luogu_id>
 
 $ luogu_id: echo "P1001"
 
-# Convert edge list to graph.png
-repo=$(git rev-parse --show-toplevel) && cd "$repo/<problem_dir>" && tail -n +2 <input_file> | python3 "$repo/scripts/problem-tools/input2dot.py" | python3 "$repo/scripts/problem-tools/dot2png.py" -o <output_png>
+% graph
+# 将边列表转换为 graph.png
+ptool --cd <problem_dir> graph <input_file> <output_png>
 
 $ output_png: echo "graph.png"
 
-# Convert directed edge list to graph.png
-repo=$(git rev-parse --show-toplevel) && cd "$repo/<problem_dir>" && tail -n +2 <input_file> | python3 "$repo/scripts/problem-tools/input2dot.py" -d | python3 "$repo/scripts/problem-tools/dot2png.py" -o <output_png>
+% graph-directed
+# 将有向边列表转换为 graph.png
+ptool --cd <problem_dir> graph-directed <input_file> <output_png>
 
-# Debug executable with LLDB and selected input
-repo=$(git rev-parse --show-toplevel) && cd "$repo/<problem_dir>" && bash "$repo/scripts/problem-tools/lldb.sh" <executable>
+% lldb
+# 使用 LLDB 和指定输入调试可执行文件
+ptool --cd <problem_dir> old lldb <executable>
 
 $ executable: echo "./main.out"
 
-# Open code and input in Neovim split
-repo=$(git rev-parse --show-toplevel) && cd "$repo/<problem_dir>" && bash "$repo/scripts/problem-tools/nvimsizer.sh" <code_file> <input_file>
+% cgdb
+# 使用 CGDB 交互选择可执行文件和输入
+ptool --cd <problem_dir> old r-cgdb
+
+% cgdb-exe
+# 使用 CGDB 调试指定可执行文件
+ptool --cd <problem_dir> old r-cgdb <executable>
+
+% nvim-split
+# 用 Neovim 分屏打开代码和输入
+ptool --cd <problem_dir> old nvimsizer <code_file> <input_file>
 
 $ code_file: echo "main.cpp"
