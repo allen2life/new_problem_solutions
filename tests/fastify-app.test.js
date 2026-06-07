@@ -17,6 +17,7 @@ test('Fastify app renders the index page', async () => {
   assert.match(response.body, /<table/);
   assert.match(response.body, /原题/);
   assert.match(response.body, /最后更新/);
+  assert.doesNotMatch(response.body, /problem-floating-toolbar/);
 
   await app.close();
 });
@@ -60,6 +61,10 @@ test('Fastify app returns a problem detail page', async () => {
   assert.match(response.body, />GitHub</);
   assert.match(response.body, /prism-tomorrow\.min\.css/);
   assert.match(response.body, /src="\/javascripts\/code-copy\.js"/);
+  assert.match(response.body, /class="problem-floating-toolbar"/);
+  assert.match(response.body, /data-problem-font="increase"/);
+  assert.match(response.body, /data-scroll-top/);
+  assert.match(response.body, /src="\/javascripts\/problem-toolbar\.js"/);
 
   await app.close();
 });

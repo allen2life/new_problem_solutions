@@ -16,7 +16,46 @@ mixin relationGroup(title, items)
             if item.reason
               span.problem-relation-reason #{item.reason}
 
+mixin lucideIcon(icon)
+  svg.problem-toolbar-icon(xmlns="http://www.w3.org/2000/svg", viewBox="0 0 24 24", width="20", height="20", fill="none", stroke="currentColor", stroke-width="2", stroke-linecap="round", stroke-linejoin="round", aria-hidden="true", focusable="false")
+    case icon
+      when 'zoom-in'
+        // Iconify: lucide:zoom-in
+        circle(cx="11", cy="11", r="8")
+        path(d="m21 21-4.35-4.35")
+        path(d="M11 8v6")
+        path(d="M8 11h6")
+      when 'zoom-out'
+        // Iconify: lucide:zoom-out
+        circle(cx="11", cy="11", r="8")
+        path(d="m21 21-4.35-4.35")
+        path(d="M8 11h6")
+      when 'reset'
+        // Iconify: lucide:rotate-ccw
+        path(d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8")
+        path(d="M3 3v5h5")
+      when 'home'
+        // Iconify: lucide:house
+        path(d="M15 21v-8a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v8")
+        path(d="M3 10a2 2 0 0 1 .709-1.528l7-5.999a2 2 0 0 1 2.582 0l7 5.999A2 2 0 0 1 21 10v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z")
+      when 'arrow-up'
+        // Iconify: lucide:arrow-up
+        path(d="m5 12 7-7 7 7")
+        path(d="M12 19V5")
+
 block content
+  nav.problem-floating-toolbar(aria-label="题解工具")
+    button.problem-toolbar-button(type="button", data-problem-font="increase", title="字体增大", aria-label="字体增大")
+      +lucideIcon('zoom-in')
+    button.problem-toolbar-button(type="button", data-problem-font="decrease", title="字体缩小", aria-label="字体缩小")
+      +lucideIcon('zoom-out')
+    button.problem-toolbar-button(type="button", data-problem-font="reset", title="字体重置", aria-label="字体重置")
+      +lucideIcon('reset')
+    a.problem-toolbar-button(href="/", title="返回首页", aria-label="返回首页")
+      +lucideIcon('home')
+    button.problem-toolbar-button(type="button", data-scroll-top, title="返回顶部", aria-label="返回顶部")
+      +lucideIcon('arrow-up')
+
   nav(aria-label="breadcrumb")
     ol.breadcrumb
       li.breadcrumb-item
@@ -61,5 +100,8 @@ block content
 
   .card.problem-content-card
     .card-body
-      .markdown-body
+      .markdown-body(data-problem-readable)
         != content
+
+block scripts
+  script(src="/javascripts/problem-toolbar.js")
