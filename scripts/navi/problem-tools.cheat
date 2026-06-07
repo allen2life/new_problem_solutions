@@ -1,0 +1,109 @@
+% rbook, oj, problem, tools
+
+# Create a new problem directory
+repo=$(git rev-parse --show-toplevel) && python3 "$repo/scripts/problem-analysis-tools/new-problem.py" <oj> <problem_id>
+
+$ oj: echo "luogu"
+$ problem_id: echo "1001"
+
+# Show current problem workflow status
+repo=$(git rev-parse --show-toplevel) && python3 "$repo/scripts/problem-analysis-tools/problem_status.py" <problem_dir>
+
+$ problem_dir: repo=$(git rev-parse --show-toplevel) && find "$repo/problems" -mindepth 2 -maxdepth 2 -type d | sed "s|$repo/||" | sort
+
+# Show current problem workflow status and run samples
+repo=$(git rev-parse --show-toplevel) && python3 "$repo/scripts/problem-analysis-tools/problem_status.py" <problem_dir> --run-sample --timeout <timeout>
+
+$ timeout: echo "2"
+
+# Check problem format
+repo=$(git rev-parse --show-toplevel) && python3 "$repo/scripts/problem-analysis-tools/check_problem.py" <problem_dir>
+
+# Check samples with default main.cpp
+repo=$(git rev-parse --show-toplevel) && python3 "$repo/scripts/problem-analysis-tools/check_sample.py" <problem_dir> --timeout <timeout>
+
+# Check samples with time and memory limits
+repo=$(git rev-parse --show-toplevel) && python3 "$repo/scripts/problem-analysis-tools/check_sample.py" <problem_dir> --timeout <timeout> --memory-mb <memory_mb>
+
+$ memory_mb: echo "256"
+
+# List sample and data files
+repo=$(git rev-parse --show-toplevel) && python3 "$repo/scripts/problem-analysis-tools/data_tool.py" list <problem_dir>
+
+# Normalize sample and data files to LF
+repo=$(git rev-parse --show-toplevel) && python3 "$repo/scripts/problem-analysis-tools/data_tool.py" normalize <problem_dir>
+
+# Copy root samples into data/
+repo=$(git rev-parse --show-toplevel) && python3 "$repo/scripts/problem-analysis-tools/data_tool.py" copy-samples-to-data <problem_dir>
+
+# Add one input/answer pair into data/
+repo=$(git rev-parse --show-toplevel) && python3 "$repo/scripts/problem-analysis-tools/data_tool.py" add <problem_dir> --input <input_file> --answer <answer_file> --name <case_name>
+
+$ input_file: echo "in1"
+$ answer_file: echo "out1"
+$ case_name: echo "sample1"
+
+# Generate random array
+repo=$(git rev-parse --show-toplevel) && python3 "$repo/scripts/problem-analysis-tools/gen_random.py" --pattern array -n <n> --min <min_value> --max <max_value>
+
+$ n: echo "10"
+$ min_value: echo "1"
+$ max_value: echo "100"
+
+# Generate random tree
+repo=$(git rev-parse --show-toplevel) && python3 "$repo/scripts/problem-analysis-tools/gen_random.py" --pattern tree -n <n>
+
+# Generate random graph
+repo=$(git rev-parse --show-toplevel) && python3 "$repo/scripts/problem-analysis-tools/gen_random.py" --pattern graph -n <n> -m <m>
+
+$ m: echo "15"
+
+# Run non-interactive duipai
+repo=$(git rev-parse --show-toplevel) && python3 "$repo/scripts/problem-analysis-tools/duipai.py" --gen <problem_dir>/gen.py --user <problem_dir>/main.cpp --brute <problem_dir>/brute.cpp -n <count> --timeout <timeout>
+
+$ count: echo "200"
+
+# Run duipai with memory limit
+repo=$(git rev-parse --show-toplevel) && python3 "$repo/scripts/problem-analysis-tools/duipai.py" --gen <problem_dir>/gen.py --user <problem_dir>/main.cpp --brute <problem_dir>/brute.cpp -n <count> --timeout <timeout> --memory-mb <memory_mb>
+
+# Run duipai with checker
+repo=$(git rev-parse --show-toplevel) && python3 "$repo/scripts/problem-analysis-tools/duipai.py" --gen <problem_dir>/gen.py --user <problem_dir>/main.cpp --brute <problem_dir>/brute.cpp --checker <checker> -n <count>
+
+$ checker: echo "checker.py"
+
+# Start interactive duipai in a problem directory
+repo=$(git rev-parse --show-toplevel) && cd "$repo/<problem_dir>" && python3 "$repo/scripts/problem-analysis-tools/duipai-human.py"
+
+# Shrink failed n + array input
+repo=$(git rev-parse --show-toplevel) && cd "$repo/<problem_dir>" && python3 "$repo/scripts/problem-analysis-tools/shrink_failed.py"
+
+# Compile and run C++ using b in a problem directory
+repo=$(git rev-parse --show-toplevel) && cd "$repo/<problem_dir>" && python3 "$repo/scripts/problem-tools/b" <source>
+
+$ source: echo "main"
+
+# Compile and run C++ using b with input
+repo=$(git rev-parse --show-toplevel) && cd "$repo/<problem_dir>" && python3 "$repo/scripts/problem-tools/b" <source> -i <input_file>
+
+# Download Luogu samples into current directory
+repo=$(git rev-parse --show-toplevel) && cd "$repo/<problem_dir>" && python3 "$repo/scripts/problem-tools/luogu.py" <luogu_id>
+
+$ luogu_id: echo "P1001"
+
+# Convert edge list to graph.png
+repo=$(git rev-parse --show-toplevel) && cd "$repo/<problem_dir>" && tail -n +2 <input_file> | python3 "$repo/scripts/problem-tools/input2dot.py" | python3 "$repo/scripts/problem-tools/dot2png.py" -o <output_png>
+
+$ output_png: echo "graph.png"
+
+# Convert directed edge list to graph.png
+repo=$(git rev-parse --show-toplevel) && cd "$repo/<problem_dir>" && tail -n +2 <input_file> | python3 "$repo/scripts/problem-tools/input2dot.py" -d | python3 "$repo/scripts/problem-tools/dot2png.py" -o <output_png>
+
+# Debug executable with LLDB and selected input
+repo=$(git rev-parse --show-toplevel) && cd "$repo/<problem_dir>" && bash "$repo/scripts/problem-tools/lldb.sh" <executable>
+
+$ executable: echo "./main.out"
+
+# Open code and input in Neovim split
+repo=$(git rev-parse --show-toplevel) && cd "$repo/<problem_dir>" && bash "$repo/scripts/problem-tools/nvimsizer.sh" <code_file> <input_file>
+
+$ code_file: echo "main.cpp"

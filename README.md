@@ -326,6 +326,43 @@ problems/<oj>/<problem_id>/problem-analysis-workspace/duipai-report.md
 
 内部支撑库 `scripts/problem-tools/mylib/` 不作为用户命令使用。
 
+也可以用 navi 作为交互式 cheatsheet：
+
+```bash
+navi --path scripts/navi
+```
+
+推荐配置一个 alias，让 navi 默认使用本仓库的 cheatsheet：
+
+```bash
+alias rbook-navi='command navi --path /home/rainboy/mycode/抽离rbook中的题目/scripts/navi'
+```
+
+把它写入 `~/.zshrc`：
+
+```bash
+echo "alias rbook-navi='command navi --path /home/rainboy/mycode/抽离rbook中的题目/scripts/navi'" >> ~/.zshrc
+source ~/.zshrc
+```
+
+之后直接使用：
+
+```bash
+rbook-navi
+rbook-navi --query duipai
+rbook-navi --query sample
+```
+
+如果希望覆盖 `navi` 命令本身，也可以写成：
+
+```bash
+alias navi='command navi --path /home/rainboy/mycode/抽离rbook中的题目/scripts/navi'
+```
+
+这种写法会让当前 shell 中的 `navi` 默认只搜索本仓库 cheatsheet；如果还想保留系统其他 navi cheatsheet，建议使用 `rbook-navi` 这个独立 alias。
+
+说明见 [`docs/tools/navi.md`](docs/tools/navi.md)。
+
 ### 7.1 题解分析工具
 
 | 工具 | 位置 | 文档 |
