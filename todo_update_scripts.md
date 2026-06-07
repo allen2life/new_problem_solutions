@@ -10,7 +10,7 @@
 
 ## P0
 
-### [ ] 1. 新增 `problem_status.py` 总控工具
+### [x] 1. 新增 `problem_status.py` 总控工具
 
 目的：在当前题目目录一条命令查看“这道题现在还缺什么”。
 
@@ -39,7 +39,7 @@ cd problems/luogu/1001
 python3 ../../../scripts/problem-analysis-tools/problem_status.py
 ```
 
-### [ ] 2. 新增对拍失败样例缩小工具
+### [x] 2. 新增对拍失败样例缩小工具
 
 目的：`duipai.py` 发现 WA 后，自动尝试把失败输入缩小成更容易观察的反例。
 
@@ -60,7 +60,7 @@ scripts/problem-analysis-tools/shrink_failed.py
 
 注意：第一版不需要解决所有输入格式，可以先支持“第一行 n，第二行数组”的常见结构。
 
-### [ ] 3. 给 `duipai.py` 增加资源限制和 checker 支持
+### [x] 3. 给 `duipai.py` 增加资源限制和 checker 支持
 
 目的：让对拍能力接近真实 OJ，并支持非标准输出比较。
 
@@ -84,7 +84,7 @@ scripts/problem-analysis-tools/duipai.py
 - 抽出 `check_sample.py` 里的受限运行逻辑，避免重复维护。
 - 状态优先级可以沿用：`TIMEOUT > MEMORY_LIMIT > RUNTIME_ERROR > WRONG_ANSWER > PASS`。
 
-### [ ] 4. 新增样例/本地数据整理工具
+### [x] 4. 新增样例/本地数据整理工具
 
 目的：统一管理 `in/out`、`in1/out1`、`data/*.in`、`data/*.out/.ans`，减少手动搬数据。
 
@@ -239,4 +239,3 @@ scripts/problem_analysis_lib/
 
 - 当前优先实现 P0，尤其是 `problem_status.py` 和 `shrink_failed.py`。
 - `.gitignore` 和 `work2_.md` 是当前工作区已有无关改动，不属于本 TODO。
-
