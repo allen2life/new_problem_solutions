@@ -4,7 +4,7 @@ problem_id: "P1002"
 title: "[NOIP 2002 普及组] 过河卒"
 date: 2026-06-07 16:25
 toc: true
-tags: []
+tags: ["dp", "noip"]
 categories: []
 source: https://www.luogu.com.cn/problem/P1002
 ---
