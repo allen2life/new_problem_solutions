@@ -164,7 +164,7 @@ Also evaluate whether the problem needs visualization. Record:
 Trigger rules:
 
 - 图论题：必须考虑 Graphviz 或 Mermaid 样例图。
-- 树题：必须考虑树图。
+- 树题、二叉树、线段树题：必须考虑用 `tree_draw.py` 生成 SVG 树图。
 - DP 题：必须考虑 Markdown 表格，背包题尤其优先表格。
 - 网格题：必须考虑二维表格。
 - 搜索、递归题：必须考虑搜索树或状态转移图。
@@ -295,6 +295,7 @@ Also include visualization when it improves learning:
 - Use Markdown tables for DP states, knapsack tables, grids, and step-by-step sample traces.
 - Use Mermaid for flowcharts, state transitions, simple trees, and process diagrams.
 - Use Graphviz dot for graph theory samples, trees, DAGs, and topology-like structures.
+- Use `tree_draw.py` for ordinary trees, binary trees, segment trees, and static tree-shaped data structures.
 - Use generated images only when source-style diagrams are too large or need hand annotations.
 
 Visualization is not mandatory for every problem, but it is a mandatory evaluation item. If the problem is graph/tree/DP/grid/search/simulation-heavy, prefer including one small visual block unless it would be redundant.
@@ -305,6 +306,19 @@ Every visual block in final `index.md` must:
 - explain what to observe after the figure/table in 2 to 5 sentences;
 - keep the displayed data small and tied to the sample or one key local structure;
 - avoid decorative diagrams.
+
+When using `tree_draw.py`, prefer SVG output in the current problem directory or a local `assets/` directory:
+
+```bash
+ptool --cd problems/<oj>/<problem_id> tree_draw --type binary --input tree.txt --output tree.svg --markdown
+ptool --cd problems/<oj>/<problem_id> tree_draw --type segment --size 8 --output segment-tree.svg --markdown
+```
+
+Then reference it from `index.md`:
+
+```markdown
+![二叉树示意图](./tree.svg)
+```
 
 Do not turn `index.md` into a raw dump of all process notes. The detailed learning path belongs in `problem-analysis-workspace/*.md`.
 

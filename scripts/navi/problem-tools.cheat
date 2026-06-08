@@ -163,6 +163,26 @@ $ output_png: echo "graph.png"
 # 将有向边列表转换为 graph.png
 ptool --cd <problem_dir> graph-directed <input_file> <output_png>
 
+% tree-draw
+# 将普通树边列表绘制为 SVG
+ptool --cd <problem_dir> tree_draw --type normal --input <tree_input> --output <tree_svg> --markdown
+
+$ tree_input: echo "tree.txt"
+$ tree_svg: echo "tree.svg"
+
+% binary-tree-draw
+# 将二叉树 children 表绘制为 SVG
+ptool --cd <problem_dir> tree_draw --type binary --input <binary_input> --output <tree_svg> --markdown
+
+$ binary_input: echo "binary.txt"
+
+% segment-tree-draw
+# 按规模生成线段树结构 SVG
+ptool --cd <problem_dir> tree_draw --type segment --size <segment_size> --output <segment_svg> --markdown --alt "线段树结构图"
+
+$ segment_size: echo "8"
+$ segment_svg: echo "segment.svg"
+
 % lldb
 # 使用 LLDB 和指定输入调试可执行文件
 ptool --cd <problem_dir> old lldb <executable>

@@ -240,7 +240,7 @@ problems/<oj>/<problem_id>/
 5. 如果要对拍，再准备或补全 `gen.py` 并运行对拍脚本。
 6. 人工检查 `index.md` 的题意、思路、复杂度和代码引用。
 
-题解写作时必须评估是否需要可视化辅助。图论、树、DP、网格、搜索和复杂模拟题，优先使用 Mermaid、Graphviz 或 Markdown 表格解释样例数据和关键过程。详细规范见 [`docs/problem-visualization.md`](docs/problem-visualization.md)。
+题解写作时必须评估是否需要可视化辅助。图论、树、DP、网格、搜索和复杂模拟题，优先使用 Mermaid、Graphviz、`tree_draw.py` 或 Markdown 表格解释样例数据和关键过程。详细规范见 [`docs/problem-visualization.md`](docs/problem-visualization.md)。
 
 示例提示：
 
@@ -415,6 +415,7 @@ alias rbook-navi='command navi --path "$RBOOK_REPO/scripts/navi"'
 | `rbook_cd_problem` | `scripts/navi/rbook-shell.zsh` | [`docs/tools/rbook-shell.md`](docs/tools/rbook-shell.md) |
 | `problem_status.py` | `scripts/problem-analysis-tools/problem_status.py` | [`docs/tools/problem_status.md`](docs/tools/problem_status.md) |
 | `gen_random.py` | `scripts/problem-analysis-tools/gen_random.py` | [`docs/tools/gen_random.md`](docs/tools/gen_random.md) |
+| `tree_draw.py` | `scripts/problem-analysis-tools/tree_draw.py` | [`docs/tools/tree_draw.md`](docs/tools/tree_draw.md) |
 | `duipai.py` | `scripts/problem-analysis-tools/duipai.py` | [`docs/tools/duipai.md`](docs/tools/duipai.md) |
 | `duipai-human.py` | `scripts/problem-analysis-tools/duipai-human.py` | [`docs/tools/duipai-human.md`](docs/tools/duipai-human.md) |
 | `shrink_failed.py` | `scripts/problem-analysis-tools/shrink_failed.py` | [`docs/tools/shrink_failed.md`](docs/tools/shrink_failed.md) |

@@ -1,6 +1,6 @@
 # 题解可视化辅助规范
 
-题解可以使用 Mermaid、Graphviz、Markdown 表格和图片解释样例数据或算法过程。可视化的目标是帮助读者更快理解题目，不是装饰页面。
+题解可以使用 Mermaid、Graphviz、`tree_draw.py`、Markdown 表格和图片解释样例数据或算法过程。可视化的目标是帮助读者更快理解题目，不是装饰页面。
 
 ## 使用场景
 
@@ -9,7 +9,8 @@
 | 题型 | 推荐形式 | 说明 |
 | --- | --- | --- |
 | 图论 | Graphviz dot / Mermaid | 画样例图、DAG、拓扑关系、最短路局部过程 |
-| 树 | Graphviz dot / Mermaid | 画样例树、递归关系、父子关系 |
+| 树 | `tree_draw.py` / Mermaid | 画样例树、递归关系、父子关系 |
+| 二叉树 / 线段树 | `tree_draw.py` | 画二叉树、线段树区间结构、静态数据结构图 |
 | DP / 背包 | Markdown 表格 | 展示状态定义、样例状态表、关键转移 |
 | 网格 | Markdown 表格 | 展示起点、终点、障碍、可走区域 |
 | 搜索 / 递归 | Mermaid / Graphviz dot | 展示搜索树或状态扩展 |
@@ -94,6 +95,42 @@ python3 scripts/problem-tools/dot2png.py sample.dot sample.png
 ```bash
 python3 scripts/problem-tools/input2dot.py < sample.in > sample.dot
 ```
+
+## tree_draw.py
+
+`tree_draw.py` 适合绘制树类数据结构，默认输出 SVG。它使用固定坐标布局，不依赖 Graphviz 的自动布局。
+
+普通树：
+
+```bash
+tree_draw.py --type normal --input tree.txt --output tree.svg --markdown
+```
+
+二叉树：
+
+```bash
+tree_draw.py --type binary --input binary.txt --output binary.svg --markdown
+```
+
+线段树结构：
+
+```bash
+tree_draw.py --type segment --size 8 --output segment.svg --markdown --alt "线段树结构图"
+```
+
+在题目目录中配合 `ptool`：
+
+```bash
+ptool --cd problems/luogu/Pxxxx tree_draw --type binary --input tree.txt --output tree.svg --markdown
+```
+
+题解中插入：
+
+```markdown
+![二叉树示意图](./tree.svg)
+```
+
+详细说明见 [`docs/tools/tree_draw.md`](tools/tree_draw.md)。
 
 ## Markdown 表格
 

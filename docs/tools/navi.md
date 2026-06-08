@@ -132,6 +132,7 @@ style:
 - `check_sample.py`
 - `data_tool.py`
 - `gen_random.py`
+- `tree_draw.py`
 - `duipai.py`
 - `duipai-human.py`
 - `shrink_failed.py`

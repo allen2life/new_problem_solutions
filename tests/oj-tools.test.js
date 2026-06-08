@@ -1,5 +1,9 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
+import { execFileSync } from 'node:child_process';
+import { mkdtempSync, readFileSync, writeFileSync } from 'node:fs';
+import { tmpdir } from 'node:os';
+import { join } from 'node:path';
 import LUOGU from '../old_scripts/online_judge/luogu.js';
 
 test('Luogu downloader renders problem.md content', () => {
@@ -24,4 +28,101 @@ test('Luogu downloader renders problem.md content', () => {
   assert.match(markdown, /```\n1 2\n```/);
   assert.match(markdown, /```\n3\n```/);
   assert.match(markdown, /## 说明\/提示\n\nhint text/);
+});
+
+function runTreeDraw(args, input = '') {
+  return execFileSync(
+    'python3',
+    ['scripts/problem-analysis-tools/tree_draw.py', ...args],
+    {
+      cwd: process.cwd(),
+      input,
+      encoding: 'utf8',
+    },
+  );
+}
+
+test('tree_draw renders normal tree SVG from edge list', () => {
+  const dir = mkdtempSync(join(tmpdir(), 'tree-draw-'));
+  const output = join(dir, 'normal.svg');
+  const stdout = runTreeDraw(['--type', 'normal', '-o', output, '--markdown'], [
+    '5',
+    '1 2',
+    '1 3',
+    '2 4',
+    '2 5',
+    '',
+  ].join('\n'));
+  const svg = readFileSync(output, 'utf8');
+
+  assert.match(stdout, /!\[树形结构示意图\]\(\.\/normal\.svg\)/);
+  assert.match(svg, /<svg /);
+  assert.match(svg, /data-id="1"/);
+  assert.match(svg, /data-id="5"/);
+  assert.match(svg, /<line x1=/);
+});
+
+test('tree_draw renders binary tree child table with edge labels', () => {
+  const dir = mkdtempSync(join(tmpdir(), 'tree-draw-'));
+  const input = join(dir, 'binary.txt');
+  const output = join(dir, 'binary.svg');
+  writeFileSync(input, [
+    '5',
+    '1 2 3',
+    '2 4 5',
+    '3 0 0',
+    '4 0 0',
+    '5 0 0',
+    '',
+  ].join('\n'));
+
+  runTreeDraw(['--type', 'binary', '--input', input, '--output', output]);
+  const svg = readFileSync(output, 'utf8');
+
+  assert.match(svg, />L<\/text>/);
+  assert.match(svg, />R<\/text>/);
+  assert.match(svg, /data-id="4"/);
+});
+
+test('tree_draw renders JSON tree with node style overrides', () => {
+  const dir = mkdtempSync(join(tmpdir(), 'tree-draw-'));
+  const output = join(dir, 'json.svg');
+  const data = JSON.stringify({
+    type: 'binary',
+    root: 'a',
+    nodes: [
+      { id: 'a', label: '8', left: 'b', right: 'c', style: { fill: '#fee2e2' } },
+      { id: 'b', label: '3' },
+      { id: 'c', label: '10' },
+    ],
+  });
+
+  runTreeDraw(['--type', 'json', '--output', output], data);
+  const svg = readFileSync(output, 'utf8');
+
+  assert.match(svg, /data-id="a"/);
+  assert.match(svg, />8<\/text>/);
+  assert.match(svg, /fill="#fee2e2"/);
+});
+
+test('tree_draw renders segment tree preset', () => {
+  const dir = mkdtempSync(join(tmpdir(), 'tree-draw-'));
+  const output = join(dir, 'segment.svg');
+
+  runTreeDraw(['--type', 'segment', '--size', '4', '--output', output]);
+  const svg = readFileSync(output, 'utf8');
+
+  assert.match(svg, />\[1,4\]<\/text>/);
+  assert.match(svg, />\[1,2\]<\/text>/);
+  assert.match(svg, /<rect /);
+});
+
+test('ptool can locate tree_draw help', () => {
+  const stdout = execFileSync(
+    'scripts/navi/ptool',
+    ['tree_draw', '--help'],
+    { cwd: process.cwd(), encoding: 'utf8' },
+  );
+
+  assert.match(stdout, /使用 Walker 风格布局绘制树结构 SVG/);
 });
