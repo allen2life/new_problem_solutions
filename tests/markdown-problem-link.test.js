@@ -199,6 +199,30 @@ test('MarkdownRenderer renders plain fences with copy button and line numbers', 
   assert.match(html, /<span class="token macro property">/);
 });
 
+test('MarkdownRenderer renders visualization fences for Mermaid and Graphviz', () => {
+  const md = new MarkdownRenderer('');
+  md.md_content = [
+    '```mermaid',
+    'flowchart LR',
+    '  A --> B',
+    '```',
+    '',
+    '```dot',
+    'graph G {',
+    '  1 -- 2;',
+    '}',
+    '```',
+  ].join('\n');
+
+  const html = md.toHTML();
+
+  assert.match(html, /<pre class="mermaid">\nflowchart LR/);
+  assert.match(html, /A --&gt; B/);
+  assert.match(html, /<div class="graphviz"><pre class="dot">/);
+  assert.match(html, /1 -- 2;/);
+  assert.doesNotMatch(html, /data-code-copy/);
+});
+
 test('MarkdownRenderer supports migrated rbook markdown extensions', () => {
   const md = new MarkdownRenderer('problems/OpenJ_Bailian/1651/index.md');
   md.md_content = `[[TOC]]

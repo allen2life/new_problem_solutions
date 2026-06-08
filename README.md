@@ -9,6 +9,7 @@
 ## 1. 功能概览
 
 - Markdown 题目渲染（Front Matter + 正文）
+- 题解可视化辅助：Mermaid、Graphviz 源码块、Markdown 表格和图片
 - 题目列表分页、OJ/标签筛选、搜索
 - 题目详情页渲染
 - API 接口：
@@ -238,6 +239,8 @@ problems/<oj>/<problem_id>/
 4. AI 根据 `06-final-index-draft.md` 和 `oj-problem-format-spec` 写入正式 `index.md`。
 5. 如果要对拍，再准备或补全 `gen.py` 并运行对拍脚本。
 6. 人工检查 `index.md` 的题意、思路、复杂度和代码引用。
+
+题解写作时必须评估是否需要可视化辅助。图论、树、DP、网格、搜索和复杂模拟题，优先使用 Mermaid、Graphviz 或 Markdown 表格解释样例数据和关键过程。详细规范见 [`docs/problem-visualization.md`](docs/problem-visualization.md)。
 
 示例提示：
 

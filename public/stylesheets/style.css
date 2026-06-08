@@ -947,6 +947,29 @@ a {
   overflow-x: auto;
 }
 
+.markdown-body .mermaid {
+  display: flex;
+  justify-content: center;
+  margin: 1rem 0 1.5rem;
+  padding: 1rem;
+  overflow-x: auto;
+  background: #f8fafc;
+  border: 1px solid #d0d5dd;
+  border-radius: 0.5rem;
+}
+
+.markdown-body .mermaid svg {
+  max-width: 100%;
+  height: auto;
+}
+
+.markdown-body .mermaid-render-failed {
+  justify-content: flex-start;
+  color: #667085;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace;
+  white-space: pre;
+}
+
 .markdown-body viz-gallery {
   display: block;
   margin: 1rem 0;

@@ -64,7 +64,9 @@ test('Fastify app returns a problem detail page', async () => {
   assert.match(response.body, /class="problem-floating-toolbar"/);
   assert.match(response.body, /data-problem-font="increase"/);
   assert.match(response.body, /data-scroll-top/);
+  assert.match(response.body, /mermaid@11\/dist\/mermaid\.min\.js/);
   assert.match(response.body, /src="\/javascripts\/problem-toolbar\.js"/);
+  assert.match(response.body, /src="\/javascripts\/problem-mermaid\.js"/);
   assert.match(response.body, /href="\/relations\?oj=OpenJ_Bailian&amp;pid=1651"/);
 
   await app.close();

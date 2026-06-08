@@ -68,6 +68,7 @@ Final `index.md` must follow that format:
 - `### 总结`
 - `@include-code(./main.cpp, cpp)`
 - `@include-code(./brute.cpp, cpp)` in `### 思路`
+- Mermaid、Graphviz、Markdown 表格等可视化内容必须遵守 `oj-problem-format-spec` 的“可视化辅助格式”。
 
 ## Source Priority
 
@@ -148,6 +149,26 @@ Required sections:
 
 ## 为什么这个模型适用
 ```
+
+Also evaluate whether the problem needs visualization. Record:
+
+```markdown
+## 可视化评估
+
+- 是否需要可视化辅助：是 / 否
+- 推荐形式：Markdown 表格 / Mermaid / Graphviz / 图片 / 不需要
+- 解释对象：样例 / 状态 / 转移 / 图结构 / 搜索树 / 贪心选择 / 不需要
+- 如果不需要，原因：
+```
+
+Trigger rules:
+
+- 图论题：必须考虑 Graphviz 或 Mermaid 样例图。
+- 树题：必须考虑树图。
+- DP 题：必须考虑 Markdown 表格，背包题尤其优先表格。
+- 网格题：必须考虑二维表格。
+- 搜索、递归题：必须考虑搜索树或状态转移图。
+- 模拟题：如果样例过程复杂，必须考虑过程表格。
 
 ### `03-solution-derivation.md`
 
@@ -269,6 +290,22 @@ In `### 思路`, keep a compressed layered progression:
 5. explain the final method;
 6. mention the important implementation correspondence.
 
+Also include visualization when it improves learning:
+
+- Use Markdown tables for DP states, knapsack tables, grids, and step-by-step sample traces.
+- Use Mermaid for flowcharts, state transitions, simple trees, and process diagrams.
+- Use Graphviz dot for graph theory samples, trees, DAGs, and topology-like structures.
+- Use generated images only when source-style diagrams are too large or need hand annotations.
+
+Visualization is not mandatory for every problem, but it is a mandatory evaluation item. If the problem is graph/tree/DP/grid/search/simulation-heavy, prefer including one small visual block unless it would be redundant.
+
+Every visual block in final `index.md` must:
+
+- state what it shows before the figure/table;
+- explain what to observe after the figure/table in 2 to 5 sentences;
+- keep the displayed data small and tied to the sample or one key local structure;
+- avoid decorative diagrams.
+
 Do not turn `index.md` into a raw dump of all process notes. The detailed learning path belongs in `problem-analysis-workspace/*.md`.
 
 The `### 代码` section still contains only the final accepted/optimized solution:
@@ -298,6 +335,8 @@ python3 scripts/problem-analysis-tools/list_tags.py --format plain
 - The `### 思路` section uses `@include-code(./brute.cpp, cpp)`.
 - `brute.cpp` is complete and matches the same input/output format.
 - Key implementation details mentioned in the article exist in the code.
+- Visualization was evaluated in `02-observation-and-model.md`.
+- Any Mermaid / Graphviz / table used in `index.md` has nearby explanatory text and follows the format spec.
 - If no verification was run, say so in the process notes; do not imply proof by testing.
 
 ## Verification Scripts
@@ -357,5 +396,6 @@ After editing, report briefly:
 - whether `brute.cpp` was created or updated;
 - whether `index.md` was written from `06-final-index-draft.md`;
 - which `tags` were written into `index.md` frontmatter;
+- whether visualization was evaluated and what was used, if anything;
 - whether 对拍 was run and where the report is;
 - any missing fields, code files, or verification material.
