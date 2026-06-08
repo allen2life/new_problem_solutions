@@ -94,6 +94,59 @@ test('ProblemManager resolves pre, successor, and common relations', () => {
   assert.equal(relations.hasAny, true);
 });
 
+test('ProblemManager builds global relation graph data', () => {
+  const pm = new ProblemManager({ auto_load: false });
+  pm.problems = [
+    {
+      oj: 'luogu',
+      problem_id: 'P1',
+      title: 'Base',
+      url: '/problems/luogu/P1',
+      tags: ['dp'],
+      pre: [],
+      common: [{ oj: 'HDU', problem_id: '1000', reason: '同一模型。' }],
+    },
+    {
+      oj: 'luogu',
+      problem_id: 'P2',
+      title: 'Advanced',
+      url: '/problems/luogu/P2',
+      tags: ['graph'],
+      pre: [{ oj: 'luogu', problem_id: 'P1', reason: '基础题。' }],
+      common: [],
+    },
+    {
+      oj: 'HDU',
+      problem_id: '1000',
+      title: 'Similar',
+      url: '/problems/HDU/1000',
+      tags: [],
+      pre: [],
+      common: [],
+    },
+    {
+      oj: 'poj',
+      problem_id: '9999',
+      title: 'Isolated',
+      url: '/problems/poj/9999',
+      tags: [],
+      pre: [],
+      common: [],
+    },
+  ];
+  pm.buildIndex();
+
+  const graph = pm.getRelationGraph();
+
+  assert.equal(graph.nodes.length, 4);
+  assert.equal(graph.edges.length, 2);
+  assert.equal(graph.summary.relationNodes, 3);
+  assert.equal(graph.summary.isolatedNodes, 1);
+  assert.ok(graph.edges.some((edge) => edge.id === 'pre:luogu/P1->luogu/P2' && edge.directed));
+  assert.ok(graph.edges.some((edge) => edge.type === 'common' && !edge.directed));
+  assert.equal(graph.nodes.find((node) => node.id === 'poj/9999').isolated, true);
+});
+
 test('MarkdownRenderer renders TOC and KaTeX math', () => {
   const pm = new ProblemManager();
   const md = new MarkdownRenderer('', pm);

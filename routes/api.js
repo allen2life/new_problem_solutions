@@ -31,6 +31,13 @@ export default async function apiRoutes(app) {
       },
       {
         method: 'GET',
+        path: '/api/relations',
+        desc: '题目关系图数据',
+        query: '-',
+        example: '/api/relations',
+      },
+      {
+        method: 'GET',
         path: '/api/oj',
         desc: 'OJ 平台列表',
         query: '-',
@@ -118,6 +125,8 @@ export default async function apiRoutes(app) {
   });
 
   app.get('/tags', async () => problemManager.getAllTags());
+
+  app.get('/relations', async () => problemManager.getRelationGraph());
 
   app.get('/oj', async () => problemManager.getAllOJs());
 }

@@ -64,6 +64,12 @@ export default async function indexRoutes(app) {
       githubUrl: problemManager.github_url(problem.md_path),
     });
   });
+
+  app.get('/relations', async (request, reply) => {
+    return reply.view('relations.pug', {
+      title: '题目关系图',
+    });
+  });
 }
 
 function buildPageUrl({ page, query, oj, tag }) {

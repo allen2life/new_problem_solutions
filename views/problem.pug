@@ -71,6 +71,7 @@ block content
         .d-flex.gap-2
           if githubUrl
             a.btn.btn-outline-dark.btn-sm(href=githubUrl, target="_blank", rel="noopener noreferrer") GitHub
+          a.btn.btn-outline-primary.btn-sm(href=`/relations?oj=${encodeURIComponent(problem.oj)}&pid=${encodeURIComponent(problem.problem_id)}`) 关系图
           a.btn.btn-outline-secondary.btn-sm(href="/") 返回列表
     .card-body
       .row.mb-3
