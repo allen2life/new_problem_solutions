@@ -24,10 +24,10 @@ test('ProblemManager lists newest problems first', () => {
 test('ProblemManager builds GitHub URLs from config.yml', () => {
   const pm = new ProblemManager({ auto_load: false });
 
-  assert.equal(pm.config.github_repository, 'https://github.com/rainboyOJ/rbook_nunjucks');
+  assert.equal(pm.config.github_repository, 'https://github.com/RainboyOJ/new_problem_solutions');
   assert.equal(
     pm.github_url('luogu/5657/index.md'),
-    'https://github.com/rainboyOJ/rbook_nunjucks/blob/main/problems/luogu/5657/index.md',
+    'https://github.com/RainboyOJ/new_problem_solutions/blob/master/problems/luogu/5657/index.md',
   );
 });
 

@@ -57,7 +57,7 @@ test('Fastify app returns a problem detail page', async () => {
   assert.equal(response.statusCode, 200);
   assert.match(response.headers['content-type'], /text\/html/);
   assert.match(response.body, /1651/);
-  assert.match(response.body, /href="https:\/\/github\.com\/rainboyOJ\/rbook_nunjucks\/blob\/main\/problems\/OpenJ_Bailian\/1651\/index\.md"/);
+  assert.match(response.body, /href="https:\/\/github\.com\/RainboyOJ\/new_problem_solutions\/blob\/master\/problems\/OpenJ_Bailian\/1651\/index\.md"/);
   assert.match(response.body, />GitHub</);
   assert.match(response.body, /prism-tomorrow\.min\.css/);
   assert.match(response.body, /src="\/javascripts\/code-copy\.js"/);
