@@ -59,6 +59,7 @@ def index_template(oj: str, problem_id: str, title: str, source: str) -> str:
 oj: {quote_yaml(oj)}
 problem_id: {quote_yaml(problem_id)}
 title: {quote_yaml(title)}
+description: ""
 date: {now}
 toc: true
 tags: []

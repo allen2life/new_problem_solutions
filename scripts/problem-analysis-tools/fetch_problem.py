@@ -89,7 +89,7 @@ def update_index_meta(index_path: Path, data: ProblemData, *, dry_run: bool) -> 
         changed = True
     if not changed:
         return False
-    ordered_keys = ["oj", "problem_id", "title", "date", "toc", "tags", "categories", "source"]
+    ordered_keys = ["oj", "problem_id", "title", "description", "date", "toc", "tags", "categories", "source"]
     lines: list[str] = ["---"]
     emitted = set()
     for key in ordered_keys:
@@ -374,6 +374,7 @@ def run_self_test() -> int:
         checks = [
             problem_dir.name == "1001",
             (problem_dir / "index.md").exists(),
+            'description: ""' in (problem_dir / "index.md").read_text(encoding="utf-8"),
             (problem_dir / "problem.md").read_text(encoding="utf-8").startswith("# P1001 A+B Problem"),
             (problem_dir / "in1").read_text(encoding="utf-8") == "1 2\n",
             (problem_dir / "out1").read_text(encoding="utf-8") == "3\n",

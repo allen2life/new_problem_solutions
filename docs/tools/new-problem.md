@@ -39,6 +39,8 @@ problems/<oj>/<problem_id>/
 └── problem-analysis-workspace/
 ```
 
+新建的 `index.md` 会包含 `description: ""`。这是题解核心思路摘要的占位字段，最终写题解时应改成非空的一句话说明。
+
 ## 常用参数
 
 ```bash

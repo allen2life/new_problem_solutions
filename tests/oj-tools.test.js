@@ -193,3 +193,40 @@ test('check_problem requires description and warns when it is empty', () => {
     rmSync(fixtureRoot, { recursive: true, force: true });
   }
 });
+
+test('new-problem scaffold includes description frontmatter field', () => {
+  const fixtureRoot = join(process.cwd(), 'problems', '__tmp_new_problem_description__');
+  const problemDir = join(fixtureRoot, 'P1');
+
+  try {
+    rmSync(fixtureRoot, { recursive: true, force: true });
+    const result = spawnSync(
+      'python3',
+      [
+        'scripts/problem-analysis-tools/new-problem.py',
+        '__tmp_new_problem_description__',
+        'P1',
+        '--title',
+        'Test',
+      ],
+      { cwd: process.cwd(), encoding: 'utf8' },
+    );
+
+    assert.equal(result.status, 0);
+    const indexMd = readFileSync(join(problemDir, 'index.md'), 'utf8');
+    assert.match(indexMd, /title: "Test"\ndescription: ""\ndate:/);
+  } finally {
+    rmSync(fixtureRoot, { recursive: true, force: true });
+  }
+});
+
+test('fetch_problem self-test creates index description field', () => {
+  const result = spawnSync(
+    'python3',
+    ['scripts/problem-analysis-tools/fetch_problem.py', '--self-test'],
+    { cwd: process.cwd(), encoding: 'utf8' },
+  );
+
+  assert.equal(result.status, 0);
+  assert.match(result.stdout, /self-test passed/);
+});
