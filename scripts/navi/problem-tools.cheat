@@ -181,6 +181,16 @@ ptool --cd <problem_dir> tree_draw --type segment --size <segment_size> --output
 $ segment_size: echo "8"
 $ segment_svg: echo "segment.svg"
 
+% viz-render
+# 运行当前题目的专用样例可视化脚本
+cd <problem_dir> && python3 problem-analysis-workspace/viz_render.py
+
+% viz-render-input
+# 指定样例输入运行当前题目的专用样例可视化脚本
+cd <problem_dir> && python3 problem-analysis-workspace/viz_render.py --input <sample_input>
+
+$ sample_input: echo "in1"
+
 % lldb
 # 使用 LLDB 和指定输入调试可执行文件
 ptool --cd <problem_dir> old lldb <executable>

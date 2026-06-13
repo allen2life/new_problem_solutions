@@ -71,6 +71,7 @@ Final `index.md` must follow that format:
 - `@include-code(./main.cpp, cpp)`
 - `@include-code(./brute.cpp, cpp)` in `### 思路`
 - Mermaid、Graphviz、Markdown 表格等可视化内容必须遵守 `oj-problem-format-spec` 的“可视化辅助格式”。
+- 如果题目需要样例、DP、树、图、网格或模拟过程可视化，使用 `oj-sample-visualizer` 生成题目专用 `problem-analysis-workspace/viz_render.py` 和素材；不要在本 skill 中临时发明通用可视化解析器。
 
 ## Source Priority
 
@@ -171,6 +172,14 @@ Trigger rules:
 - 网格题：必须考虑二维表格。
 - 搜索、递归题：必须考虑搜索树或状态转移图。
 - 模拟题：如果样例过程复杂，必须考虑过程表格。
+
+If visualization is useful, invoke the `oj-sample-visualizer` skill. The visualizer should create a problem-specific script:
+
+```text
+problem-analysis-workspace/viz_render.py
+```
+
+The final article should only include the generated teaching artifact and explanation text, not the whole visualization script.
 
 ### `03-solution-derivation.md`
 

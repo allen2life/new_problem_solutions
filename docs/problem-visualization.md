@@ -2,6 +2,14 @@
 
 题解可以使用 Mermaid、Graphviz、`tree_draw.py`、Markdown 表格和图片解释样例数据或算法过程。可视化的目标是帮助读者更快理解题目，不是装饰页面。
 
+如果需要为某道题生成样例可视化脚本，使用 `oj-sample-visualizer`。它会在当前题目目录生成题目专用脚本：
+
+```text
+problem-analysis-workspace/viz_render.py
+```
+
+不要使用一个统一的万能样例解析器。不同题目的输入格式虽然都可能是数字和字符，但语义可能分别是数组、树边、网格、操作序列、DP 初值或查询区间，必须结合题意写专用解析逻辑。
+
 ## 使用场景
 
 推荐按题型选择：
@@ -132,6 +140,26 @@ ptool --cd problems/luogu/Pxxxx tree_draw --type binary --input tree.txt --outpu
 
 详细说明见 [`docs/tools/tree_draw.md`](tools/tree_draw.md)。
 
+## 题目专用可视化脚本
+
+公共模板位于：
+
+```text
+scripts/problem-analysis-tools/viz_templates/
+```
+
+这些模板只提供小函数，例如数组表格、网格表格、DP 表格、Graphviz dot 和树 SVG。agent 应根据题意在 `problem-analysis-workspace/viz_render.py` 中组合使用它们。
+
+推荐脚本行为：
+
+- 默认从题目目录运行。
+- 支持 `--help`。
+- 默认读取 `in1` 或通过 `--input` 指定样例。
+- 默认把最终素材输出到题目根目录。
+- 不自动修改 `index.md`，只打印可粘贴的 Markdown 片段。
+
+详细说明见 [`docs/tools/viz_templates.md`](tools/viz_templates.md)。
+
 ## Markdown 表格
 
 DP、背包、网格和模拟题优先使用 Markdown 表格。
@@ -152,3 +180,42 @@ DP、背包、网格和模拟题优先使用 Markdown 表格。
 ```
 
 表格不要太大。大表只展示关键行列，正文说明省略了哪些部分。
+
+## DP 可视化
+
+DP 可视化优先解释状态来源和更新过程，不只是展示最终表格。
+
+推荐规则：
+
+- 二维 DP、背包、网格 DP：用 Markdown 表格或 HTML 高亮表格展示关键局部。
+- 一维 DP、LIS、前缀状态：用步骤表和小数组快照展示扫描过程。
+- 状态依赖关系：可以用 Mermaid 表示抽象转移，不用 Mermaid 画完整 DP 表。
+- 表超过 `10 x 10` 时，只展示关键行列或一次转移。
+
+背包题需要先区分类型：
+
+- 0/1 背包：重点展示 `j` 倒序更新，说明 `dp[j-w]` 仍是上一轮的值。
+- 完全背包：重点展示 `j` 正序更新，说明 `dp[j-w]` 可以是本轮已更新的值。
+- 多重背包：根据拆分或单调队列优化方式，只展示关键局部。
+- 分组背包：展示同组候选物品如何竞争同一个 `dp[j]`。
+
+LIS 需要区分两种可视化：
+
+- `O(n^2)`：展示 `a[i]` 可以接在哪些前驱后面，以及 `dp[i]` 如何取最大。
+- `O(n log n)`：展示 `lower_bound` 找到的位置，以及 `tails` 更新前后的变化。
+
+如果题解使用滚动数组或一维优化，必须评估是否需要“压缩前后对照”，说明压缩后 `dp[j]` 在当前更新顺序下代表上一行还是当前行。
+
+需要高亮来源格子时，可以输出 HTML 表格，并使用统一 class：
+
+```text
+dp-viz-table
+dp-viz-current
+dp-viz-source
+dp-viz-changed
+dp-viz-muted
+dp-viz-choice
+dp-viz-direction
+```
+
+可复用模板见 [`docs/tools/viz_templates.md`](tools/viz_templates.md) 中的 `dp_trace.py`。

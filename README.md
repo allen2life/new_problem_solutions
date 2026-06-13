@@ -186,13 +186,15 @@ TARGET_API_BASE_URL=http://127.0.0.1:3000 npm start
 - `oj-problem-format-spec`：只规定题解 Markdown 的格式、目录结构、frontmatter、章节标题和代码嵌入方式。
 - `oj-problem-analysis-writer`：负责写题目解析内容，完成辅助理解和对拍的 `brute.cpp`，并根据过程文档生成正式 `index.md`。
 - `oj-problem-relation-writer`：负责维护题目之间的 `pre` / `common` 关系字段，以及跨 OJ 的 `recommend` 推荐练习字段。
+- `oj-sample-visualizer`：负责为单道题生成题目专用的样例可视化脚本和素材，例如 DP 表、网格、树 SVG、Graphviz dot。
 
-三个 skill 位于：
+这些 skill 位于：
 
 ```text
 .agents/skills/oj-problem-format-spec/SKILL.md
 .agents/skills/oj-problem-analysis-writer/SKILL.md
 .agents/skills/oj-problem-relation-writer/SKILL.md
+.agents/skills/oj-sample-visualizer/SKILL.md
 ```
 
 ### 6.1 标准题目目录
@@ -243,6 +245,8 @@ problems/<oj>/<problem_id>/
 6. 人工检查 `index.md` 的题意、思路、复杂度和代码引用。
 
 题解写作时必须评估是否需要可视化辅助。图论、树、DP、网格、搜索和复杂模拟题，优先使用 Mermaid、Graphviz、`tree_draw.py` 或 Markdown 表格解释样例数据和关键过程。详细规范见 [`docs/problem-visualization.md`](docs/problem-visualization.md)。
+
+样例可视化不使用统一的万能解析器。推荐让 AI 使用 `oj-sample-visualizer`，在当前题目目录生成 `problem-analysis-workspace/viz_render.py`，再由这个题目专用脚本输出 SVG、dot 或 Markdown 表格。
 
 示例提示：
 
@@ -418,6 +422,7 @@ alias rbook-navi='command navi --path "$RBOOK_REPO/scripts/navi"'
 | `problem_status.py` | `scripts/problem-analysis-tools/problem_status.py` | [`docs/tools/problem_status.md`](docs/tools/problem_status.md) |
 | `gen_random.py` | `scripts/problem-analysis-tools/gen_random.py` | [`docs/tools/gen_random.md`](docs/tools/gen_random.md) |
 | `tree_draw.py` | `scripts/problem-analysis-tools/tree_draw.py` | [`docs/tools/tree_draw.md`](docs/tools/tree_draw.md) |
+| `viz_templates/` | `scripts/problem-analysis-tools/viz_templates/` | [`docs/tools/viz_templates.md`](docs/tools/viz_templates.md) |
 | `duipai.py` | `scripts/problem-analysis-tools/duipai.py` | [`docs/tools/duipai.md`](docs/tools/duipai.md) |
 | `duipai-human.py` | `scripts/problem-analysis-tools/duipai-human.py` | [`docs/tools/duipai-human.md`](docs/tools/duipai-human.md) |
 | `shrink_failed.py` | `scripts/problem-analysis-tools/shrink_failed.py` | [`docs/tools/shrink_failed.md`](docs/tools/shrink_failed.md) |
