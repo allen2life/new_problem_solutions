@@ -230,3 +230,15 @@ test('fetch_problem self-test creates index description field', () => {
   assert.equal(result.status, 0);
   assert.match(result.stdout, /self-test passed/);
 });
+
+test('navi fetch-url prompts for URL instead of using a fixed default', () => {
+  const cheat = readFileSync('scripts/navi/problem-tools.cheat', 'utf8');
+  const lines = cheat.split('\n');
+  const start = lines.findIndex((line) => line === '% fetch-url');
+  const end = lines.findIndex((line, index) => index > start && line.startsWith('% '));
+  const block = lines.slice(start, end === -1 ? undefined : end).join('\n');
+
+  assert.notEqual(start, -1);
+  assert.match(block, /fetch_problem <problem_url>/);
+  assert.doesNotMatch(block, /^\$ problem_url:/m);
+});

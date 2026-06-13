@@ -23,8 +23,6 @@ fetch_problem <oj> <problem_id>
 # 通过题目 URL 抓取，并进入题目目录
 fetch_problem <problem_url>
 
-$ problem_url: echo "https://www.luogu.com.cn/problem/P1001"
-
 % fetch-dry
 # 预览抓题结果，不写入文件
 fetch_problem <oj> <problem_id> --dry-run
