@@ -67,7 +67,10 @@ block content
   .card.mb-4
     .card-header
       .d-flex.justify-content-between.align-items-center
-        h2.mb-0 #{problem.title}
+        div
+          h2.mb-0 #{problem.title}
+          if problem.description
+            p.problem-description.mb-0.mt-2 #{problem.description}
         .d-flex.gap-2
           if githubUrl
             a.btn.btn-outline-dark.btn-sm(href=githubUrl, target="_blank", rel="noopener noreferrer") GitHub

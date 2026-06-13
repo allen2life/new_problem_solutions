@@ -1,7 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { execFileSync } from 'node:child_process';
-import { mkdtempSync, readFileSync, writeFileSync } from 'node:fs';
+import { execFileSync, spawnSync } from 'node:child_process';
+import { mkdirSync, mkdtempSync, readFileSync, rmSync, writeFileSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import LUOGU from '../old_scripts/online_judge/luogu.js';
@@ -125,4 +125,71 @@ test('ptool can locate tree_draw help', () => {
   );
 
   assert.match(stdout, /使用 Walker 风格布局绘制树结构 SVG/);
+});
+
+function writeProblemFixture(dir, frontmatterLines) {
+  mkdirSync(dir, { recursive: true });
+  writeFileSync(join(dir, 'main.cpp'), 'int main() { return 0; }\n');
+  writeFileSync(join(dir, 'index.md'), [
+    '---',
+    ...frontmatterLines,
+    '---',
+    '',
+    '[[TOC]]',
+    '',
+    '### 题意',
+    '',
+    '### 思路',
+    '',
+    '### 代码',
+    '',
+    '@include-code(./main.cpp, cpp)',
+    '',
+    '### 复杂度',
+    '',
+    '### 总结',
+    '',
+  ].join('\n'));
+}
+
+test('check_problem requires description and warns when it is empty', () => {
+  const fixtureRoot = join(process.cwd(), 'problems', '__tmp_check_description__');
+  const problemDir = join(fixtureRoot, 'P1');
+  const baseFrontmatter = [
+    'oj: "luogu"',
+    'problem_id: "P1"',
+    'title: "Test"',
+    'date: 2026-06-13 10:00',
+    'toc: true',
+    'tags: []',
+    'categories: []',
+    'source:',
+  ];
+
+  try {
+    rmSync(fixtureRoot, { recursive: true, force: true });
+    writeProblemFixture(problemDir, baseFrontmatter);
+    const missing = spawnSync(
+      'python3',
+      ['scripts/problem-analysis-tools/check_problem.py', problemDir],
+      { cwd: process.cwd(), encoding: 'utf8' },
+    );
+    assert.equal(missing.status, 1);
+    assert.match(missing.stdout, /frontmatter 缺少字段：description/);
+
+    writeProblemFixture(problemDir, [
+      ...baseFrontmatter.slice(0, 3),
+      'description: ""',
+      ...baseFrontmatter.slice(3),
+    ]);
+    const empty = spawnSync(
+      'python3',
+      ['scripts/problem-analysis-tools/check_problem.py', problemDir],
+      { cwd: process.cwd(), encoding: 'utf8' },
+    );
+    assert.equal(empty.status, 0);
+    assert.match(empty.stdout, /frontmatter description 为空/);
+  } finally {
+    rmSync(fixtureRoot, { recursive: true, force: true });
+  }
 });

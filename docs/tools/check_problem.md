@@ -20,6 +20,7 @@ python3 scripts/problem-analysis-tools/check_problem.py problems/luogu/1001
 - 是否存在 `index.md`。
 - 是否存在 `main.cpp`。
 - frontmatter 是否包含必要字段。
+- frontmatter 是否包含 `description`；缺失为错误，存在但为空为警告。
 - `index.md` 是否使用 `@include-code(./main.cpp, cpp)`。
 - `problem-analysis-workspace/` 或 `duipai-failed/` 是否有已被 Git 跟踪的文件。
 - 是否存在旧结构残留，例如有 `1.cpp` 但没有 `main.cpp`。

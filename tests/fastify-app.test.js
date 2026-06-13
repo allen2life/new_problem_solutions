@@ -117,6 +117,20 @@ test('Fastify app returns relation graph JSON', async () => {
   await app.close();
 });
 
+test('Fastify app returns problem description in detail API', async () => {
+  const app = await buildApp({ logger: false });
+
+  const response = await app.inject({
+    method: 'GET',
+    url: '/api/problems/OpenJ_Bailian/1651',
+  });
+
+  assert.equal(response.statusCode, 200);
+  assert.equal(typeof response.json().description, 'string');
+
+  await app.close();
+});
+
 test('Fastify app renders TOC and KaTeX on markdown problem pages', async () => {
   const app = await buildApp({ logger: false });
 

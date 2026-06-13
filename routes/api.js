@@ -115,6 +115,7 @@ export default async function apiRoutes(app) {
       oj: problem.oj,
       problem_id: problem.problem_id,
       title: problem.title,
+      description: problem.description || '',
       tags: problem.tags || [],
       md_path: problem.md_path,
       url: problem.url,

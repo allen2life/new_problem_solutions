@@ -60,6 +60,7 @@ Final `index.md` must follow that format:
 
 - frontmatter at top
 - frontmatter `tags` must be reviewed and updated for this problem
+- frontmatter `description` must be a non-empty one-line summary of the core solution idea
 - `[[TOC]]`
 - `### 题意`
 - `### 思路`
@@ -249,6 +250,7 @@ It should already follow the final article structure:
 oj: ""
 problem_id: ""
 title: ""
+description: ""
 date: YYYY-MM-DD HH:mm
 toc: true
 tags: ["算法标签", "数据结构标签"]
@@ -276,6 +278,8 @@ source:
 ```
 
 Do not leave `tags: []` in the draft unless the problem is genuinely impossible to classify from available materials. Choose concise Chinese tags that help users search and review problems later, such as algorithm family, data structure, implementation technique, or difficulty-relevant pattern.
+
+Do not leave `description: ""` in the draft. The description must summarize the core solution idea in one line, usually 20 to 80 Chinese characters and at most 120 characters. It should describe the algorithmic insight, not the statement background. Avoid empty phrases such as “本题主要考察”, “经典题”, “详见下文”, or “看代码”.
 
 ## Final Article Style
 
@@ -333,6 +337,7 @@ The `### 代码` section still contains only the final accepted/optimized soluti
 Before updating `index.md`, check consistency with `main.cpp` when it exists:
 
 - The frontmatter `tags` are updated from the solved content, not left as a stale placeholder.
+- The frontmatter `description` is non-empty, one line, and matches the final solution.
 - Before choosing tags, query the repository's existing tag set and prefer accurate existing tags over inventing new variants:
 
 ```bash
@@ -410,6 +415,7 @@ After editing, report briefly:
 - whether `brute.cpp` was created or updated;
 - whether `index.md` was written from `06-final-index-draft.md`;
 - which `tags` were written into `index.md` frontmatter;
+- which `description` was written into `index.md` frontmatter;
 - whether visualization was evaluated and what was used, if anything;
 - whether 对拍 was run and where the report is;
 - any missing fields, code files, or verification material.

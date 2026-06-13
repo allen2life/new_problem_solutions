@@ -34,6 +34,7 @@ description: Standardize the writing format and Markdown skeleton for this repos
 7. 是否负责文件命名和存放路径？
 8. 修改已有题解时，是强制套模板还是只修正格式？
 9. 是否把 Mermaid、Graphviz、二维表格等可视化内容纳入格式规范？
+10. 是否在 frontmatter 中加入 `description` 作为题解核心摘要？
 
 能从本仓库已有文件判断的问题，不要问用户。
 
@@ -77,6 +78,7 @@ problems/<oj>/<problem_id>/problem-analysis-workspace/
 oj: "poj"
 problem_id: "3061"
 title: "Subsequence"
+description: "使用双指针维护满足和不小于 S 的最短连续子序列。"
 date: 2025-11-28 15:41
 toc: true
 tags: []
@@ -92,6 +94,7 @@ source: https://vjudge.net/problem/POJ-3061
 - `oj`：小写 OJ 名称，通常来自目录名。
 - `problem_id`：字符串格式。
 - `title`：题目标题；不知道时使用空字符串，不编造。
+- `description`：题解核心摘要，一行中文，描述最关键的解法思想；格式修正时无法判断就使用空字符串，不编造。
 - `date`：新建文章使用当前本地时间；修改旧文时保留原日期。
 - `toc`：固定为 `true`。
 - `tags`：数组格式；本 skill 不负责填具体算法标签。
@@ -121,6 +124,23 @@ common:
 - 补齐缺失字段。
 - 按标准顺序整理字段。
 - 不因为不知道内容而删除原有字段值。
+
+`description` 写作规则：
+
+- 新建题解或由 `oj-problem-analysis-writer` 生成最终题解时必须非空。
+- 格式修正旧题解时，如果不能从已有正文准确判断核心思路，使用 `description: ""`。
+- 只写一行，不写 Markdown，不换行。
+- 推荐 20 到 80 个中文字符，最多不超过 120 个字符。
+- 描述解题核心，不描述题面背景。
+- 不写“本题主要考察”“详见下文”“经典题”等空话。
+
+好的例子：
+
+```yaml
+description: "用单调队列维护窗口最值，把每次区间最优转移降到均摊 O(1)。"
+description: "把强连通分量缩点成 DAG，再在拓扑结构上统计可达关系。"
+description: "用树形 DP 分别维护选与不选当前节点时的最优价值。"
+```
 
 ## 固定章节
 
@@ -303,6 +323,7 @@ TODO
 oj: ""
 problem_id: ""
 title: ""
+description: ""
 date: YYYY-MM-DD HH:mm
 toc: true
 tags: []
@@ -370,7 +391,7 @@ source:
 
 - Markdown 文件位于 `problems/<oj>/<problem_id>/index.md`。
 - frontmatter 在文件最开头。
-- frontmatter 包含 `oj`、`problem_id`、`title`、`date`、`toc`、`tags`、`categories`、`source`。
+- frontmatter 包含 `oj`、`problem_id`、`title`、`description`、`date`、`toc`、`tags`、`categories`、`source`。
 - 如果存在 `pre` / `common`，它们位于 `categories` 后、`source` 前，且为数组格式。
 - frontmatter 字段顺序符合规范。
 - frontmatter 后有 `[[TOC]]`。

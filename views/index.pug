@@ -45,6 +45,8 @@ block content
             tr
               td.index-table__title
                 a.index-table__title-link(href=problem.url) #{problem.title}
+                if problem.description
+                  .index-table__description #{problem.description}
               td
                 span.index-pill #{problem.oj}
               td

@@ -16,6 +16,7 @@ REQUIRED_FRONTMATTER = [
     "oj",
     "problem_id",
     "title",
+    "description",
     "date",
     "toc",
     "tags",
@@ -115,6 +116,14 @@ def check_problem(problem_dir: Path) -> int:
             for field in REQUIRED_FRONTMATTER:
                 if field not in frontmatter:
                     errors.append(f"frontmatter 缺少字段：{field}")
+
+            if "description" in frontmatter:
+                description = frontmatter.get("description", "").strip().strip("'\"")
+                if not description:
+                    warnings.append("frontmatter description 为空。")
+                    suggestions.append("为 description 写一句题解核心摘要，描述最关键的解法思想。")
+                elif "\n" in description or len(description) > 120:
+                    warnings.append("frontmatter description 应为一行，且不超过 120 个字符。")
 
             if expected_oj and frontmatter.get("oj", "").strip("'\"") != expected_oj:
                 warnings.append(

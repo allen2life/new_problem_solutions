@@ -147,6 +147,32 @@ test('ProblemManager builds global relation graph data', () => {
   assert.equal(graph.nodes.find((node) => node.id === 'poj/9999').isolated, true);
 });
 
+test('ProblemManager search matches problem description', () => {
+  const pm = new ProblemManager({ auto_load: false });
+  pm.problems = [
+    {
+      oj: 'luogu',
+      problem_id: 'P1',
+      title: 'Base',
+      description: '用单调队列维护窗口最值。',
+      url: '/problems/luogu/P1',
+    },
+    {
+      oj: 'luogu',
+      problem_id: 'P2',
+      title: 'Other',
+      description: '普通枚举。',
+      url: '/problems/luogu/P2',
+    },
+  ];
+  pm.buildIndex();
+
+  assert.deepEqual(
+    pm.search('单调队列').map((problem) => problem.problem_id),
+    ['P1'],
+  );
+});
+
 test('MarkdownRenderer renders TOC and KaTeX math', () => {
   const pm = new ProblemManager();
   const md = new MarkdownRenderer('', pm);
