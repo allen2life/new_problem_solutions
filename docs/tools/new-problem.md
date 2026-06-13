@@ -39,7 +39,7 @@ problems/<oj>/<problem_id>/
 └── problem-analysis-workspace/
 ```
 
-新建的 `index.md` 会包含 `description: ""`。这是题解核心思路摘要的占位字段，最终写题解时应改成非空的一句话说明。
+新建的 `index.md` 会包含 `description: ""` 和 `recommend: []`。`description` 是题解核心思路摘要的占位字段，最终写题解时应改成非空的一句话说明；`recommend` 用于后续记录跨 OJ 推荐练习。
 
 ## 常用参数
 

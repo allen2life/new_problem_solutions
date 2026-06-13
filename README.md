@@ -185,7 +185,7 @@ TARGET_API_BASE_URL=http://127.0.0.1:3000 npm start
 
 - `oj-problem-format-spec`：只规定题解 Markdown 的格式、目录结构、frontmatter、章节标题和代码嵌入方式。
 - `oj-problem-analysis-writer`：负责写题目解析内容，完成辅助理解和对拍的 `brute.cpp`，并根据过程文档生成正式 `index.md`。
-- `oj-problem-relation-writer`：负责维护题目之间的 `pre` / `common` 关系字段，给后续题目学习图使用。
+- `oj-problem-relation-writer`：负责维护题目之间的 `pre` / `common` 关系字段，以及跨 OJ 的 `recommend` 推荐练习字段。
 
 三个 skill 位于：
 
@@ -229,7 +229,7 @@ problems/<oj>/<problem_id>/
 
 `problem-analysis-workspace/` 是每道题的学习和推导过程目录，已通过 `.gitignore` 忽略，不作为最终电子书内容提交。`problem-relation-workspace/` 用于记录低置信度关系候选，也保持本地忽略。
 
-`index.md` frontmatter 中的 `description` 用一句话描述题解核心思路，供列表页、详情页、API、搜索和 AI 快速理解使用。新题解应填写非空内容；旧题解可以后续逐步补齐。
+`index.md` frontmatter 中的 `description` 用一句话描述题解核心思路，供列表页、详情页、API、搜索和 AI 快速理解使用。新题解应填写非空内容；旧题解可以后续逐步补齐。`recommend` 用于记录仓库外或跨 OJ 的推荐练习，默认是 `recommend: []`，由 `oj-problem-relation-writer` 维护。
 
 ### 6.2 使用 skill 写题解
 

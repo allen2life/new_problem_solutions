@@ -57,7 +57,7 @@ luogu P1001 -> problems/luogu/1001/
 
 但 `index.md` 中的 `problem_id` 仍然写 `P1001`。
 
-新建的 `index.md` 会包含标准 frontmatter 字段 `description: ""`。抓题阶段不会自动编造解法摘要；最终写题解时由 `oj-problem-analysis-writer` 填成非空的一句话核心思路。
+新建的 `index.md` 会包含标准 frontmatter 字段 `description: ""` 和 `recommend: []`。抓题阶段不会自动编造解法摘要，也不会自动编外部推荐；最终写题解时由 `oj-problem-analysis-writer` 填写 `description`，推荐练习由 `oj-problem-relation-writer` 维护。
 
 ## 配置 fetch_problem 函数
 

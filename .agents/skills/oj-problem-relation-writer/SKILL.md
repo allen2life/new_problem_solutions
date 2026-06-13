@@ -1,11 +1,11 @@
 ---
 name: oj-problem-relation-writer
-description: Maintain prerequisite and similar-problem metadata in OJ problem index.md frontmatter. Use this skill when the user asks to add pre/common relations, 前置题目, 类似题目, common problems, learning path metadata, or problem graph relation data. This skill only writes relation metadata and candidate notes; it does not write problem analysis content and does not render graphs.
+description: Maintain prerequisite, similar-problem, and external recommendation metadata in OJ problem index.md frontmatter. Use this skill when the user asks to add pre/common/recommend relations, 前置题目, 类似题目, common problems, 推荐练习, 跨 OJ 推荐, learning path metadata, or problem graph relation data. This skill only writes relation/recommend metadata and candidate notes; it does not write problem analysis content and does not render graphs.
 ---
 
 # OJ 题目关系维护
 
-这个 skill 专门负责维护题目之间的学习关系，把高置信度关系写入当前题目的 `index.md` frontmatter。
+这个 skill 专门负责维护题目之间的学习关系和跨 OJ 练习推荐，把高置信度关系写入当前题目的 `index.md` frontmatter。
 
 它只负责关系元数据，不负责：
 
@@ -21,8 +21,9 @@ description: Maintain prerequisite and similar-problem metadata in OJ problem in
 
 - `pre`：当前题的前置题。前置题更简单，并且包含当前题的一部分核心思想、模型或算法。
 - `common`：和当前题相似的题。它们不一定更简单，但解法模型、状态设计、核心观察或训练目标相似。
+- `recommend`：仓库外或跨 OJ 的继续练习推荐，例如 Luogu、Codeforces、HDU、POJ、LeetCode、USACO、AtCoder 等。
 
-关系数据未来由 render/frontend 程序读取，用于展示题目学习图。
+`pre` / `common` 由 render/frontend 程序读取，用于展示题目学习图。`recommend` 由题目详情页展示为“推荐练习”，暂不进入关系图。
 
 ## 固定字段 Schema
 
@@ -37,6 +38,13 @@ common:
   - oj: "luogu"
     problem_id: "P1002"
     reason: "同样是带限制的网格 DP"
+recommend:
+  - oj: "leetcode"
+    problem_id: "62"
+    title: "Unique Paths"
+    url: "https://leetcode.com/problems/unique-paths/"
+    reason: "同样是基础网格路径计数 DP，适合作为同模型练习。"
+    relation: "similar"
 ```
 
 字段规则：
@@ -49,6 +57,19 @@ common:
 - 不使用 `pid`。本仓库统一使用 `problem_id`。
 - 不引用当前题自己。
 - 不写重复关系。
+
+`recommend` 字段规则：
+
+- `recommend` 是数组。
+- 每项必须有 `oj`、`problem_id`、`reason`、`relation`。
+- `title` 推荐填写；不知道时使用空字符串。
+- `url` 对外部 OJ 强烈推荐填写；如果无法验证，放入候选，不写正式 `recommend`。
+- `relation` 只能是：
+  - `similar`：同模型或高度相似题。
+  - `practice`：适合作为后续练习题。
+  - `harder`：更难的进阶题。
+  - `easier`：更简单的热身题。
+- 如果推荐题已经在本仓库 `problems/` 中，优先写入 `pre` 或 `common`，不要重复写入 `recommend`。
 
 ## 图语义
 
@@ -75,6 +96,14 @@ A -- B
 ```
 
 前端可以渲染成无向边，或双向虚线边。这个 skill 不决定渲染方式。
+
+`recommend` 不参与关系图：
+
+```text
+A --external practice--> external problem
+```
+
+它用于题目详情页的“推荐练习”列表。
 
 ## 关系判断标准
 
@@ -105,6 +134,17 @@ A -- B
 
 `common` 不要求难度更低。
 
+### `recommend`
+
+只在满足这些条件时写入正式 `recommend`：
+
+- 题目不在当前仓库中，或暂时无法作为仓库内 `pre/common` 关系引用。
+- 题目的 OJ、题号、标题和 URL 能被用户提供或联网验证。
+- 与当前题存在明确训练价值，例如同模型练习、进阶版本、热身版本。
+- `reason` 能用一句中文说明推荐原因。
+
+不要凭记忆编外部题链接。需要跨 OJ 推荐时，允许联网验证；无法验证的只写入候选。
+
 ### 候选关系
 
 如果只是标签相同、题面表面相似、或者无法确认难度/核心思想，不要写入 `index.md`。记录到：
@@ -125,6 +165,10 @@ problems/<oj>/<problem_id>/problem-relation-workspace/candidates.md
 ## common 候选
 
 - `luogu/Pxxxx`：同为 DP 标签，但状态设计是否相似待确认。
+
+## recommend 候选
+
+- `leetcode/62 Unique Paths`：可能适合作为网格 DP 练习，但链接或题号尚未验证。
 ```
 
 ## Source Priority
@@ -138,6 +182,7 @@ problems/<oj>/<problem_id>/problem-relation-workspace/candidates.md
 5. 候选题 `main.cpp`、`brute.cpp`、`problem.md`。
 6. 仓库搜索结果，例如 `tags`、标题、正文关键词。
 7. 用户明确给出的关系或解释。
+8. 需要跨 OJ 推荐时，联网验证外部题目的 OJ、题号、标题和 URL。
 
 如果用户明确指定某个关系，仍然要检查是否引用自己、是否目标存在、字段格式是否正确。
 
@@ -149,26 +194,28 @@ problems/<oj>/<problem_id>/problem-relation-workspace/candidates.md
 2. 用 `rg` 搜索仓库中同标签、同模型、同关键词的题目。
 3. 优先检查更简单、基础、经典的题。
 4. 对每个候选判断是 `pre`、`common`，还是只写入 candidates。
-5. 只把高置信度关系写入 frontmatter。
+5. 对仓库外继续练习题，验证后写入 `recommend`；不确定时写入 candidates。
+6. 只把高置信度关系写入 frontmatter。
 
 不要为了填满字段而强行找关系。没有高置信度关系时可以保留：
 
 ```yaml
 pre: []
 common: []
+recommend: []
 ```
 
 ## Frontmatter Update Rules
 
 更新 `index.md` 时：
 
-- 只修改 YAML frontmatter 中的 `pre` / `common`，除非用户明确要求整理其他字段。
+- 只修改 YAML frontmatter 中的 `pre` / `common` / `recommend`，除非用户明确要求整理其他字段。
 - 保留原有正文不变。
 - 保留已有准确关系。
 - 删除重复关系。
 - 不删除已有关系，除非确认它错误或用户要求删除。
 - 字段顺序遵守 `oj-problem-format-spec`；`pre`、`common` 放在 `categories` 后、`source` 前。
-- 如果 `pre` / `common` 不存在，新增它们。
+- 如果 `pre` / `common` / `recommend` 不存在，新增它们。
 
 推荐 frontmatter 片段：
 
@@ -180,6 +227,13 @@ pre:
     problem_id: "P1002"
     reason: "网格路径计数 DP 的基础版本"
 common: []
+recommend:
+  - oj: "leetcode"
+    problem_id: "62"
+    title: "Unique Paths"
+    url: "https://leetcode.com/problems/unique-paths/"
+    reason: "同样是基础网格路径计数 DP，适合作为同模型练习。"
+    relation: "similar"
 source: https://www.luogu.com.cn/problem/Pxxxx
 ```
 
@@ -195,6 +249,11 @@ source: https://www.luogu.com.cn/problem/Pxxxx
 - `problem_id` 与目标 frontmatter 一致；如果目录名和 frontmatter 不同，以 frontmatter 为准。
 - `pre` 的关系方向是 `pre_problem -> current_problem`。
 - `common` 不被描述为前置依赖。
+- `recommend` 是数组。
+- `recommend` 每项都有 `oj`、`problem_id`、`reason`、`relation`。
+- `recommend.relation` 只能是 `similar`、`practice`、`harder`、`easier`。
+- `recommend.url` 尽量填写已验证链接；缺失时应说明原因。
+- `recommend` 不重复引用当前仓库已有题目；仓库内题目优先使用 `pre/common`。
 - 低置信度候选没有写入正式 frontmatter。
 
 ## Verification Script
@@ -226,6 +285,8 @@ python3 scripts/problem-analysis-tools/check_relations.py --all
 - 不要编造不存在的题目。
 - 不要仅凭同一个 tag 写入关系。
 - 不要把所有同类题都写成 `common`，只写真正有训练价值的相似题。
+- 不要凭记忆写外部 OJ 推荐链接；正式 `recommend` 需要可验证来源。
+- 不要把仓库内已存在题重复写进 `recommend`。
 - 不要写题解正文。
 - 不要改前端或图渲染代码。
 - 不要把候选关系说成已确认关系。
@@ -238,6 +299,7 @@ python3 scripts/problem-analysis-tools/check_relations.py --all
 - 更新了哪个题目目录。
 - `pre` 写入了哪些关系。
 - `common` 写入了哪些关系。
+- `recommend` 写入了哪些外部推荐。
 - 是否创建或更新了 `problem-relation-workspace/candidates.md`。
 - 是否运行了 `check_relations.py`，结果如何。
 - 有哪些候选没有写入 frontmatter，以及原因。

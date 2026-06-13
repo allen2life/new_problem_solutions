@@ -2,6 +2,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import { buildApp } from '../app.js';
 import ProblemManager from '../lib/problem.js';
+import problemManagerInstance from '../lib/instance.js';
 
 test('Fastify app renders the index page', async () => {
   const app = await buildApp({ logger: false });
@@ -163,6 +164,40 @@ test('Fastify app renders problem relation lists on detail pages', async () => {
   assert.match(response.body, /P2272/);
 
   await app.close();
+});
+
+test('Fastify app renders external problem recommendations on detail pages', async () => {
+  const problem = problemManagerInstance.find('OpenJ_Bailian', '1651');
+  const originalRecommend = problem.recommend;
+  problem.recommend = [
+    {
+      oj: 'leetcode',
+      problem_id: '62',
+      title: 'Unique Paths',
+      url: 'https://leetcode.com/problems/unique-paths/',
+      reason: '同样是基础网格路径计数 DP。',
+      relation: 'similar',
+    },
+  ];
+
+  const app = await buildApp({ logger: false });
+
+  try {
+    const response = await app.inject({
+      method: 'GET',
+      url: '/problems/OpenJ_Bailian/1651',
+    });
+
+    assert.equal(response.statusCode, 200);
+    assert.match(response.body, /推荐练习/);
+    assert.match(response.body, /leetcode 62/);
+    assert.match(response.body, /Unique Paths/);
+    assert.match(response.body, /target="_blank"/);
+    assert.match(response.body, /similar/);
+  } finally {
+    problem.recommend = originalRecommend;
+    await app.close();
+  }
 });
 
 test('Fastify app returns JSON 404s under /api', async () => {

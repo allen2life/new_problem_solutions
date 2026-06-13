@@ -194,7 +194,7 @@ test('check_problem requires description and warns when it is empty', () => {
   }
 });
 
-test('new-problem scaffold includes description frontmatter field', () => {
+test('new-problem scaffold includes description and recommend frontmatter fields', () => {
   const fixtureRoot = join(process.cwd(), 'problems', '__tmp_new_problem_description__');
   const problemDir = join(fixtureRoot, 'P1');
 
@@ -215,6 +215,7 @@ test('new-problem scaffold includes description frontmatter field', () => {
     assert.equal(result.status, 0);
     const indexMd = readFileSync(join(problemDir, 'index.md'), 'utf8');
     assert.match(indexMd, /title: "Test"\ndescription: ""\ndate:/);
+    assert.match(indexMd, /categories: \[\]\npre: \[\]\ncommon: \[\]\nrecommend: \[\]\nsource:/);
   } finally {
     rmSync(fixtureRoot, { recursive: true, force: true });
   }
@@ -229,6 +230,73 @@ test('fetch_problem self-test creates index description field', () => {
 
   assert.equal(result.status, 0);
   assert.match(result.stdout, /self-test passed/);
+});
+
+test('check_relations validates external recommend items', () => {
+  const fixtureRoot = join(process.cwd(), 'problems', '__tmp_check_recommend__');
+  const problemDir = join(fixtureRoot, 'P1');
+
+  try {
+    rmSync(fixtureRoot, { recursive: true, force: true });
+    writeProblemFixture(problemDir, [
+      'oj: "__tmp_check_recommend__"',
+      'problem_id: "P1"',
+      'title: "Test"',
+      'description: "测试推荐练习字段。"',
+      'date: 2026-06-13 10:00',
+      'toc: true',
+      'tags: []',
+      'categories: []',
+      'pre: []',
+      'common: []',
+      'recommend:',
+      '  - oj: "leetcode"',
+      '    problem_id: "62"',
+      '    title: "Unique Paths"',
+      '    url: "https://leetcode.com/problems/unique-paths/"',
+      '    reason: "同样是基础网格路径计数 DP。"',
+      '    relation: "similar"',
+      'source:',
+    ]);
+
+    const ok = spawnSync(
+      'python3',
+      ['scripts/problem-analysis-tools/check_relations.py', problemDir],
+      { cwd: process.cwd(), encoding: 'utf8' },
+    );
+    assert.equal(ok.status, 0);
+    assert.match(ok.stdout, /通过：关系字段符合当前规范。/);
+
+    writeProblemFixture(problemDir, [
+      'oj: "__tmp_check_recommend__"',
+      'problem_id: "P1"',
+      'title: "Test"',
+      'description: "测试推荐练习字段。"',
+      'date: 2026-06-13 10:00',
+      'toc: true',
+      'tags: []',
+      'categories: []',
+      'pre: []',
+      'common: []',
+      'recommend:',
+      '  - oj: "leetcode"',
+      '    problem_id: "62"',
+      '    reason: "同样是基础网格路径计数 DP。"',
+      '    relation: "unknown"',
+      'source:',
+    ]);
+
+    const bad = spawnSync(
+      'python3',
+      ['scripts/problem-analysis-tools/check_relations.py', problemDir],
+      { cwd: process.cwd(), encoding: 'utf8' },
+    );
+    assert.equal(bad.status, 1);
+    assert.match(bad.stdout, /relation=`unknown` 不合法/);
+    assert.match(bad.stdout, /缺少 `url`/);
+  } finally {
+    rmSync(fixtureRoot, { recursive: true, force: true });
+  }
 });
 
 test('navi fetch-url prompts for URL instead of using a fixed default', () => {

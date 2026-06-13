@@ -193,11 +193,26 @@ a {
   border-left-color: #dc3545;
 }
 
+.problem-relation-item.is-external {
+  border-left-color: #198754;
+}
+
 .problem-relation-code {
   font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
   font-size: 0.78rem;
   font-weight: 700;
   color: #6c757d;
+}
+
+.problem-recommend-relation {
+  justify-self: start;
+  padding: 0.08rem 0.4rem;
+  color: #146c43;
+  background: #d1e7dd;
+  border: 1px solid #a3cfbb;
+  border-radius: 999px;
+  font-size: 0.72rem;
+  font-weight: 700;
 }
 
 .problem-relation-name {

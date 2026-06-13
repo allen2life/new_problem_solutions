@@ -61,6 +61,7 @@ Final `index.md` must follow that format:
 - frontmatter at top
 - frontmatter `tags` must be reviewed and updated for this problem
 - frontmatter `description` must be a non-empty one-line summary of the core solution idea
+- frontmatter `recommend` must exist as an array; external recommendations are maintained by `oj-problem-relation-writer`
 - `[[TOC]]`
 - `### 题意`
 - `### 思路`
@@ -338,6 +339,7 @@ Before updating `index.md`, check consistency with `main.cpp` when it exists:
 
 - The frontmatter `tags` are updated from the solved content, not left as a stale placeholder.
 - The frontmatter `description` is non-empty, one line, and matches the final solution.
+- The frontmatter `recommend` exists as an array, normally `recommend: []` unless verified external practice recommendations are available.
 - Before choosing tags, query the repository's existing tag set and prefer accurate existing tags over inventing new variants:
 
 ```bash
@@ -356,6 +358,7 @@ python3 scripts/problem-analysis-tools/list_tags.py --format plain
 - Key implementation details mentioned in the article exist in the code.
 - Visualization was evaluated in `02-observation-and-model.md`.
 - Any Mermaid / Graphviz / table used in `index.md` has nearby explanatory text and follows the format spec.
+- After finishing the article, evaluate whether `pre` / `common` / `recommend` should be maintained by `oj-problem-relation-writer`; do not invent external OJ links from memory.
 - If no verification was run, say so in the process notes; do not imply proof by testing.
 
 ## Verification Scripts
@@ -416,6 +419,7 @@ After editing, report briefly:
 - whether `index.md` was written from `06-final-index-draft.md`;
 - which `tags` were written into `index.md` frontmatter;
 - which `description` was written into `index.md` frontmatter;
+- whether `pre` / `common` / `recommend` were evaluated or left for `oj-problem-relation-writer`;
 - whether visualization was evaluated and what was used, if anything;
 - whether 对拍 was run and where the report is;
 - any missing fields, code files, or verification material.

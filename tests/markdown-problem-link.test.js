@@ -94,6 +94,34 @@ test('ProblemManager resolves pre, successor, and common relations', () => {
   assert.equal(relations.hasAny, true);
 });
 
+test('ProblemManager normalizes external recommendations', () => {
+  const pm = new ProblemManager({ auto_load: false });
+  const recommendations = pm.getRecommendations({
+    recommend: [
+      {
+        oj: 'leetcode',
+        problem_id: '62',
+        title: 'Unique Paths',
+        url: 'https://leetcode.com/problems/unique-paths/',
+        reason: '同样是基础网格路径计数 DP。',
+        relation: 'similar',
+      },
+      'bad item',
+    ],
+  });
+
+  assert.deepEqual(recommendations, [
+    {
+      oj: 'leetcode',
+      problem_id: '62',
+      title: 'Unique Paths',
+      url: 'https://leetcode.com/problems/unique-paths/',
+      reason: '同样是基础网格路径计数 DP。',
+      relation: 'similar',
+    },
+  ]);
+});
+
 test('ProblemManager builds global relation graph data', () => {
   const pm = new ProblemManager({ auto_load: false });
   pm.problems = [

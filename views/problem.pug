@@ -16,6 +16,31 @@ mixin relationGroup(title, items)
             if item.reason
               span.problem-relation-reason #{item.reason}
 
+mixin recommendGroup(title, items)
+  if items && items.length
+    .problem-relation-group
+      .problem-relation-heading #{title}
+      .problem-relation-list
+        each item in items
+          if item.url
+            a.problem-relation-item.problem-recommend-item.is-external(href=item.url, target="_blank", rel="noopener noreferrer")
+              span.problem-relation-code #{item.oj} #{item.problem_id}
+              if item.relation
+                span.problem-recommend-relation #{item.relation}
+              if item.title
+                span.problem-relation-name #{item.title}
+              if item.reason
+                span.problem-relation-reason #{item.reason}
+          else
+            .problem-relation-item.problem-recommend-item.is-external
+              span.problem-relation-code #{item.oj} #{item.problem_id}
+              if item.relation
+                span.problem-recommend-relation #{item.relation}
+              if item.title
+                span.problem-relation-name #{item.title}
+              if item.reason
+                span.problem-relation-reason #{item.reason}
+
 mixin lucideIcon(icon)
   svg.problem-toolbar-icon(xmlns="http://www.w3.org/2000/svg", viewBox="0 0 24 24", width="20", height="20", fill="none", stroke="currentColor", stroke-width="2", stroke-linecap="round", stroke-linejoin="round", aria-hidden="true", focusable="false")
     case icon
@@ -95,11 +120,12 @@ block content
             p
               strong 日期:
               |  #{problem.date}
-      if relations && relations.hasAny
+      if (relations && relations.hasAny) || (recommendations && recommendations.length)
         .problem-relations
-          +relationGroup('前置题目', relations.predecessors)
-          +relationGroup('后置题目', relations.successors)
-          +relationGroup('相似题目', relations.common)
+          +relationGroup('前置题目', relations ? relations.predecessors : [])
+          +relationGroup('后置题目', relations ? relations.successors : [])
+          +relationGroup('相似题目', relations ? relations.common : [])
+          +recommendGroup('推荐练习', recommendations)
 
   .card.problem-content-card
     .card-body

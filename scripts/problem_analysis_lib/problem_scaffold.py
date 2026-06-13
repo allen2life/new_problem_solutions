@@ -64,6 +64,9 @@ date: {now}
 toc: true
 tags: []
 categories: []
+pre: []
+common: []
+recommend: []
 source: {source_line}
 ---
 

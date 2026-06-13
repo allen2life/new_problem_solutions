@@ -61,6 +61,7 @@ export default async function indexRoutes(app) {
       problem,
       content: htmlContent,
       relations: problemManager.getRelations(problem),
+      recommendations: problemManager.getRecommendations(problem),
       githubUrl: problemManager.github_url(problem.md_path),
     });
   });

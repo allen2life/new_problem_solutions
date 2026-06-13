@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Check pre/common problem relations in index.md frontmatter."""
+"""Check pre/common/recommend problem relations in index.md frontmatter."""
 
 from __future__ import annotations
 
@@ -12,6 +12,7 @@ from pathlib import Path
 REPO_ROOT = Path(__file__).resolve().parents[2]
 PROBLEMS_ROOT = REPO_ROOT / "problems"
 RELATION_FIELDS = ("pre", "common")
+RECOMMEND_RELATIONS = {"similar", "practice", "harder", "easier"}
 
 
 @dataclass
@@ -222,6 +223,52 @@ def check_relation_item(
     return errors, warnings
 
 
+def check_recommend_item(
+    current: ProblemMeta,
+    item: RelationItem,
+    by_frontmatter: dict[tuple[str, str], ProblemMeta],
+) -> tuple[list[str], list[str]]:
+    errors: list[str] = []
+    warnings: list[str] = []
+    label = f"{item.field}[{item.index}]"
+    data = item.data
+
+    if "pid" in data:
+        errors.append(f"{label} 使用了 `pid` 字段，请改为 `problem_id`。")
+
+    oj = data.get("oj", "")
+    problem_id = data.get("problem_id", "")
+    reason = data.get("reason", "")
+    relation = data.get("relation", "")
+    if not oj:
+        errors.append(f"{label} 缺少 `oj`。")
+    if not problem_id:
+        errors.append(f"{label} 缺少 `problem_id`。")
+    if not reason:
+        errors.append(f"{label} 缺少 `reason`。")
+    if not relation:
+        errors.append(f"{label} 缺少 `relation`。")
+    elif relation not in RECOMMEND_RELATIONS:
+        errors.append(
+            f"{label} relation=`{relation}` 不合法；只能是 "
+            f"{', '.join(sorted(RECOMMEND_RELATIONS))}。"
+        )
+
+    if not oj or not problem_id:
+        return errors, warnings
+
+    if oj == current.oj and problem_id == current.problem_id:
+        errors.append(f"{label} 引用了当前题自己：{oj}/{problem_id}。")
+
+    if by_frontmatter.get((oj, problem_id)) is not None:
+        warnings.append(f"{label} 指向仓库内已有题目，建议改写到 `pre` 或 `common`。")
+
+    if not data.get("url"):
+        warnings.append(f"{label} 缺少 `url`，外部推荐题建议补可验证链接。")
+
+    return errors, warnings
+
+
 def check_problem_dir(
     problem_dir: Path,
     by_frontmatter: dict[tuple[str, str], ProblemMeta],
@@ -262,6 +309,19 @@ def check_problem_dir(
                     errors.append(f"{rel(index_md)}: {field} 存在重复关系：{key[1]}/{key[2]}。")
                 seen.add(key)
 
+    recommend_items, recommend_parse_errors = parse_relation_block(lines, "recommend")
+    errors.extend(f"{rel(index_md)}: {message}" for message in recommend_parse_errors)
+    recommend_seen: set[tuple[str, str]] = set()
+    for item in recommend_items:
+        item_errors, item_warnings = check_recommend_item(current, item, by_frontmatter)
+        errors.extend(f"{rel(index_md)}: {message}" for message in item_errors)
+        warnings.extend(f"{rel(index_md)}: {message}" for message in item_warnings)
+        key = (item.data.get("oj", ""), item.data.get("problem_id", ""))
+        if key[0] and key[1]:
+            if key in recommend_seen:
+                errors.append(f"{rel(index_md)}: recommend 存在重复推荐：{key[0]}/{key[1]}。")
+            recommend_seen.add(key)
+
     return errors, warnings
 
 
@@ -285,7 +345,7 @@ def print_report(errors: list[str], warnings: list[str], checked_count: int) -> 
 
 
 def main() -> int:
-    parser = argparse.ArgumentParser(description="Check pre/common relations in problem frontmatter")
+    parser = argparse.ArgumentParser(description="Check pre/common/recommend relations in problem frontmatter")
     parser.add_argument("problem_dir", nargs="?", type=Path, help="problem directory, default: cwd")
     parser.add_argument("--all", action="store_true", help="check all problems")
     args = parser.parse_args()
