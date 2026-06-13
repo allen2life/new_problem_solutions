@@ -185,6 +185,7 @@ TARGET_API_BASE_URL=http://127.0.0.1:3000 npm start
 
 - `oj-problem-format-spec`：只规定题解 Markdown 的格式、目录结构、frontmatter、章节标题和代码嵌入方式。
 - `oj-problem-analysis-writer`：负责写题目解析内容，完成辅助理解和对拍的 `brute.cpp`，并根据过程文档生成正式 `index.md`。
+- `oj-problem-analysis-reviewer`：负责审查已有题解是否讲清楚，检查推导跳步、只贴代码、样例或可视化说明不足等质量问题。
 - `oj-problem-relation-writer`：负责维护题目之间的 `pre` / `common` 关系字段，以及跨 OJ 的 `recommend` 推荐练习字段。
 - `oj-sample-visualizer`：负责为单道题生成题目专用的样例可视化脚本和素材，例如 DP 表、网格、树 SVG、Graphviz dot。
 
@@ -193,6 +194,7 @@ TARGET_API_BASE_URL=http://127.0.0.1:3000 npm start
 ```text
 .agents/skills/oj-problem-format-spec/SKILL.md
 .agents/skills/oj-problem-analysis-writer/SKILL.md
+.agents/skills/oj-problem-analysis-reviewer/SKILL.md
 .agents/skills/oj-problem-relation-writer/SKILL.md
 .agents/skills/oj-sample-visualizer/SKILL.md
 ```
@@ -242,7 +244,8 @@ problems/<oj>/<problem_id>/
 3. 让 AI 使用 `oj-problem-analysis-writer` 生成或补全 `problem-analysis-workspace/*.md`。
 4. AI 根据 `06-final-index-draft.md` 和 `oj-problem-format-spec` 写入正式 `index.md`。
 5. 如果要对拍，再准备或补全 `gen.py` 并运行对拍脚本。
-6. 人工检查 `index.md` 的题意、思路、复杂度和代码引用。
+6. 使用 `oj-problem-analysis-reviewer` 审稿，检查题意、推导、样例、可视化、复杂度和代码对应关系。
+7. 人工检查 `index.md` 的题意、思路、复杂度和代码引用。
 
 题解写作时必须评估是否需要可视化辅助。图论、树、DP、网格、搜索和复杂模拟题，优先使用 Mermaid、Graphviz、`tree_draw.py` 或 Markdown 表格解释样例数据和关键过程。详细规范见 [`docs/problem-visualization.md`](docs/problem-visualization.md)。
 
@@ -253,6 +256,12 @@ problems/<oj>/<problem_id>/
 ```text
 使用 oj-problem-analysis-writer，解析 problems/luogu/1001/
 根据 main.cpp 和过程文档生成 index.md
+```
+
+如果需要审查已有题解质量，使用：
+
+```text
+使用 oj-problem-analysis-reviewer，审稿 problems/luogu/1001/
 ```
 
 如果只需要创建或修正格式骨架，使用：
