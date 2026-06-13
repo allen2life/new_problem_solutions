@@ -52,6 +52,32 @@ source: https://www.luogu.com.cn/problem/P14359
 
 最终采用**时间戳数组**：开一个全局数组 $vis[x]$，用 $vis[x] = cur$ 表示 $x$ 在当前段中出现过。清空时只需 `cur++`，无需遍历数组。
 
+不同分值的代码实现如下，可以对照学习从 60 分到 100 分的优化过程：
+
+<details>
+<summary>60 分：O(n²) 贪心扫描</summary>
+
+@include-code(./1.cpp, cpp)
+</details>
+
+<details>
+<summary>90 分：前缀异或 + memset 桶（TLE）</summary>
+
+@include-code(./2.cpp, cpp)
+</details>
+
+<details>
+<summary>100 分：前缀异或 + std::map</summary>
+
+@include-code(./3.cpp, cpp)
+</details>
+
+<details>
+<summary>100 分：前缀异或 + 时间戳桶（最优）</summary>
+
+@include-code(./4.cpp, cpp)
+</details>
+
 ### 代码
 
 @include-code(./main.cpp, cpp)
