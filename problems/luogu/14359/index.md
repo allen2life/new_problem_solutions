@@ -6,9 +6,29 @@ date: 2026-02-04 09:00
 toc: true
 tags: ["贪心", "位运算", "前缀和"]
 categories: []
+pre: []
+common: []
+recommend:
+  - oj: "leetcode"
+    problem_id: "1546"
+    title: "Maximum Number of Non-Overlapping Subarrays With Sum Equals Target"
+    url: "https://leetcode.com/problems/maximum-number-of-non-overlapping-subarrays-with-sum-equals-target/"
+    reason: "同样用前缀值集合和尽早结束的贪心来最大化不相交合法子数组数量，只是条件从异或和换成普通和。"
+    relation: "similar"
+  - oj: "leetcode"
+    problem_id: "1310"
+    title: "XOR Queries of a Subarray"
+    url: "https://leetcode.com/problems/xor-queries-of-a-subarray/"
+    reason: "练习前缀异或的基础用法，先熟悉区间异或如何由两个前缀异或值推出。"
+    relation: "easier"
+  - oj: "codeforces"
+    problem_id: "617E"
+    title: "XOR and Favorite Number"
+    url: "https://codeforces.com/problemset/problem/617/E"
+    reason: "同样围绕前缀异或和目标值 k 统计子数组，但扩展到区间询问和计数问题，适合作为进阶练习。"
+    relation: "harder"
 source: https://www.luogu.com.cn/problem/P14359
-description: " 贪心: 最大不相交区间数量, 数学: 异或区间和,异或前缀和
-"
+description: " 贪心: 最大不相交区间数量, 数学: 异或区间和,异或前缀和"
 ---
 
 [[TOC]]
