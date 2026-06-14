@@ -22,20 +22,20 @@ mixin recommendGroup(title, items)
       .problem-relation-heading #{title}
       .problem-relation-list
         each item in items
+          - const relation = ['similar', 'easier', 'harder', 'practice'].includes(item.relation) ? item.relation : 'unknown'
+          - const relationClass = `is-recommend-${relation}`
           if item.url
-            a.problem-relation-item.problem-recommend-item.is-external(href=item.url, target="_blank", rel="noopener noreferrer")
+            a.problem-relation-item.problem-recommend-item.is-external(class=relationClass, href=item.url, target="_blank", rel="noopener noreferrer")
               span.problem-relation-code #{item.oj} #{item.problem_id}
-              if item.relation
-                span.problem-recommend-relation #{item.relation}
+              span.problem-recommend-relation(class=relationClass) #{item.relation || 'unknown'}
               if item.title
                 span.problem-relation-name #{item.title}
               if item.reason
                 span.problem-relation-reason #{item.reason}
           else
-            .problem-relation-item.problem-recommend-item.is-external
+            .problem-relation-item.problem-recommend-item.is-external(class=relationClass)
               span.problem-relation-code #{item.oj} #{item.problem_id}
-              if item.relation
-                span.problem-recommend-relation #{item.relation}
+              span.problem-recommend-relation(class=relationClass) #{item.relation || 'unknown'}
               if item.title
                 span.problem-relation-name #{item.title}
               if item.reason

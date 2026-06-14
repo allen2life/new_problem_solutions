@@ -197,6 +197,26 @@ a {
   border-left-color: #198754;
 }
 
+.problem-recommend-item.is-recommend-similar {
+  border-left-color: #0d6efd;
+}
+
+.problem-recommend-item.is-recommend-easier {
+  border-left-color: #198754;
+}
+
+.problem-recommend-item.is-recommend-harder {
+  border-left-color: #6f42c1;
+}
+
+.problem-recommend-item.is-recommend-practice {
+  border-left-color: #fd7e14;
+}
+
+.problem-recommend-item.is-recommend-unknown {
+  border-left-color: #6c757d;
+}
+
 .problem-relation-code {
   font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
   font-size: 0.78rem;
@@ -213,6 +233,36 @@ a {
   border-radius: 999px;
   font-size: 0.72rem;
   font-weight: 700;
+}
+
+.problem-recommend-relation.is-recommend-similar {
+  color: #084298;
+  background: #cfe2ff;
+  border-color: #9ec5fe;
+}
+
+.problem-recommend-relation.is-recommend-easier {
+  color: #0f5132;
+  background: #d1e7dd;
+  border-color: #a3cfbb;
+}
+
+.problem-recommend-relation.is-recommend-harder {
+  color: #432874;
+  background: #e2d9f3;
+  border-color: #c5b3e6;
+}
+
+.problem-recommend-relation.is-recommend-practice {
+  color: #653208;
+  background: #ffe5d0;
+  border-color: #fecba1;
+}
+
+.problem-recommend-relation.is-recommend-unknown {
+  color: #41464b;
+  background: #e9ecef;
+  border-color: #ced4da;
 }
 
 .problem-relation-name {

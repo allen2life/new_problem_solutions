@@ -194,6 +194,7 @@ test('Fastify app renders external problem recommendations on detail pages', asy
     assert.match(response.body, /Unique Paths/);
     assert.match(response.body, /target="_blank"/);
     assert.match(response.body, /similar/);
+    assert.match(response.body, /is-recommend-similar/);
   } finally {
     problem.recommend = originalRecommend;
     await app.close();
