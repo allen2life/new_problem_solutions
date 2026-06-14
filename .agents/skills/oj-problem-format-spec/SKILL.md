@@ -79,6 +79,7 @@ oj: "poj"
 problem_id: "3061"
 title: "Subsequence"
 description: "使用双指针维护满足和不小于 S 的最短连续子序列。"
+difficulty: "普及-"
 date: 2025-11-28 15:41
 toc: true
 tags: []
@@ -96,6 +97,7 @@ source: https://vjudge.net/problem/POJ-3061
 - `problem_id`：字符串格式。
 - `title`：题目标题；不知道时使用空字符串，不编造。
 - `description`：题解核心摘要，一行中文，描述最关键的解法思想；格式修正时无法判断就使用空字符串，不编造。
+- `difficulty`：题目难度；新建题解默认使用 `"未知"`，最终题解应尽量评估为标准枚举值。
 - `date`：新建文章使用当前本地时间；修改旧文时保留原日期。
 - `toc`：固定为 `true`。
 - `tags`：数组格式；本 skill 不负责填具体算法标签。
@@ -150,6 +152,26 @@ description: "用单调队列维护窗口最值，把每次区间最优转移降
 description: "把强连通分量缩点成 DAG，再在拓扑结构上统计可达关系。"
 description: "用树形 DP 分别维护选与不选当前节点时的最优价值。"
 ```
+
+`difficulty` 标准枚举：
+
+```text
+入门
+普及-
+普及/提高-
+普及+/提高
+提高+/省选-
+省选/NOI-
+NOI/NOI+/CTSC
+未知
+```
+
+规则：
+
+- 新建题解模板必须包含 `difficulty: "未知"`。
+- 由 `oj-problem-analysis-writer` 生成最终题解时，必须评估并填写难度。
+- 不确定时使用 `"未知"`，不要编造。
+- 旧题如果缺少 `difficulty`，格式修正时可以补为 `"未知"`；检查工具在迁移期只给 warning。
 
 ## 固定章节
 
@@ -333,6 +355,7 @@ oj: ""
 problem_id: ""
 title: ""
 description: ""
+difficulty: "未知"
 date: YYYY-MM-DD HH:mm
 toc: true
 tags: []

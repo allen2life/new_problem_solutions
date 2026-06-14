@@ -142,6 +142,68 @@ a {
   font-weight: 500;
 }
 
+.problem-difficulty-badge {
+  display: inline-flex;
+  align-items: center;
+  min-height: 1.55rem;
+  padding: 0.12rem 0.5rem;
+  color: #41464b;
+  background: #e9ecef;
+  border: 1px solid #ced4da;
+  border-radius: 999px;
+  font-size: 0.78rem;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.problem-difficulty-badge.difficulty-entry {
+  color: #0f5132;
+  background: #d8f3dc;
+  border-color: #95d5b2;
+}
+
+.problem-difficulty-badge.difficulty-basic {
+  color: #146c43;
+  background: #d1e7dd;
+  border-color: #a3cfbb;
+}
+
+.problem-difficulty-badge.difficulty-intermediate-minus {
+  color: #084298;
+  background: #cfe2ff;
+  border-color: #9ec5fe;
+}
+
+.problem-difficulty-badge.difficulty-intermediate {
+  color: #055160;
+  background: #cff4fc;
+  border-color: #9eeaf9;
+}
+
+.problem-difficulty-badge.difficulty-advanced-minus {
+  color: #432874;
+  background: #e2d9f3;
+  border-color: #c5b3e6;
+}
+
+.problem-difficulty-badge.difficulty-advanced {
+  color: #653208;
+  background: #ffe5d0;
+  border-color: #fecba1;
+}
+
+.problem-difficulty-badge.difficulty-elite {
+  color: #842029;
+  background: #f8d7da;
+  border-color: #f1aeb5;
+}
+
+.problem-difficulty-badge.difficulty-unknown {
+  color: #41464b;
+  background: #e9ecef;
+  border-color: #ced4da;
+}
+
 .index-pagination {
   margin-top: 0.5rem;
 }

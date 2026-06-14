@@ -61,6 +61,7 @@ Final `index.md` must follow that format:
 - frontmatter at top
 - frontmatter `tags` must be reviewed and updated for this problem
 - frontmatter `description` must be a non-empty one-line summary of the core solution idea
+- frontmatter `difficulty` must be reviewed and set to a standard difficulty enum; use `"未知"` only when uncertain
 - frontmatter `recommend` must exist as an array; external recommendations are maintained by `oj-problem-relation-writer`
 - `[[TOC]]`
 - `### 题意`
@@ -261,6 +262,7 @@ oj: ""
 problem_id: ""
 title: ""
 description: ""
+difficulty: "未知"
 date: YYYY-MM-DD HH:mm
 toc: true
 tags: ["算法标签", "数据结构标签"]
@@ -290,6 +292,8 @@ source:
 Do not leave `tags: []` in the draft unless the problem is genuinely impossible to classify from available materials. Choose concise Chinese tags that help users search and review problems later, such as algorithm family, data structure, implementation technique, or difficulty-relevant pattern.
 
 Do not leave `description: ""` in the draft. The description must summarize the core solution idea in one line, usually 20 to 80 Chinese characters and at most 120 characters. It should describe the algorithmic insight, not the statement background. Avoid empty phrases such as “本题主要考察”, “经典题”, “详见下文”, or “看代码”.
+
+Do not leave `difficulty` unreviewed. Use the standard enum from `oj-problem-format-spec`; if the difficulty cannot be inferred from the statement, code, or known OJ rating, keep `"未知"` explicitly.
 
 ## Final Article Style
 
@@ -417,6 +421,7 @@ Only run 对拍 when `gen.py`, `main.cpp`, and `brute.cpp` exist and are runnabl
 - Do not write full code into `index.md`; use `@include-code(./brute.cpp, cpp)` in `### 思路` and `@include-code(./main.cpp, cpp)` in `### 代码`.
 - Do not claim `brute.cpp` is trusted unless its correctness is clear enough for small data.
 - Do not finish final `index.md` with `tags: []` or irrelevant inherited tags when enough information exists to classify the problem.
+- Do not finish final `index.md` without reviewing `difficulty`. Use one of: `入门`, `普及-`, `普及/提高-`, `普及+/提高`, `提高+/省选-`, `省选/NOI-`, `NOI/NOI+/CTSC`, `未知`.
 
 ## Final Response
 

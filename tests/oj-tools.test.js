@@ -159,6 +159,7 @@ test('check_problem requires description and warns when it is empty', () => {
     'oj: "luogu"',
     'problem_id: "P1"',
     'title: "Test"',
+    'difficulty: "未知"',
     'date: 2026-06-13 10:00',
     'toc: true',
     'tags: []',
@@ -214,7 +215,7 @@ test('new-problem scaffold includes description and recommend frontmatter fields
 
     assert.equal(result.status, 0);
     const indexMd = readFileSync(join(problemDir, 'index.md'), 'utf8');
-    assert.match(indexMd, /title: "Test"\ndescription: ""\ndate:/);
+    assert.match(indexMd, /title: "Test"\ndescription: ""\ndifficulty: "未知"\ndate:/);
     assert.match(indexMd, /categories: \[\]\npre: \[\]\ncommon: \[\]\nrecommend: \[\]\nsource:/);
   } finally {
     rmSync(fixtureRoot, { recursive: true, force: true });
@@ -243,6 +244,7 @@ test('check_relations validates external recommend items', () => {
       'problem_id: "P1"',
       'title: "Test"',
       'description: "测试推荐练习字段。"',
+      'difficulty: "未知"',
       'date: 2026-06-13 10:00',
       'toc: true',
       'tags: []',
@@ -272,6 +274,7 @@ test('check_relations validates external recommend items', () => {
       'problem_id: "P1"',
       'title: "Test"',
       'description: "测试推荐练习字段。"',
+      'difficulty: "未知"',
       'date: 2026-06-13 10:00',
       'toc: true',
       'tags: []',

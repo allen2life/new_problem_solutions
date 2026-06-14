@@ -23,6 +23,16 @@ REQUIRED_FRONTMATTER = [
     "categories",
     "source",
 ]
+DIFFICULTY_VALUES = {
+    "入门",
+    "普及-",
+    "普及/提高-",
+    "普及+/提高",
+    "提高+/省选-",
+    "省选/NOI-",
+    "NOI/NOI+/CTSC",
+    "未知",
+}
 
 
 def rel(path: Path) -> str:
@@ -124,6 +134,21 @@ def check_problem(problem_dir: Path) -> int:
                     suggestions.append("为 description 写一句题解核心摘要，描述最关键的解法思想。")
                 elif "\n" in description or len(description) > 120:
                     warnings.append("frontmatter description 应为一行，且不超过 120 个字符。")
+
+            if "difficulty" not in frontmatter:
+                warnings.append("frontmatter 缺少 difficulty 字段。")
+                suggestions.append('为题目补充 difficulty，例如 difficulty: "未知"。')
+            else:
+                difficulty = frontmatter.get("difficulty", "").strip().strip("'\"")
+                if difficulty not in DIFFICULTY_VALUES:
+                    warnings.append(
+                        "frontmatter difficulty 不在标准枚举中："
+                        f"{frontmatter.get('difficulty')}"
+                    )
+                    suggestions.append(
+                        "difficulty 使用：入门、普及-、普及/提高-、普及+/提高、"
+                        "提高+/省选-、省选/NOI-、NOI/NOI+/CTSC、未知。"
+                    )
 
             if expected_oj and frontmatter.get("oj", "").strip("'\"") != expected_oj:
                 warnings.append(

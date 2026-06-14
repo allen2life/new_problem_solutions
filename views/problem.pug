@@ -41,6 +41,12 @@ mixin recommendGroup(title, items)
               if item.reason
                 span.problem-relation-reason #{item.reason}
 
+mixin difficultyBadge(difficulty)
+  - const value = difficulty || ''
+  - const difficultyMap = {'入门': 'entry', '普及-': 'basic', '普及/提高-': 'intermediate-minus', '普及+/提高': 'intermediate', '提高+/省选-': 'advanced-minus', '省选/NOI-': 'advanced', 'NOI/NOI+/CTSC': 'elite', '未知': 'unknown'}
+  - const difficultyClass = `difficulty-${difficultyMap[value] || 'unknown'}`
+  span.problem-difficulty-badge(class=difficultyClass) #{value || '未知'}
+
 mixin lucideIcon(icon)
   svg.problem-toolbar-icon(xmlns="http://www.w3.org/2000/svg", viewBox="0 0 24 24", width="20", height="20", fill="none", stroke="currentColor", stroke-width="2", stroke-linecap="round", stroke-linejoin="round", aria-hidden="true", focusable="false")
     case icon
@@ -109,6 +115,10 @@ block content
           p
             strong 题目 ID:
             |  #{problem.problem_id}
+          p
+            strong 难度:
+            |
+            +difficultyBadge(problem.difficulty)
         .col-md-6
           if problem.tags
             p

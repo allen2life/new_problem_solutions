@@ -60,6 +60,7 @@ oj: {quote_yaml(oj)}
 problem_id: {quote_yaml(problem_id)}
 title: {quote_yaml(title)}
 description: ""
+difficulty: "未知"
 date: {now}
 toc: true
 tags: []

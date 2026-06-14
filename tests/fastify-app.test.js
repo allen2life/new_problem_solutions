@@ -18,6 +18,7 @@ test('Fastify app renders the index page', async () => {
   assert.match(response.body, /<table/);
   assert.match(response.body, /原题/);
   assert.match(response.body, /最后更新/);
+  assert.match(response.body, /难度/);
   assert.doesNotMatch(response.body, /problem-floating-toolbar/);
 
   await app.close();
@@ -69,6 +70,8 @@ test('Fastify app returns a problem detail page', async () => {
   assert.match(response.body, /src="\/javascripts\/problem-toolbar\.js"/);
   assert.match(response.body, /src="\/javascripts\/problem-mermaid\.js"/);
   assert.match(response.body, /href="\/relations\?oj=OpenJ_Bailian&amp;pid=1651"/);
+  assert.match(response.body, /难度:/);
+  assert.match(response.body, /problem-difficulty-badge/);
 
   await app.close();
 });
