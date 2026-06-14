@@ -19,7 +19,7 @@ if str(REPO_ROOT) not in sys.path:
     sys.path.insert(0, str(REPO_ROOT))
 
 from fetchers import FETCHERS, FetchError, FetchResult, ProblemData, Sample  # noqa: E402
-from scripts.problem_analysis_lib.problem_scaffold import (  # noqa: E402
+from problem_scaffold import (  # noqa: E402
     PROBLEMS_ROOT,
     create_problem_dir,
     relative_to_repo,
