@@ -73,6 +73,7 @@ Final `index.md` must follow that format:
 - `@include-code(./brute.cpp, cpp)` in `### 思路`
 - Mermaid、Graphviz、Markdown 表格等可视化内容必须遵守 `oj-problem-format-spec` 的“可视化辅助格式”。
 - 如果题目需要样例、DP、树、图、网格或模拟过程可视化，使用 `oj-sample-visualizer` 生成题目专用 `problem-analysis-workspace/viz_render.py` 和素材；不要在本 skill 中临时发明通用可视化解析器。
+- 创建或修改 `main.cpp` / `brute.cpp` 时，必须使用 `oj-cpp-competitive-style`，保持 C++17 竞赛风格、中文注释和可读性。
 
 ## Source Priority
 
@@ -112,6 +113,7 @@ Rules:
 - If `brute.cpp` already exists, read it and improve it if needed.
 - If `brute.cpp` does not exist, create it.
 - It must be a complete C++17 program with the same input/output format as `main.cpp`.
+- It must follow `oj-cpp-competitive-style`.
 - Prefer direct enumeration, simulation, or another clearly correct small-data method.
 - Use straightforward variable names and a few useful Chinese comments when they help understanding.
 - High complexity is acceptable, but it must be described as small-data/verification code.
