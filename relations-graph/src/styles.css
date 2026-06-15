@@ -1,0 +1,551 @@
+* {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#relations-graph-root {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+}
+
+body {
+  overflow: hidden;
+  color: #172033;
+  background: #eef3f8;
+  font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+
+button,
+input,
+select {
+  font: inherit;
+}
+
+.relations-graph-app {
+  position: fixed;
+  inset: 0;
+  overflow: hidden;
+  background:
+    linear-gradient(135deg, rgba(255, 255, 255, 0.78), rgba(237, 244, 251, 0.72)),
+    #eef3f8;
+}
+
+.relations-flow-wrap {
+  position: absolute;
+  inset: 0;
+}
+
+.react-flow {
+  --xy-edge-stroke-default: #94a3b8;
+  --xy-edge-stroke-width-default: 1.8;
+  --xy-node-boxshadow-default: none;
+}
+
+.react-flow__pane {
+  cursor: grab;
+}
+
+.react-flow__pane:active {
+  cursor: grabbing;
+}
+
+.problem-card-node {
+  width: 210px;
+  min-height: 112px;
+  padding: 10px 12px 11px;
+  color: #152033;
+  background: rgba(255, 255, 255, 0.96);
+  border: 1px solid rgba(148, 163, 184, 0.58);
+  border-left: 5px solid var(--node-color, #64748b);
+  border-radius: 8px;
+  box-shadow: 0 14px 38px rgba(30, 41, 59, 0.12);
+  transition: border-color 0.16s ease, box-shadow 0.16s ease, opacity 0.16s ease, transform 0.16s ease;
+}
+
+.problem-card-node:hover,
+.problem-card-node.is-active {
+  border-color: #2563eb;
+  box-shadow: 0 18px 46px rgba(37, 99, 235, 0.2);
+  transform: translateY(-1px);
+}
+
+.problem-card-node.is-matched {
+  border-color: #f59e0b;
+}
+
+.problem-card-node.is-dimmed {
+  opacity: 0.22;
+}
+
+.problem-card-node-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 8px;
+}
+
+.problem-card-node-id {
+  overflow: hidden;
+  color: #526173;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace;
+  font-size: 12px;
+  font-weight: 800;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.problem-card-node h2 {
+  display: -webkit-box;
+  height: 36px;
+  margin: 7px 0 8px;
+  overflow: hidden;
+  color: #111827;
+  font-size: 14px;
+  font-weight: 800;
+  line-height: 18px;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+}
+
+.problem-card-node-tags {
+  display: flex;
+  height: 22px;
+  gap: 5px;
+  overflow: hidden;
+}
+
+.problem-card-node-tags span,
+.graph-details-tags span,
+.graph-tag-pill {
+  display: inline-flex;
+  align-items: center;
+  min-width: 0;
+  height: 22px;
+  padding: 0 8px;
+  color: #475569;
+  background: #f8fafc;
+  border: 1px solid #dbe3ec;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 650;
+  white-space: nowrap;
+}
+
+.problem-card-node-tags .is-muted,
+.graph-details-tags .is-muted {
+  color: #94a3b8;
+}
+
+.problem-card-node-stats {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 5px;
+  margin-top: 8px;
+}
+
+.problem-card-node-stats span {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  height: 21px;
+  color: #334155;
+  background: #edf4fb;
+  border-radius: 5px;
+  font-size: 11px;
+  font-weight: 750;
+}
+
+.problem-node-handle {
+  width: 8px;
+  height: 8px;
+  background: #64748b;
+  border: 2px solid #ffffff;
+}
+
+.relation-edge {
+  transition: opacity 0.16s ease;
+}
+
+.relation-edge-pre path {
+  stroke: #2563eb;
+  stroke-width: 2.2;
+}
+
+.relation-edge-common path {
+  stroke: #16a34a;
+  stroke-width: 2;
+  stroke-dasharray: 7 6;
+}
+
+.relation-edge-dimmed {
+  opacity: 0.16;
+}
+
+.graph-difficulty-badge {
+  flex: 0 0 auto;
+  display: inline-flex;
+  align-items: center;
+  max-width: 72px;
+  height: 20px;
+  padding: 0 6px;
+  overflow: hidden;
+  border: 1px solid currentColor;
+  border-radius: 999px;
+  font-size: 11px;
+  font-weight: 800;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.difficulty-entry { color: #15803d; background: #ecfdf3; }
+.difficulty-basic { color: #0f766e; background: #ecfeff; }
+.difficulty-intermediate-minus { color: #1d4ed8; background: #eff6ff; }
+.difficulty-intermediate { color: #6d28d9; background: #f5f3ff; }
+.difficulty-advanced-minus { color: #b45309; background: #fffbeb; }
+.difficulty-advanced { color: #be123c; background: #fff1f2; }
+.difficulty-elite { color: #7f1d1d; background: #fef2f2; }
+.difficulty-unknown { color: #64748b; background: #f8fafc; }
+
+.graph-settings {
+  position: absolute;
+  top: 14px;
+  left: 14px;
+  z-index: 20;
+}
+
+.graph-settings-popover {
+  position: relative;
+}
+
+.graph-settings-popover[open] .graph-settings-toggle {
+  color: #2563eb;
+}
+
+.graph-settings-toggle {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  width: 44px;
+  height: 44px;
+  color: #475569;
+  background: rgba(255, 255, 255, 0.94);
+  border: 1px solid #dbe3ec;
+  border-radius: 8px;
+  box-shadow: 0 14px 34px rgba(15, 23, 42, 0.12);
+  cursor: pointer;
+  list-style: none;
+}
+
+.graph-settings-toggle::-webkit-details-marker {
+  display: none;
+}
+
+.graph-toolbar {
+  display: grid;
+  gap: 10px;
+  width: min(620px, calc(100vw - 28px));
+  margin-top: 8px;
+  padding: 12px;
+  background: rgba(255, 255, 255, 0.96);
+  border: 1px solid #dbe3ec;
+  border-radius: 8px;
+  box-shadow: 0 18px 46px rgba(15, 23, 42, 0.14);
+  backdrop-filter: blur(8px);
+}
+
+.graph-toolbar-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: start;
+  gap: 12px;
+}
+
+.graph-toolbar-header strong {
+  display: block;
+  color: #1e293b;
+  font-size: 15px;
+}
+
+.graph-toolbar-header p {
+  margin: 3px 0 0;
+  color: #64748b;
+  font-size: 12px;
+}
+
+.graph-toolbar-home,
+.graph-details-link,
+.graph-toolbar-actions button {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 32px;
+  padding: 0 12px;
+  color: #ffffff;
+  background: #2563eb;
+  border: 1px solid #2563eb;
+  border-radius: 6px;
+  font-size: 13px;
+  font-weight: 750;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.graph-toolbar-actions button + button {
+  color: #334155;
+  background: #ffffff;
+  border-color: #cbd5e1;
+}
+
+.graph-toolbar-row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 128px;
+  gap: 8px;
+}
+
+.graph-search input,
+.graph-select select {
+  width: 100%;
+  height: 34px;
+  padding: 0 10px;
+  color: #1e293b;
+  background: #ffffff;
+  border: 1px solid #cbd5e1;
+  border-radius: 6px;
+  outline: none;
+}
+
+.graph-search input:focus,
+.graph-select select:focus {
+  border-color: #2563eb;
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.12);
+}
+
+.graph-toggle-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 14px;
+}
+
+.graph-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: #475569;
+  font-size: 13px;
+  font-weight: 650;
+  user-select: none;
+}
+
+.graph-slider-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 9px 12px;
+}
+
+.graph-slider {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 4px 8px;
+  align-items: center;
+  color: #475569;
+  font-size: 12px;
+  font-weight: 650;
+}
+
+.graph-slider output {
+  color: #64748b;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace;
+}
+
+.graph-slider input {
+  grid-column: 1 / -1;
+}
+
+.graph-slider.is-disabled {
+  opacity: 0.42;
+}
+
+.graph-slider.is-disabled input {
+  cursor: not-allowed;
+}
+
+.graph-toolbar-actions {
+  display: flex;
+  gap: 8px;
+}
+
+.graph-details-panel {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  z-index: 15;
+  display: grid;
+  gap: 12px;
+  width: min(340px, calc(100vw - 28px));
+  max-height: calc(100vh - 28px);
+  padding: 16px;
+  overflow-y: auto;
+  background: rgba(255, 255, 255, 0.96);
+  border: 1px solid #dbe3ec;
+  border-radius: 8px;
+  box-shadow: 0 18px 46px rgba(15, 23, 42, 0.14);
+  backdrop-filter: blur(8px);
+}
+
+.graph-details-empty {
+  display: grid;
+  min-height: 150px;
+  place-items: center;
+  color: #64748b;
+  text-align: center;
+}
+
+.graph-details-kicker {
+  color: #64748b;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace;
+  font-size: 13px;
+  font-weight: 800;
+}
+
+.graph-details-panel h2 {
+  margin: 0;
+  color: #0f172a;
+  font-size: 18px;
+  line-height: 1.45;
+}
+
+.graph-details-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.graph-details-stats {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 8px;
+  margin: 0;
+}
+
+.graph-details-stats div {
+  padding: 10px 6px;
+  text-align: center;
+  background: #f8fafc;
+  border: 1px solid #dbe3ec;
+  border-radius: 8px;
+}
+
+.graph-details-stats dt {
+  color: #64748b;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.graph-details-stats dd {
+  margin: 3px 0 0;
+  color: #1e293b;
+  font-size: 18px;
+  font-weight: 850;
+}
+
+.graph-details-link {
+  width: fit-content;
+}
+
+.graph-tag-legend {
+  position: absolute;
+  bottom: 14px;
+  left: 14px;
+  z-index: 12;
+  display: grid;
+  gap: 8px;
+  width: min(720px, calc(100vw - 110px));
+  max-height: 30vh;
+  padding: 12px;
+  overflow-y: auto;
+  background: rgba(255, 255, 255, 0.94);
+  border: 1px solid #dbe3ec;
+  border-radius: 8px;
+  box-shadow: 0 18px 46px rgba(15, 23, 42, 0.12);
+  backdrop-filter: blur(8px);
+}
+
+.graph-tag-legend strong {
+  color: #334155;
+  font-size: 13px;
+}
+
+.graph-tag-legend div {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+}
+
+.graph-tag-pill {
+  gap: 6px;
+  background: #ffffff;
+}
+
+.graph-tag-pill i {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+}
+
+.graph-tag-pill em {
+  color: #64748b;
+  font-style: normal;
+}
+
+.graph-loading,
+.graph-error {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  z-index: 30;
+  padding: 14px 18px;
+  color: #334155;
+  background: rgba(255, 255, 255, 0.95);
+  border: 1px solid #dbe3ec;
+  border-radius: 8px;
+  box-shadow: 0 14px 34px rgba(15, 23, 42, 0.12);
+  transform: translate(-50%, -50%);
+}
+
+.graph-error {
+  color: #b91c1c;
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+@media (max-width: 767px) {
+  .graph-toolbar-row,
+  .graph-slider-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .graph-details-panel {
+    top: auto;
+    right: 14px;
+    bottom: 14px;
+    left: 14px;
+    width: auto;
+    max-height: 38vh;
+  }
+
+  .graph-tag-legend {
+    display: none;
+  }
+}

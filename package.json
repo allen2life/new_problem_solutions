@@ -7,16 +7,21 @@
     "prestart": "npm run generate:problems",
     "start": "node ./bin/www",
     "test": "node --test tests/*.test.js",
-    "generate:problems": "node ./scripts/generate-problems-json.js"
+    "generate:problems": "node ./scripts/generate-problems-json.js",
+    "build": "npm run generate:problems && npm run build:relations",
+    "build:relations": "vite build --config relations-graph/vite.config.ts"
   },
   "dependencies": {
     "@fastify/cookie": "^11.0.2",
     "@fastify/formbody": "^8.0.2",
     "@fastify/static": "^9.1.3",
     "@fastify/view": "^11.1.1",
+    "@xyflow/react": "^12.11.0",
     "cheerio": "^1.0.0-rc.12",
+    "d3-force": "^3.0.0",
     "debug": "~2.6.9",
     "ejs": "^3.1.10",
+    "elkjs": "^0.11.1",
     "fastify": "^5.8.5",
     "glob": "^13.0.6",
     "gray-matter": "^4.0.3",
@@ -42,7 +47,17 @@
     "nunjucks": "^3.2.4",
     "prismjs": "^1.30.0",
     "pug": "^3.0.4",
+    "react": "^19.2.7",
+    "react-dom": "^19.2.7",
     "twemoji": "^14.0.2",
     "uslug": "^1.0.4"
+  },
+  "devDependencies": {
+    "@types/d3-force": "^3.0.10",
+    "@types/react": "^19.2.17",
+    "@types/react-dom": "^19.2.3",
+    "@vitejs/plugin-react": "^6.0.2",
+    "typescript": "^6.0.3",
+    "vite": "^8.0.16"
   }
 }

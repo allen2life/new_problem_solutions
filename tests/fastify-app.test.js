@@ -87,16 +87,11 @@ test('Fastify app renders the relation graph page', async () => {
   assert.equal(response.statusCode, 200);
   assert.match(response.headers['content-type'], /text\/html/);
   assert.match(response.body, /题目关系图/);
-  assert.match(response.body, /id="relations-graph"/);
-  assert.match(response.body, /cytoscape@3/);
-  assert.match(response.body, /src="\/javascripts\/problem-relations-graph\.js"/);
-  assert.match(response.body, /data-relation-settings-toggle/);
-  assert.match(response.body, /data-layout-param="wheelSensitivity"/);
-  assert.match(response.body, /data-layout-param="idealEdgeLength"/);
-  assert.match(response.body, /data-layout-apply/);
-  assert.match(response.body, /data-legend-toggle/);
-  assert.match(response.body, /data-edge-toggle="pre"/);
-  assert.match(response.body, /data-isolated-toggle/);
+  assert.match(response.body, /id="relations-graph-root"/);
+  assert.match(response.body, /href="\/relations-graph\/assets\/index\.css"/);
+  assert.match(response.body, /src="\/relations-graph\/assets\/index\.js"/);
+  assert.doesNotMatch(response.body, /cytoscape@3/);
+  assert.doesNotMatch(response.body, /problem-relations-graph\.js/);
 
   await app.close();
 });
@@ -116,6 +111,7 @@ test('Fastify app returns relation graph JSON', async () => {
   assert.ok(Array.isArray(body.nodes));
   assert.ok(Array.isArray(body.edges));
   assert.ok(body.summary.nodes > 0);
+  assert.ok(body.nodes.every((node) => typeof node.difficulty === 'string'));
   assert.ok(body.edges.some((edge) => edge.type === 'pre' || edge.type === 'common'));
 
   await app.close();
