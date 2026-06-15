@@ -19,6 +19,11 @@ test('Fastify app renders the index page', async () => {
   assert.match(response.body, /原题/);
   assert.match(response.body, /最后更新/);
   assert.match(response.body, /难度/);
+  assert.match(response.body, /data-theme-mode/);
+  assert.match(response.body, /value="auto"/);
+  assert.match(response.body, /value="light"/);
+  assert.match(response.body, /value="dark"/);
+  assert.match(response.body, /src="\/javascripts\/theme-switcher\.js"/);
   assert.doesNotMatch(response.body, /problem-floating-toolbar/);
 
   await app.close();
@@ -69,6 +74,7 @@ test('Fastify app returns a problem detail page', async () => {
   assert.match(response.body, /mermaid@11\/dist\/mermaid\.min\.js/);
   assert.match(response.body, /src="\/javascripts\/problem-toolbar\.js"/);
   assert.match(response.body, /src="\/javascripts\/problem-mermaid\.js"/);
+  assert.match(response.body, /src="\/javascripts\/theme-switcher\.js"/);
   assert.match(response.body, /href="\/relations\?oj=OpenJ_Bailian&amp;pid=1651"/);
   assert.match(response.body, /难度:/);
   assert.match(response.body, /problem-difficulty-badge/);
@@ -119,6 +125,7 @@ test('Fastify app renders the relation graph page', async () => {
   assert.match(response.body, /src="\/relations-graph\/assets\/index\.js"/);
   assert.doesNotMatch(response.body, /cytoscape@3/);
   assert.doesNotMatch(response.body, /problem-relations-graph\.js/);
+  assert.doesNotMatch(response.body, /theme-switcher\.js/);
 
   await app.close();
 });
