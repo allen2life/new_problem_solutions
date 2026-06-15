@@ -72,6 +72,33 @@ test('Fastify app returns a problem detail page', async () => {
   assert.match(response.body, /href="\/relations\?oj=OpenJ_Bailian&amp;pid=1651"/);
   assert.match(response.body, /难度:/);
   assert.match(response.body, /problem-difficulty-badge/);
+  assert.match(response.body, />无题目</);
+  assert.match(response.body, /disabled/);
+  assert.doesNotMatch(response.body, /problemStatementModal/);
+
+  await app.close();
+});
+
+test('Fastify app renders problem statement modal when problem.md exists', async () => {
+  const app = await buildApp({ logger: false });
+
+  const response = await app.inject({
+    method: 'GET',
+    url: '/problems/luogu/P1968',
+  });
+
+  assert.equal(response.statusCode, 200);
+  assert.match(response.headers['content-type'], /text\/html/);
+  assert.match(response.body, />显示题目</);
+  assert.match(response.body, /data-bs-target="#problemStatementModal"/);
+  assert.match(response.body, /id="problemStatementModal"/);
+  assert.match(response.body, /modal-xl/);
+  assert.match(response.body, /modal-dialog-scrollable/);
+  assert.match(response.body, /luogu P1968 - 题目/);
+  assert.match(response.body, /题目描述/);
+  assert.match(response.body, /输入输出样例/);
+  assert.match(response.body, /class="katex"/);
+  assert.doesNotMatch(response.body, />无题目</);
 
   await app.close();
 });

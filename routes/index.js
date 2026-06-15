@@ -1,4 +1,5 @@
 import path from 'path';
+import fs from 'fs';
 import MarkdownRenderer from '../lib/markdown.js';
 import problemManager from '../lib/instance.js';
 
@@ -56,10 +57,18 @@ export default async function indexRoutes(app) {
     const mdPath = path.join(process.cwd(), 'problems', problem.md_path);
     const renderer = new MarkdownRenderer(mdPath, problemManager);
     const htmlContent = renderer.toHTML();
+    const problemDir = path.dirname(mdPath);
+    const statementPath = path.join(problemDir, 'problem.md');
+    const hasStatement = fs.existsSync(statementPath);
+    const statementHtml = hasStatement
+      ? new MarkdownRenderer(statementPath, problemManager).toHTML()
+      : '';
 
     return reply.view('problem.pug', {
       problem,
       content: htmlContent,
+      hasStatement,
+      statementHtml,
       relations: problemManager.getRelations(problem),
       recommendations: problemManager.getRecommendations(problem),
       githubUrl: problemManager.github_url(problem.md_path),
