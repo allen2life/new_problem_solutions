@@ -1,0 +1,30 @@
+extends layout.pug
+
+block title
+  | #{problemSet.title} - 题目单
+
+block content
+  nav(aria-label="breadcrumb")
+    ol.breadcrumb
+      li.breadcrumb-item
+        a(href="/") 首页
+      li.breadcrumb-item
+        a(href="/problem-sets") 题目单
+      li.breadcrumb-item.active(aria-current="page") #{problemSet.title}
+
+  .problem-set-shell
+    .index-head
+      .index-head__title
+        h1.h3.mb-1 #{problemSet.title}
+        if problemSet.description
+          p.text-muted.mb-0 #{problemSet.description}
+      .index-head__meta
+        span.index-count(data-problem-set-progress) 0 / 0 已完成
+
+    .card.problem-content-card
+      .card-body
+        .markdown-body.problem-set-body
+          != problemSet.content
+
+block scripts
+  script(src="/javascripts/problem-set-progress.js")

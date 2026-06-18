@@ -55,8 +55,11 @@
   applyTheme(readMode());
 
   document.addEventListener('change', (event) => {
-    const input = event.target.closest('[data-theme-mode]');
-    if (!input) return;
+    const input = event.target;
+    if (!(input instanceof HTMLInputElement)) return;
+    if (!input.hasAttribute('data-theme-mode')) return;
+    if (input.name !== 'theme-mode') return;
+    if (!modes.has(input.value)) return;
     setMode(input.value);
   });
 

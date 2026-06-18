@@ -2,6 +2,9 @@ import path from 'path';
 import fs from 'fs';
 import MarkdownRenderer from '../lib/markdown.js';
 import problemManager from '../lib/instance.js';
+import ProblemSetManager from '../lib/problem-set.js';
+
+const problemSetManager = new ProblemSetManager(problemManager);
 
 export default async function indexRoutes(app) {
   app.get('/', async (request, reply) => {
@@ -78,6 +81,25 @@ export default async function indexRoutes(app) {
   app.get('/relations', async (request, reply) => {
     return reply.view('relations.pug', {
       title: '题目关系图',
+    });
+  });
+
+  app.get('/problem-sets', async (request, reply) => {
+    return reply.view('problem-sets-index.pug', {
+      title: '题目单',
+      sets: problemSetManager.list(),
+    });
+  });
+
+  app.get('/problem-sets/:slug', async (request, reply) => {
+    const problemSet = problemSetManager.find(request.params.slug);
+    if (!problemSet) {
+      return reply.callNotFound();
+    }
+
+    return reply.view('problem-set.pug', {
+      title: problemSet.title,
+      problemSet,
     });
   });
 }

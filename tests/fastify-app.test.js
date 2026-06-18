@@ -24,7 +24,49 @@ test('Fastify app renders the index page', async () => {
   assert.match(response.body, /value="light"/);
   assert.match(response.body, /value="dark"/);
   assert.match(response.body, /src="\/javascripts\/theme-switcher\.js"/);
+  assert.match(response.body, /href="\/problem-sets"/);
   assert.doesNotMatch(response.body, /problem-floating-toolbar/);
+
+  await app.close();
+});
+
+test('Fastify app renders the problem set index page', async () => {
+  const app = await buildApp({ logger: false });
+
+  const response = await app.inject({
+    method: 'GET',
+    url: '/problem-sets',
+  });
+
+  assert.equal(response.statusCode, 200);
+  assert.match(response.headers['content-type'], /text\/html/);
+  assert.match(response.body, /题目单/);
+  assert.match(response.body, /图论入门题单/);
+  assert.match(response.body, /href="\/problem-sets\/graph-basic"/);
+
+  await app.close();
+});
+
+test('Fastify app renders the problem set detail page', async () => {
+  const app = await buildApp({ logger: false });
+
+  const response = await app.inject({
+    method: 'GET',
+    url: '/problem-sets/graph-basic',
+  });
+
+  assert.equal(response.statusCode, 200);
+  assert.match(response.headers['content-type'], /text\/html/);
+  assert.match(response.body, /图论入门题单/);
+  assert.match(response.body, /data-problem-set-progress/);
+  assert.match(response.body, /src="\/javascripts\/problem-set-progress\.js"/);
+  assert.match(response.body, /src="\/javascripts\/theme-switcher\.js"/);
+  assert.match(response.body, /data-problem-task/);
+  assert.match(response.body, /data-problem-key="hdu\/1213"/);
+  assert.match(response.body, /href="\/problems\/luogu\/P3387"/);
+  assert.match(response.body, /problem-set-task-link/);
+  assert.match(response.body, /未收录/);
+  assert.match(response.body, /codeforces 20C/);
 
   await app.close();
 });

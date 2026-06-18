@@ -1,0 +1,24 @@
+extends layout.pug
+
+block title
+  | 题目单 - 题目列表
+
+block content
+  .problem-set-shell
+    .index-head
+      .index-head__title
+        h1.h3.mb-1 题目单
+        p.text-muted.mb-0 按专题顺序刷题，勾选状态保存在浏览器本地。
+      .index-head__meta
+        span.index-count 共 #{sets.length} 份题目单
+
+    if sets.length
+      .problem-set-grid
+        each item in sets
+          a.problem-set-card(href=`/problem-sets/${encodeURIComponent(item.slug)}`)
+            .problem-set-card__title #{item.title}
+            if item.description
+              .problem-set-card__desc #{item.description}
+            .problem-set-card__meta #{item.slug}
+    else
+      .alert.alert-light.border 暂无题目单，请在 `problem-sets/` 下添加 Markdown 文件。

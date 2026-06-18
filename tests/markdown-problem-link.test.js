@@ -40,6 +40,15 @@ test('MarkdownRenderer resolves [[oj/id]] to problem link', () => {
   assert.match(html, /class="problem-link"/);
 });
 
+test('MarkdownRenderer resolves [[problem: oj,pid]] to problem link', () => {
+  const pm = new ProblemManager();
+  const md = new MarkdownRenderer('', pm);
+  md.md_content = 'See [[problem: OpenJ_Bailian,1651]] now.';
+  const html = md.toHTML();
+  assert.match(html, /href="\/problems\/OpenJ_Bailian\/1651"/);
+  assert.match(html, /class="problem-link"/);
+});
+
 test('ProblemManager scans only formal index.md problem pages', () => {
   const pm = new ProblemManager({ auto_load: false });
   const files = pm.scanProblems();
