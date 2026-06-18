@@ -43,6 +43,8 @@ test('Fastify app renders the problem set index page', async () => {
   assert.match(response.body, /题目单/);
   assert.match(response.body, /图论入门题单/);
   assert.match(response.body, /href="\/problem-sets\/graph-basic"/);
+  assert.match(response.body, /href="\/problem-sets\/csp-j-400"/);
+  assert.match(response.body, /href="\/problem-sets\/csp-s-400"/);
 
   await app.close();
 });
@@ -67,6 +69,30 @@ test('Fastify app renders the problem set detail page', async () => {
   assert.match(response.body, /problem-set-task-link/);
   assert.match(response.body, /未收录/);
   assert.match(response.body, /codeforces 20C/);
+
+  await app.close();
+});
+
+test('Fastify app renders generated CSP problem set pages', async () => {
+  const app = await buildApp({ logger: false });
+
+  const cspj = await app.inject({
+    method: 'GET',
+    url: '/problem-sets/csp-j-400',
+  });
+  assert.equal(cspj.statusCode, 200);
+  assert.match(cspj.body, /CSP-J 400 分题单/);
+  assert.match(cspj.body, /luogu P1996/);
+  assert.match(cspj.body, /经典知识点应用题/);
+
+  const csps = await app.inject({
+    method: 'GET',
+    url: '/problem-sets/csp-s-400',
+  });
+  assert.equal(csps.statusCode, 200);
+  assert.match(csps.body, /CSP-S 400 分题单/);
+  assert.match(csps.body, /luogu P1807/);
+  assert.match(csps.body, /树论/);
 
   await app.close();
 });
