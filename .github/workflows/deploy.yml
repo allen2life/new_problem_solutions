@@ -62,14 +62,14 @@ jobs:
             exit 0
           fi
 
-          if awk 'NF && $0 !~ /^problems\// { found=1 } END { exit found ? 0 : 1 }' changed-files.txt; then
+          if awk 'NF && $0 !~ /^problems\// && $0 !~ /^problem-sets\// { found=1 } END { exit found ? 0 : 1 }' changed-files.txt; then
             echo "build_image=true" >> "$GITHUB_OUTPUT"
             echo "skip_image_pull=false" >> "$GITHUB_OUTPUT"
             echo "Application files changed: build image."
           else
             echo "build_image=false" >> "$GITHUB_OUTPUT"
             echo "skip_image_pull=true" >> "$GITHUB_OUTPUT"
-            echo "Only problems/ changed: skip image build."
+            echo "Only problems/ and problem-sets/ changed: skip image build."
           fi
 
       - name: Set up Docker Buildx

@@ -9,5 +9,6 @@ services:
       PORT: "3000"
     volumes:
       - ./problems:/app/problems:ro
+      - ./problem-sets:/app/problem-sets:ro
     ports:
       - "127.0.0.1:3300:3000"

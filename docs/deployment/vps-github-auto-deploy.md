@@ -18,6 +18,7 @@ git push origin master
   -> docker tag 成 problems-solution:deploy
   -> docker compose up -d --remove-orphans
   -> ./problems 只读挂载到容器 /app/problems
+  -> ./problem-sets 只读挂载到容器 /app/problem-sets
   -> 容器 npm start
   -> 自动生成 problems.json
 ```
@@ -44,7 +45,7 @@ npm run generate:problems
 
 `problems.json` 是运行时生成文件，不提交到 Git。`npm start` 会先执行 `npm run generate:problems`，所以容器每次启动都会基于当前 `problems/` 重新生成。
 
-Docker 镜像由 GitHub Actions 构建并推送到 GitHub Container Registry，即 `ghcr.io/rainboyoj/new_problem_solutions:master`。VPS 部署时会优先从 `ghcr.nju.edu.cn` 拉取，失败后依次 fallback 到 `gh-proxy.org` 和原始 `ghcr.io`，最终统一 tag 成本地镜像 `problems-solution:deploy` 给 Docker Compose 使用。镜像不包含 `problems/`，部署时由 `docker-compose.yml` 把 VPS 仓库里的 `./problems` 只读挂载到容器的 `/app/problems`。这样可以避免把较大的题目数据重复打进每个镜像层。
+Docker 镜像由 GitHub Actions 构建并推送到 GitHub Container Registry，即 `ghcr.io/rainboyoj/new_problem_solutions:master`。VPS 部署时会优先从 `ghcr.nju.edu.cn` 拉取，失败后依次 fallback 到 `gh-proxy.org` 和原始 `ghcr.io`，最终统一 tag 成本地镜像 `problems-solution:deploy` 给 Docker Compose 使用。镜像不包含运行时内容目录，部署时由 `docker-compose.yml` 把 VPS 仓库里的 `./problems` 和 `./problem-sets` 只读挂载到容器的 `/app/problems` 与 `/app/problem-sets`。这样可以避免把题目解析和题目单内容重复打进每个镜像层。
 
 ## 2. VPS 安装基础环境
 
@@ -133,16 +134,28 @@ origin  https://gh-proxy.com/https://github.com/rainboyOJ/new_problem_solutions.
 
 后续 `scripts/deploy-vps.sh` 里的 `git fetch origin "$BRANCH"` 会继续使用这个 HTTPS 远端地址，不需要在 VPS 上额外配置 GitHub SSH deploy key。
 
-注意：这个项目要独立部署，`problems/` 应该是仓库里的真实目录，而不是指向你本地电脑其它项目的软链接。Docker Compose 会把 `/srv/rbook/problems` 挂载到容器的 `/app/problems`。
+注意：这个项目要独立部署，`problems/` 和 `problem-sets/` 都应该是仓库里的真实目录，而不是指向你本地电脑其它项目的软链接。Docker Compose 会把 `/srv/rbook/problems` 和 `/srv/rbook/problem-sets` 挂载到容器里。
 
 检查：
 
 ```bash
-ls -ld problems
+ls -ld problems problem-sets
 test -L problems && echo "problems is symlink" || echo "problems is real directory"
+test -L problem-sets && echo "problem-sets is symlink" || echo "problem-sets is real directory"
 ```
 
-如果输出 `problems is symlink`，请先把真实题目目录复制进仓库，再重新提交。
+如果输出任一目录是 symlink，请先把真实内容目录复制进仓库，再重新提交。
+
+## 5.1 轻量部署规则
+
+workflow 会根据本次 push 的变更路径决定是否重建镜像：
+
+- 只有 `problems/` 和/或 `problem-sets/` 发生变化：
+  跳过镜像构建与拉取，直接在 VPS 上 `git fetch/reset` 后使用现有镜像重启容器。
+- 只要还有任何其它路径变化：
+  重新构建镜像并部署。
+
+这样题目解析和题目单内容都能像静态内容一样轻量更新。
 
 ## 6. 准备 GHCR 镜像
 
@@ -192,10 +205,11 @@ curl -fsS http://127.0.0.1:3300/api/problems?limit=1
 docker compose logs -f problems-solution
 ```
 
-确认题目目录已挂载到容器：
+确认题目目录和题目单目录都已挂载到容器：
 
 ```bash
 docker compose exec problems-solution ls -ld /app/problems
+docker compose exec problems-solution ls -ld /app/problem-sets
 ```
 
 如果你之前按旧教程创建过 systemd 服务，需要先用 root 停掉旧服务，避免它占用 `3000` 端口：
