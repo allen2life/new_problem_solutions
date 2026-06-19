@@ -1,0 +1,30 @@
+# P2865 [USACO06NOV] Roadblocks G
+## 题目描述
+
+Bessie has moved to a small farm and sometimes enjoys returning to visit one of her best friends. She does not want to get to her old home too quickly, because she likes the scenery along the way. She has decided to take the second-shortest rather than the shortest path. She knows there must be some second-shortest path.
+
+The countryside consists of R (1 ≤ R ≤ 100,000) bidirectional roads, each linking two of the N (1 ≤ N ≤ 5000) intersections, conveniently numbered 1..N. Bessie starts at intersection 1, and her friend (the destination) is at intersection N.
+
+The second-shortest path may share roads with any of the shortest paths, and it may backtrack i.e., use the same road or intersection more than once. The second-shortest path is the shortest path whose length is longer than the shortest path(s) (i.e., if two or more shortest paths exist, the second-shortest path is the one whose length is longer than those but no longer than any other path).
+
+## 输入输出样例 #1
+
+### 输入 #1
+
+```
+4 4
+1 2 100
+2 4 200
+2 3 250
+3 4 100
+```
+
+### 输出 #1
+
+```
+450
+```
+
+## 说明/提示
+
+Two routes: 1 -> 2 -> 4 (length 100+200=300) and 1 -> 2 -> 3 -> 4 (length 100+250+100=450)
