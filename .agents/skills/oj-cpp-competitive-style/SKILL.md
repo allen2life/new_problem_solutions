@@ -1,6 +1,12 @@
 ---
 name: oj-cpp-competitive-style
-description: Write or review OJ C++17 code in a clear Chinese competitive-programming style. Use this skill when creating or editing main.cpp, brute.cpp, generator-adjacent C++ snippets, or when the user asks to restrict AI C++ style: no lambda, avoid over-modern C++, prefer global arrays/variables, use simple loops, allow common STL such as queue/map/set/priority_queue/vector when appropriate, and add useful Chinese comments.
+description: >-
+  Write or review OJ C++17 code in a clear Chinese competitive-programming
+  style. Use this skill when creating or editing main.cpp, brute.cpp,
+  generator-adjacent C++ snippets, or when the user asks to restrict AI C++
+  style: no lambda, avoid over-modern C++, prefer global arrays/variables, use
+  simple loops, allow common STL such as queue/map/set/priority_queue/vector
+  when appropriate, and add useful Chinese comments.
 ---
 
 # OJ C++ 竞赛风格
