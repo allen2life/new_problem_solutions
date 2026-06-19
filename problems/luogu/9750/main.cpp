@@ -1,0 +1,132 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+using ll = long long;
+
+struct Fraction {
+    ll num, den;
+};
+
+int T, M;
+ll a, b, c;
+
+ll gcd_ll(ll x, ll y) {
+    if (x < 0) x = -x;
+    if (y < 0) y = -y;
+    while (y != 0) {
+        ll t = x % y;
+        x = y;
+        y = t;
+    }
+    return x;
+}
+
+ll abs_ll(ll x) {
+    return x >= 0 ? x : -x;
+}
+
+// 把分数化成最简形式，并保证分母为正。
+Fraction make_fraction(ll num, ll den) {
+    if (den < 0) {
+        num = -num;
+        den = -den;
+    }
+    ll g = gcd_ll(num, den);
+    num /= g;
+    den /= g;
+    return {num, den};
+}
+
+string fraction_to_string(Fraction x) {
+    if (x.den == 1) {
+        return to_string(x.num);
+    }
+    return to_string(x.num) + "/" + to_string(x.den);
+}
+
+// 把 delta 分解成 square_part^2 * rest，其中 rest 为平方因子已经提干净后的数。
+void extract_square_part(ll delta, ll &square_part, ll &rest) {
+    square_part = 1;
+    rest = 1;
+
+    ll x = delta;
+    for (ll p = 2; p * p <= x; p++) {
+        if (x % p != 0) {
+            continue;
+        }
+        int cnt = 0;
+        while (x % p == 0) {
+            x /= p;
+            cnt++;
+        }
+        for (int i = 0; i < cnt / 2; i++) {
+            square_part *= p;
+        }
+        if (cnt % 2 == 1) {
+            rest *= p;
+        }
+    }
+    if (x > 1) {
+        rest *= x;
+    }
+}
+
+string radical_term_to_string(Fraction coef, ll rest) {
+    if (coef.den == 1) {
+        if (coef.num == 1) {
+            return "sqrt(" + to_string(rest) + ")";
+        }
+        return to_string(coef.num) + "*sqrt(" + to_string(rest) + ")";
+    }
+
+    if (coef.num == 1) {
+        return "sqrt(" + to_string(rest) + ")/" + to_string(coef.den);
+    }
+    return to_string(coef.num) + "*sqrt(" + to_string(rest) + ")/" + to_string(coef.den);
+}
+
+string solve_one() {
+    ll delta = b * b - 4 * a * c;
+    if (delta < 0) {
+        return "NO";
+    }
+
+    ll sq = (ll) sqrtl((long double) delta);
+    while ((sq + 1) * (sq + 1) <= delta) sq++;
+    while (sq * sq > delta) sq--;
+
+    // 判别式是完全平方数时，答案一定是有理数。
+    if (sq * sq == delta) {
+        ll num = -b + (a > 0 ? sq : -sq);
+        Fraction ans = make_fraction(num, 2 * a);
+        return fraction_to_string(ans);
+    }
+
+    // 较大实根统一写成 -b/(2a) + sqrt(delta)/(2|a|)，这样根号项系数恒为正。
+    Fraction q1 = make_fraction(-b, 2 * a);
+
+    ll square_part, rest;
+    extract_square_part(delta, square_part, rest);
+    Fraction q2 = make_fraction(square_part, 2 * abs_ll(a));
+
+    string res;
+    if (q1.num != 0) {
+        res += fraction_to_string(q1);
+        res += "+";
+    }
+    res += radical_term_to_string(q2, rest);
+    return res;
+}
+
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    cin >> T >> M;
+    while (T--) {
+        cin >> a >> b >> c;
+        cout << solve_one() << '\n';
+    }
+
+    return 0;
+}

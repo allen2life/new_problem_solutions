@@ -1,0 +1,34 @@
+# P2904 [USACO08MAR] River Crossing S
+## 题目描述
+
+Farmer John is herding his N cows (1 <= N <= 2,500) across the expanses of his farm when he finds himself blocked by a river. A single raft is available for transportation.
+
+FJ knows that he must ride on the raft for all crossings and that that adding cows to the raft makes it traverse the river more slowly.
+
+When FJ is on the raft alone, it can cross the river in M minutes (1 <= M <= 1000).  When the i cows are added, it takes M\_i minutes (1 <= M\_i <= 1000) longer to cross the river than with i-1 cows (i.e., total M+M\_1 minutes with one cow, M+M\_1+M\_2 with two, etc.). Determine the minimum time it takes for Farmer John to get all of the cows across the river (including time returning to get more cows).
+
+## 输入输出样例 #1
+
+### 输入 #1
+
+```
+5 10 
+3 
+4 
+6 
+100 
+1
+```
+
+### 输出 #1
+
+```
+50
+```
+
+## 说明/提示
+
+There are five cows. Farmer John takes 10 minutes to cross the river alone, 13 with one cow, 17 with two cows, 23 with three, 123 with four, and 124 with all five.
+
+
+Farmer John can first cross with three cows (23 minutes), then return (10 minutes), and then cross with the last two (17 minutes). 23+10+17 = 50 minutes total.

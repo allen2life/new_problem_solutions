@@ -6,6 +6,11 @@ date: 2026-06-12 09:42
 toc: true
 tags: ["cspj", "dp", "枚举", "组合计数"]
 categories: []
+pre: []
+common:
+  - oj: "luogu"
+    problem_id: "P3225"
+    reason: "同样是按某个特征值的数量（割点个数 0/1/≥2）进行分类讨论+组合计数的题目，分类框架高度相似"
 source: https://www.luogu.com.cn/problem/P14360
 ---
 
