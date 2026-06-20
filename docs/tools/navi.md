@@ -16,15 +16,16 @@ scripts/navi/problem-tools.cheat
 repo="$(git rev-parse --show-toplevel)"
 cat >> ~/.zshrc <<EOF
 export RBOOK_REPO="$repo"
-export PATH="\$RBOOK_REPO/scripts/navi:\$RBOOK_REPO/scripts/problem-analysis-tools:\$RBOOK_REPO/scripts/problem-tools:\$PATH"
+export PATH="\$RBOOK_REPO/bin:\$RBOOK_REPO/scripts/navi:\$RBOOK_REPO/scripts/problem-analysis-tools:\$RBOOK_REPO/scripts/problem-tools:\$PATH"
 source "\$RBOOK_REPO/scripts/navi/rbook-shell.zsh"
 EOF
 source ~/.zshrc
 ```
 
-确认 `ptool`、`rbook-navi`、`fetch_problem` 和 `rbook_cd_problem` 可用：
+确认 `rbook`、`ptool`、`rbook-navi`、`fetch_problem` 和 `rbook_cd_problem` 可用：
 
 ```bash
+rbook --help
 ptool --help
 type rbook-navi
 type fetch_problem

@@ -67,7 +67,7 @@ luogu P1001 -> problems/luogu/1001/
 repo="$(git rev-parse --show-toplevel)"
 cat >> ~/.zshrc <<EOF
 export RBOOK_REPO="$repo"
-export PATH="\$RBOOK_REPO/scripts/navi:\$RBOOK_REPO/scripts/problem-analysis-tools:\$RBOOK_REPO/scripts/problem-tools:\$PATH"
+export PATH="\$RBOOK_REPO/bin:\$RBOOK_REPO/scripts/navi:\$RBOOK_REPO/scripts/problem-analysis-tools:\$RBOOK_REPO/scripts/problem-tools:\$PATH"
 source "\$RBOOK_REPO/scripts/navi/rbook-shell.zsh"
 EOF
 source ~/.zshrc

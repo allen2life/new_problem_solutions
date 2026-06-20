@@ -3,9 +3,13 @@
   "version": "0.0.0",
   "private": true,
   "type": "module",
+  "bin": {
+    "rbook": "./bin/rbook.js"
+  },
   "scripts": {
     "prestart": "npm run generate:problems",
     "start": "node ./bin/www",
+    "preview": "node ./bin/rbook.js preview",
     "test": "node --test tests/*.test.js",
     "generate:problems": "node ./scripts/generate-problems-json.js",
     "build": "npm run generate:problems && npm run build:relations",

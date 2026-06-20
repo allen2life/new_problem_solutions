@@ -358,13 +358,13 @@ rbook-navi
 repo="$(git rev-parse --show-toplevel)"
 cat >> ~/.zshrc <<EOF
 export RBOOK_REPO="$repo"
-export PATH="\$RBOOK_REPO/scripts/navi:\$RBOOK_REPO/scripts/problem-analysis-tools:\$RBOOK_REPO/scripts/problem-tools:\$PATH"
+export PATH="\$RBOOK_REPO/bin:\$RBOOK_REPO/scripts/navi:\$RBOOK_REPO/scripts/problem-analysis-tools:\$RBOOK_REPO/scripts/problem-tools:\$PATH"
 source "\$RBOOK_REPO/scripts/navi/rbook-shell.zsh"
 EOF
 source ~/.zshrc
 ```
 
-这样 `ptool`、`check_sample.py`、`r-cgdb.sh` 等脚本可以作为普通命令直接调用；`rbook-navi` 会打开本仓库 cheatsheet，并在当前 shell 执行选中的命令；`fetch_problem` 会在抓题后自动进入对应题目目录；`rbook_cd_problem` 可以用 `fzf` 选择 OJ 和题号目录后跳转。navi cheatsheet 中的命令会通过 `ptool` 或 shell 函数定位仓库根目录，避免在每条命令里重复写长路径。
+这样 `rbook`、`ptool`、`check_sample.py`、`r-cgdb.sh` 等脚本可以作为普通命令直接调用；`rbook-navi` 会打开本仓库 cheatsheet，并在当前 shell 执行选中的命令；`fetch_problem` 会在抓题后自动进入对应题目目录；`rbook_cd_problem` 可以用 `fzf` 选择 OJ 和题号目录后跳转。navi cheatsheet 中的命令会通过 `ptool` 或 shell 函数定位仓库根目录，避免在每条命令里重复写长路径。
 
 人类开始写新题时推荐使用：
 
@@ -388,6 +388,19 @@ rbook_cd_problem luogu 1001
 ```
 
 其中无参数和只传 OJ 的形式会用 `fzf` 选择目录。
+
+完成一篇题解后，可以只启动当前题目的快速预览服务，不触发 `npm start` 前的全量题库扫描：
+
+```bash
+rbook preview luogu 1001
+rbook preview luogu P1001 --port 3100
+```
+
+它会复用主站的 Markdown 渲染、题解模板、`problem.md` 弹窗、Mermaid、KaTeX、代码高亮和当前题目目录下的相对图片。没有配置 `PATH` 时，也可以在仓库根目录运行：
+
+```bash
+npm run preview -- luogu 1001
+```
 
 `ptool` 也可以直接在终端使用：
 
@@ -420,6 +433,7 @@ alias rbook-navi='command navi --path "$RBOOK_REPO/scripts/navi"'
 
 | 工具 | 位置 | 文档 |
 | --- | --- | --- |
+| `rbook preview` | `bin/rbook.js` | [`docs/tools/rbook-preview.md`](docs/tools/rbook-preview.md) |
 | `check_sample.py` | `scripts/problem-analysis-tools/check_sample.py` | [`docs/tools/check_sample.md`](docs/tools/check_sample.md) |
 | `check_problem.py` | `scripts/problem-analysis-tools/check_problem.py` | [`docs/tools/check_problem.md`](docs/tools/check_problem.md) |
 | `check_relations.py` | `scripts/problem-analysis-tools/check_relations.py` | [`docs/tools/check_relations.md`](docs/tools/check_relations.md) |
