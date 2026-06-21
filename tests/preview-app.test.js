@@ -38,6 +38,12 @@ function writeProblem(root, dirName = 'P1010') {
     '  A --> B',
     '```',
     '',
+    '```dot',
+    'digraph G {',
+    '  A -> B;',
+    '}',
+    '```',
+    '',
     '@include-code(./main.cpp, cpp)',
     '',
   ].join('\n'));
@@ -92,9 +98,18 @@ test('preview app renders the problem page, API, and relative assets', async () 
   assert.match(page.body, /测试题/);
   assert.match(page.body, /src="\.\/diagram\.png"/);
   assert.match(page.body, /class="mermaid"/);
+  assert.match(page.body, /class="graphviz"/);
+  assert.match(page.body, /data-viz-engine="dot"/);
   assert.match(page.body, /language-cpp/);
   assert.match(page.body, /token function">main/);
   assert.match(page.body, /显示题目/);
+
+  const vizRuntime = await app.inject({
+    method: 'GET',
+    url: '/vendor/viz-global.js',
+  });
+  assert.equal(vizRuntime.statusCode, 200);
+  assert.match(vizRuntime.body, /Viz\.js/);
 
   const asset = await app.inject({
     method: 'GET',
