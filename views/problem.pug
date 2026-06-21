@@ -102,6 +102,8 @@ block content
         .d-flex.gap-2
           if githubUrl
             a.btn.btn-outline-dark.btn-sm(href=githubUrl, target="_blank", rel="noopener noreferrer") GitHub
+          if problem.source
+            a.btn.btn-outline-info.btn-sm(href=problem.source, target="_blank", rel="noopener noreferrer") 跳转原题
           if hasStatement
             button.btn.btn-outline-success.btn-sm(type="button", data-bs-toggle="modal", data-bs-target="#problemStatementModal") 显示题目
           else

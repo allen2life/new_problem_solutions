@@ -25,6 +25,7 @@ function writeProblem(root, dirName = 'P1010') {
     'title: 测试题',
     'oj: luogu',
     'problem_id: P1010',
+    'source: https://www.luogu.com.cn/problem/P1010',
     'tags:',
     '  - 测试',
     '---',
@@ -102,6 +103,8 @@ test('preview app renders the problem page, API, and relative assets', async () 
   assert.match(page.body, /data-viz-engine="dot"/);
   assert.match(page.body, /language-cpp/);
   assert.match(page.body, /token function">main/);
+  assert.match(page.body, />跳转原题</);
+  assert.match(page.body, /href="https:\/\/www\.luogu\.com\.cn\/problem\/P1010"/);
   assert.match(page.body, /显示题目/);
 
   const vizRuntime = await app.inject({
