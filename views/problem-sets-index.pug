@@ -11,6 +11,12 @@ block content
         p.text-muted.mb-0 按专题顺序刷题，勾选状态保存在浏览器本地。
       .index-head__meta
         span.index-count 共 #{sets.length} 份题目单
+        .problem-set-transfer(data-problem-set-transfer)
+          .problem-set-transfer__actions
+            button.btn.btn-outline-primary.btn-sm(type="button", data-progress-import) 导入进度
+            button.btn.btn-outline-secondary.btn-sm(type="button", data-progress-export) 导出进度
+            input(type="file", accept="application/json,.json", data-progress-file, hidden)
+          .problem-set-transfer__status.text-muted(data-progress-status, aria-live="polite")
 
     if sets.length
       .problem-set-grid
@@ -22,3 +28,6 @@ block content
             .problem-set-card__meta #{item.slug}
     else
       .alert.alert-light.border 暂无题目单，请在 `problem-sets/` 下添加 Markdown 文件。
+
+block scripts
+  script(src="/javascripts/problem-set-progress-transfer.js")

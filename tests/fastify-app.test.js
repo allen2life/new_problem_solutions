@@ -41,6 +41,10 @@ test('Fastify app renders the problem set index page', async () => {
   assert.equal(response.statusCode, 200);
   assert.match(response.headers['content-type'], /text\/html/);
   assert.match(response.body, /题目单/);
+  assert.match(response.body, /导入进度/);
+  assert.match(response.body, /导出进度/);
+  assert.match(response.body, /data-progress-file/);
+  assert.match(response.body, /src="\/javascripts\/problem-set-progress-transfer\.js"/);
   assert.match(response.body, /图论入门题单/);
   assert.match(response.body, /href="\/problem-sets\/graph-basic"/);
   assert.match(response.body, /href="\/problem-sets\/csp-j-400"/);

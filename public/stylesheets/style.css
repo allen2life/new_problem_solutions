@@ -236,6 +236,25 @@ a {
   gap: 1rem;
 }
 
+.problem-set-transfer {
+  display: grid;
+  gap: 0.35rem;
+  justify-items: end;
+}
+
+.problem-set-transfer__actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 0.5rem;
+}
+
+.problem-set-transfer__status {
+  min-height: 1.25rem;
+  font-size: 0.86rem;
+  text-align: right;
+}
+
 .problem-set-card {
   display: grid;
   gap: 0.6rem;
@@ -296,6 +315,18 @@ a {
 [data-bs-theme="dark"] .problem-set-card__desc,
 [data-bs-theme="dark"] .problem-set-card__meta {
   color: #a8b3c2;
+}
+
+@media (max-width: 767.98px) {
+  .problem-set-transfer,
+  .problem-set-transfer__actions {
+    justify-items: start;
+    justify-content: flex-start;
+  }
+
+  .problem-set-transfer__status {
+    text-align: left;
+  }
 }
 
 .problem-relations {
