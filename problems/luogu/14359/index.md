@@ -29,6 +29,7 @@ recommend:
     relation: "harder"
 source: https://www.luogu.com.cn/problem/P14359
 description: " 贪心: 最大不相交区间数量, 数学: 异或区间和,异或前缀和"
+difficulty: "普及/提高-"
 ---
 
 [[TOC]]

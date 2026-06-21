@@ -2,6 +2,7 @@
 oj: "luogu"
 problem_id: "P2085"
 title: "最小函数值"
+difficulty: "普及/提高-"
 date: 2026-01-01 12:30
 toc: true
 tags: ["归并排序","堆"]

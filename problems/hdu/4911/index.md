@@ -2,6 +2,7 @@
 oj: "HDU"
 problem_id: "4911"
 title: "Inversion"
+difficulty: "普及/提高-"
 date: 2025-12-31 23:12
 toc: true
 tags: ["归并排序"]

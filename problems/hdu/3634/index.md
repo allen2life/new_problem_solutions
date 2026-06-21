@@ -2,6 +2,7 @@
 oj: "HDU"
 problem_id: "3634"
 title: "City Planning"
+difficulty: "普及+/提高"
 date: 2026-01-02 00:32
 toc: true
 tags: ["枚举","离散化"]

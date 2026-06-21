@@ -2,6 +2,7 @@
 oj: "OpenJ_Bailian"
 problem_id: "2488"
 title: "A Knight&#39;s Journey"
+difficulty: "普及/提高-"
 date: 2026-01-20 19:54
 toc: true
 tags: ["dfs"]

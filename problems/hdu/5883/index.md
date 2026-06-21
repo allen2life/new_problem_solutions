@@ -2,6 +2,7 @@
 oj: "HDU"
 problem_id: "5883"
 title: "The Best Path"
+difficulty: "普及+/提高"
 date: 2026-01-08 15:26
 toc: true
 tags: ["欧拉路"]

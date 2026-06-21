@@ -2,6 +2,7 @@
 oj: "luogu"
 problem_id: "P2045"
 title: "方格取数加强版"
+difficulty: "省选/NOI-"
 date: 2026-01-31 21:14
 toc: true
 tags: []

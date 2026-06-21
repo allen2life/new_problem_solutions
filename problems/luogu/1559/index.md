@@ -2,6 +2,7 @@
 oj: "luogu"
 problem_id: "P1559"
 title: "运动员最佳匹配问题"
+difficulty: "提高+/省选-"
 date: 2026-01-12 15:38
 toc: true
 tags: ["费用流"]

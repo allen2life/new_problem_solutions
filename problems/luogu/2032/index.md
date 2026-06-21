@@ -2,6 +2,7 @@
 oj: "luogu"
 problem_id: "P2032"
 title: "扫描"
+difficulty: "普及/提高-"
 date: 2025-12-26 19:31
 toc: true
 tags: ["单调队列"]

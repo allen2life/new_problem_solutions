@@ -2,6 +2,7 @@
 oj: "POJ"
 problem_id: "3122"
 title: "Pie"
+difficulty: "普及/提高-"
 date: 2025-12-25 10:23
 toc: true
 tags: ["二分"]

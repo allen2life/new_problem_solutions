@@ -2,6 +2,7 @@
 oj: "luogu"
 problem_id: "P4377"
 title: "[USACO18OPEN] Talent Show G"
+difficulty: "提高+/省选-"
 date: 2026-01-06 16:05
 toc: true
 tags: []

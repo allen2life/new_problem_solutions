@@ -2,6 +2,7 @@
 oj: "luogu"
 problem_id: "P3128"
 title: "[USACO15DEC] Max Flow P"
+difficulty: "普及+/提高"
 date: 2026-01-03 21:13
 toc: true
 tags: ["树上差分","lca"]

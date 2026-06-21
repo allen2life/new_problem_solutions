@@ -2,6 +2,7 @@
 oj: "POJ"
 problem_id: "2976"
 title: "Dropping tests"
+difficulty: "普及+/提高"
 date: 2026-01-05 15:01
 toc: true
 tags: ["01分数规划"]

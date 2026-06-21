@@ -2,6 +2,7 @@
 oj: "luogu"
 problem_id: "P4995"
 title: "跳跳！"
+difficulty: "普及-"
 date: 2026-01-02 23:14
 toc: true
 tags: ["贪心"]

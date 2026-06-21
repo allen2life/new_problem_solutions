@@ -2,6 +2,7 @@
 oj: "luogu"
 problem_id: "P5657"
 title: "格雷码"
+difficulty: "普及-"
 date: 2026-05-31 16:38
 toc: true
 tags: [格雷码, 构造, 位运算]

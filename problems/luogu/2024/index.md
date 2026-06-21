@@ -2,6 +2,7 @@
 oj: "luogu"
 problem_id: "P2024"
 title: "[NOI2001] 食物链"
+difficulty: "普及+/提高"
 date: 2026-01-10 23:16
 toc: true
 tags: ["种类并查集","带权并查集合"]

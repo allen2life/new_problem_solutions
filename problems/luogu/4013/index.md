@@ -2,6 +2,7 @@
 oj: "luogu"
 problem_id: "P4013"
 title: "数字梯形问题"
+difficulty: "省选/NOI-"
 date: 2026-01-31 22:20
 toc: true
 tags: ["费用流"]

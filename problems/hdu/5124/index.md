@@ -2,6 +2,7 @@
 oj: "HDU"
 problem_id: "5124"
 title: "lines"
+difficulty: "普及/提高-"
 date: 2026-01-02 13:38
 toc: true
 tags: ["扫描线","离散化","差分"]

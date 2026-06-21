@@ -2,6 +2,7 @@
 oj: "HDU"
 problem_id: "1116"
 title: "Play on Words"
+difficulty: "普及/提高-"
 date: 2026-01-07 20:03
 toc: true
 tags: ["欧拉路"]

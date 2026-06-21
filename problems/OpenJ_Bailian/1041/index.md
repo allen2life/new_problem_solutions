@@ -2,6 +2,7 @@
 oj: "OpenJ_Bailian"
 problem_id: "1041"
 title: "John&#39;s trip"
+difficulty: "普及+/提高"
 date: 2026-01-08 17:11
 toc: true
 tags: ["欧拉路"]

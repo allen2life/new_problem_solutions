@@ -2,6 +2,7 @@
 oj: "luogu"
 problem_id: "P2097"
 title: "资料分发 1"
+difficulty: "普及-"
 date: 2026-01-01 21:03
 toc: true
 tags: ["并查集","dfs"]

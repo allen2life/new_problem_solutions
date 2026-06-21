@@ -2,6 +2,7 @@
 oj: "luogu"
 problem_id: "P1453"
 title: "城市环路"
+difficulty: "提高+/省选-"
 date: 2026-01-09 16:12
 toc: true
 tags: []

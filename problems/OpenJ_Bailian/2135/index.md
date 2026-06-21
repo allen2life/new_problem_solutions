@@ -2,6 +2,7 @@
 oj: "OpenJ_Bailian"
 problem_id: "2135"
 title: "Farm Tour"
+difficulty: "提高+/省选-"
 date: 2026-01-12 11:08
 toc: true
 tags: ["费用流"]

@@ -2,6 +2,7 @@
 oj: "luogu"
 problem_id: "P2168"
 title: "[NOI2015] 荷马史诗"
+difficulty: "提高+/省选-"
 date: 2025-12-31 15:27
 toc: true
 tags: ["哈夫曼编码"]

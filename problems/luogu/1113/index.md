@@ -2,6 +2,7 @@
 oj: "luogu"
 problem_id: "P1113"
 title: "杂务"
+difficulty: "普及/提高-"
 date: 2025-12-28 09:04
 toc: true
 tags: ["拓扑排序"]

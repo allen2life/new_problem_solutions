@@ -2,6 +2,7 @@
 oj: "luogu"
 problem_id: "P1816"
 title: "忠诚"
+difficulty: "普及/提高-"
 date: 2026-01-17 20:10
 toc: true
 tags: ["st表"]

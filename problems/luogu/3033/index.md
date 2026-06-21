@@ -2,6 +2,7 @@
 oj: "luogu"
 problem_id: "P3033"
 title: "[USACO11NOV] Cow Steeplechase G"
+difficulty: "提高+/省选-"
 date: 2026-01-13 20:50
 toc: true
 tags: ["二分图"]

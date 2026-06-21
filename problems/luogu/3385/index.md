@@ -2,6 +2,7 @@
 oj: "luogu"
 problem_id: "P3385"
 title: "【模板】负环"
+difficulty: "普及/提高-"
 date: 2026-01-07 15:28
 toc: true
 tags: ["负环","spfa"]

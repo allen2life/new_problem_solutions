@@ -2,6 +2,7 @@
 oj: "luogu"
 problem_id: "P1009"
 title: "[NOIP 1998 普及组] 阶乘之和"
+difficulty: "普及-"
 date: 2026-06-07 14:33
 toc: true
 tags: []

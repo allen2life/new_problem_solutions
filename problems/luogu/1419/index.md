@@ -2,6 +2,7 @@
 oj: "luogu"
 problem_id: "P1419"
 title: "寻找段落"
+difficulty: "普及+/提高"
 date: 2025-12-24 16:16
 toc: true
 tags: ["二分","单调队列"]

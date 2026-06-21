@@ -2,6 +2,7 @@
 oj: "HDU"
 problem_id: "3836"
 title: "Equivalent Sets"
+difficulty: "普及+/提高"
 date: 2026-01-09 11:24
 toc: true
 tags: ["强连通分量"]

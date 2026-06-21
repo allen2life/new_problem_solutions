@@ -2,6 +2,7 @@
 oj: "OpenJ_Bailian"
 problem_id: "2513"
 title: "Colored Sticks"
+difficulty: "普及+/提高"
 date: 2026-01-08 16:20
 toc: true
 tags: ["欧拉路"]

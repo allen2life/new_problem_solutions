@@ -2,6 +2,7 @@
 oj: "HDU"
 problem_id: "1257"
 title: "最少拦截系统"
+difficulty: "普及/提高-"
 date: 2026-01-04 17:08
 toc: true
 tags: ["lis","dp","Dilworth定理"]

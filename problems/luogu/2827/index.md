@@ -2,6 +2,7 @@
 oj: "luogu"
 problem_id: "P2827"
 title: "[NOIP 2016 提高组] 蚯蚓"
+difficulty: "提高+/省选-"
 date: 2026-01-01 16:57
 toc: true
 tags: ["多路归并","noip"]

@@ -2,6 +2,7 @@
 oj: "OpenJ_Bailian"
 problem_id: "2506"
 title: "Tiling"
+difficulty: "普及/提高-"
 date: 2026-01-29 22:51
 toc: true
 tags: ["高精度","dp"]

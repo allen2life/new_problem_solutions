@@ -2,6 +2,7 @@
 oj: "luogu"
 problem_id: "P2764"
 title: "最小路径覆盖问题"
+difficulty: "省选/NOI-"
 date: 2025-12-26 14:36
 toc: true
 tags: ["网络流","二分图"]

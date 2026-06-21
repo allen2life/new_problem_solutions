@@ -2,6 +2,7 @@
 oj: "luogu"
 problem_id: "P1002"
 title: "[NOIP 2002 普及组] 过河卒"
+difficulty: "普及-"
 date: 2026-06-07 16:25
 toc: true
 tags: ["dp", "noip"]

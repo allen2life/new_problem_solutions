@@ -2,6 +2,7 @@
 oj: "POJ"
 problem_id: "2942"
 title: "Knights of the Round Table"
+difficulty: "省选/NOI-"
 date: 2025-12-31 08:12
 toc: true
 tags: ["好题","v-bcc","二分图染色"]

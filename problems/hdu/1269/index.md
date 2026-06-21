@@ -2,6 +2,7 @@
 oj: "HDU"
 problem_id: "1269"
 title: "迷宫城堡"
+difficulty: "普及/提高-"
 date: 2025-12-29 10:31
 toc: true
 tags: ["scc","模板题目"]

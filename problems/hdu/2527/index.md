@@ -2,6 +2,7 @@
 oj: "HDU"
 problem_id: "2527"
 title: "Safe Or Unsafe"
+difficulty: "普及/提高-"
 date: 2026-01-01 10:49
 toc: true
 tags: ["哈夫曼编码","模板"]

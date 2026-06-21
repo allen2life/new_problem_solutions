@@ -2,6 +2,7 @@
 oj: "HDU"
 problem_id: "1199"
 title: "Color the Ball"
+difficulty: "普及+/提高"
 date: 2026-01-01 21:43
 toc: true
 tags: ["线段树","离散化","模板题"]

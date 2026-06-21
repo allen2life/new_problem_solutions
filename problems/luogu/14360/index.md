@@ -2,6 +2,7 @@
 oj: "luogu"
 problem_id: "P14360"
 title: "[CSP-J 2025] 多边形"
+difficulty: "普及/提高-"
 date: 2026-06-12 09:42
 toc: true
 tags: ["cspj", "dp", "枚举", "组合计数"]

@@ -2,6 +2,7 @@
 oj: "luogu"
 problem_id: "P1462"
 title: "通往奥格瑞玛的道路"
+difficulty: "普及+/提高"
 date: 2025-12-25 08:31
 toc: true
 tags: ["图论","二分","最短路"]

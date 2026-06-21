@@ -2,6 +2,7 @@
 oj: "POJ"
 problem_id: "3176"
 title: "Cow Bowling"
+difficulty: "入门"
 date: 2026-01-05 10:46
 toc: true
 tags: ["dp"]

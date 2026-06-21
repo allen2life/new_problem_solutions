@@ -2,6 +2,7 @@
 oj: "codeforces"
 problem_id: "165E"
 title: "E. Compatible Numbers"
+difficulty: "提高+/省选-"
 date: 2026-01-21 10:26
 toc: true
 tags: []

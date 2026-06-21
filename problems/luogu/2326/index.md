@@ -2,6 +2,7 @@
 oj: "luogu"
 problem_id: "P2326"
 title: "AKN’s PPAP"
+difficulty: "普及+/提高"
 date: 2026-02-10 15:55
 toc: true
 tags: []

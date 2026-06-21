@@ -2,6 +2,7 @@
 oj: "luogu"
 problem_id: "P1725"
 title: "琪露诺"
+difficulty: "普及+/提高"
 date: 2025-12-26 19:37
 toc: true
 tags: ["dp","单调队列"]

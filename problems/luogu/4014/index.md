@@ -2,6 +2,7 @@
 oj: "luogu"
 problem_id: "P4014"
 title: "分配问题"
+difficulty: "提高+/省选-"
 date: 2026-01-11 22:58
 toc: true
 tags: ["费用流"]

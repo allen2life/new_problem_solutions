@@ -2,6 +2,7 @@
 oj: "OpenJ_Bailian"
 problem_id: "3091"
 title: "Road Construction"
+difficulty: "普及+/提高"
 date: 2026-01-05 12:24
 toc: true
 tags: ["双连通分量"]

@@ -2,6 +2,7 @@
 oj: "luogu"
 problem_id: "P1345"
 title: "[USACO5.4] 奶牛的电信 Telecowmunication"
+difficulty: "提高+/省选-"
 date: 2026-01-17 19:28
 toc: true
 tags: ["最小割"]

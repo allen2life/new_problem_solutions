@@ -2,6 +2,7 @@
 oj: "luogu"
 problem_id: "P4322"
 title: "[JSOI2016] 最佳团体"
+difficulty: "提高+/省选-"
 date: 2026-01-07 09:17
 toc: true
 tags: ["分数规划",'树形DP']

@@ -2,6 +2,7 @@
 oj: "luogu"
 problem_id: "P3378"
 title: "【模板】堆"
+difficulty: "普及/提高-"
 date: 2026-01-01 12:16
 toc: true
 tags: ["模板题"]

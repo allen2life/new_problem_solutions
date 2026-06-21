@@ -2,6 +2,7 @@
 oj: "luogu"
 problem_id: "P5022"
 title: "[NOIP 2018 提高组] 旅行"
+difficulty: "提高+/省选-"
 date: 2026-01-10 08:57
 toc: true
 tags: []

@@ -2,6 +2,7 @@
 oj: "luogu"
 problem_id: "P1341"
 title: "无序字母对"
+difficulty: "普及+/提高"
 date: 2025-12-19 08:07
 toc: true
 tags: ["欧拉路"]

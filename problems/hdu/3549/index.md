@@ -2,6 +2,7 @@
 oj: "HDU"
 problem_id: "3549"
 title: "Flow Problem"
+difficulty: "普及+/提高"
 date: 2026-01-16 14:59
 toc: true
 tags: ["网络流"]

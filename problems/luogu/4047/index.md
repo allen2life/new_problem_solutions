@@ -2,6 +2,7 @@
 oj: "luogu"
 problem_id: "P4047"
 title: "[JSOI2010] 部落划分"
+difficulty: "普及+/提高"
 date: 2026-01-03 10:27
 toc: true
 tags: []

@@ -2,6 +2,7 @@
 oj: "HDU"
 problem_id: "3639"
 title: "Hawk-and-Chicken"
+difficulty: "提高+/省选-"
 date: 2026-01-09 12:14
 toc: true
 tags: ["强连通分量"]

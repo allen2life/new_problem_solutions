@@ -2,6 +2,7 @@
 oj: "luogu"
 problem_id: "P2825"
 title: "[HEOI2016/TJOI2016] 游戏"
+difficulty: "省选/NOI-"
 date: 2026-01-12 15:47
 toc: true
 tags: []

@@ -2,6 +2,7 @@
 oj: "CodeForces"
 problem_id: "449D"
 title: "Jzzhu and Numbers"
+difficulty: "提高+/省选-"
 date: 2026-01-23 15:40
 toc: true
 tags: ["sosdp"]

@@ -2,6 +2,7 @@
 oj: "luogu"
 problem_id: "P2872"
 title: "[USACO07DEC] Building Roads S"
+difficulty: "普及/提高-"
 date: 2026-01-03 09:56
 toc: true
 tags: ["最小生成树"]

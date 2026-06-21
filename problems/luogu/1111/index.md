@@ -2,6 +2,7 @@
 oj: "luogu"
 problem_id: "P1111"
 title: "修复公路"
+difficulty: "普及/提高-"
 date: 2026-01-10 23:08
 toc: true
 tags: ["最小生成树"]

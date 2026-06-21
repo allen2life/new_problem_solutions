@@ -2,6 +2,7 @@
 oj: "atcoder"
 problem_id: "abc248_d"
 title: "Range Count Query"
+difficulty: "普及-"
 date: 2025-12-24 14:35
 toc: true
 tags: ["二分"]

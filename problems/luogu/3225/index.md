@@ -2,6 +2,7 @@
 oj: "luogu"
 problem_id: "P3225"
 title: "[HNOI2012] 矿场搭建"
+difficulty: "提高+/省选-"
 date: 2025-12-30 15:35
 toc: true
 tags: ["v-bcc"]

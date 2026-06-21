@@ -2,6 +2,7 @@
 oj: "luogu"
 problem_id: "P5194"
 title: "[USACO05DEC] Scales S"
+difficulty: "普及/提高-"
 date: 2026-01-22 20:10
 toc: true
 tags: ["剪枝"]

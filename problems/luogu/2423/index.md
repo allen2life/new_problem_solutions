@@ -2,6 +2,7 @@
 oj: "luogu"
 problem_id: "P2423"
 title: "[HEOI2012] 朋友圈"
+difficulty: "省选/NOI-"
 date: 2026-01-13 22:25
 toc: true
 tags: ["二分图"]

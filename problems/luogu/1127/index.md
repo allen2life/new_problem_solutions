@@ -2,6 +2,7 @@
 oj: "luogu"
 problem_id: "P1127"
 title: "词链"
+difficulty: "普及+/提高"
 date: 2025-12-23 10:35
 toc: true
 tags: ["欧拉路","todo"]

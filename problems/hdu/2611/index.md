@@ -2,6 +2,7 @@
 oj: "HDU"
 problem_id: "2611"
 title: "Sequence two"
+difficulty: "普及+/提高"
 date: 2026-01-10 23:00
 toc: true
 tags: ["剪枝","todo"]

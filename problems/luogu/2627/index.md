@@ -2,6 +2,7 @@
 oj: "luogu"
 problem_id: "P2627"
 title: "[USACO11OPEN] Mowing the Lawn G"
+difficulty: "普及+/提高"
 date: 2026-01-05 10:39
 toc: true
 tags: ["dp","单调队列"]

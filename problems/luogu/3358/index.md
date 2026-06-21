@@ -2,6 +2,7 @@
 oj: "luogu"
 problem_id: "P3358"
 title: "最长k可重区间集问题"
+difficulty: "省选/NOI-"
 date: 2026-02-02 09:06
 toc: true
 tags: ["费用流"]

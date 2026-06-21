@@ -2,6 +2,7 @@
 oj: "luogu"
 problem_id: "P1714"
 title: "切蛋糕"
+difficulty: "普及/提高-"
 date: 2025-12-26 19:34
 toc: true
 tags: ["前缀和","单调队列"]

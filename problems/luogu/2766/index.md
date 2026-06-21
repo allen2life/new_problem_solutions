@@ -2,6 +2,7 @@
 oj: "luogu"
 problem_id: "P2766"
 title: "最长不下降子序列问题"
+difficulty: "省选/NOI-"
 date: 2026-01-16 15:34
 toc: true
 tags: ["网络流"]

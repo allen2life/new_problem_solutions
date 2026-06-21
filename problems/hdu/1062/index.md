@@ -2,6 +2,7 @@
 oj: "HDU"
 problem_id: "1062"
 title: "Text Reverse"
+difficulty: "入门"
 date: 2025-12-31 12:11
 toc: true
 tags: ["栈"]

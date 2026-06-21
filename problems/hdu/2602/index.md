@@ -2,6 +2,7 @@
 oj: "HDU"
 problem_id: "2602"
 title: "Bone Collector"
+difficulty: "普及-"
 date: 2026-01-05 10:48
 toc: true
 tags: ["背包"]

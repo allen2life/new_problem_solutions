@@ -2,6 +2,7 @@
 oj: "luogu"
 problem_id: "P5049"
 title: "[NOIP 2018 提高组] 旅行 加强版"
+difficulty: "省选/NOI-"
 date: 2026-01-10 08:50
 toc: true
 tags: ["基环树","贪心"]

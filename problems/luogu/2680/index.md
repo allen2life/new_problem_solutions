@@ -2,6 +2,7 @@
 oj: "luogu"
 problem_id: "P2680"
 title: "[NOIP 2015 提高组] 运输计划"
+difficulty: "提高+/省选-"
 date: 2026-01-04 11:19
 toc: true
 tags: ["lca","noip","树上差分","二分"]

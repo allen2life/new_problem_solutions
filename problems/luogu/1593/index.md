@@ -2,6 +2,7 @@
 oj: "luogu"
 problem_id: "P1593"
 title: "因子和"
+difficulty: "普及+/提高"
 date: 2026-01-01 09:14
 toc: true
 tags: ["数论","逆元"]

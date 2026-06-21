@@ -2,6 +2,7 @@
 oj: "OpenJ_Bailian"
 problem_id: "1392"
 title: "Ouroboros Snake"
+difficulty: "提高+/省选-"
 date: 2026-01-08 22:47
 toc: true
 tags: ["欧拉路"]

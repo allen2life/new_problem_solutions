@@ -2,6 +2,7 @@
 oj: "HDU"
 problem_id: "4310"
 title: "Hero"
+difficulty: "普及/提高-"
 date: 2026-01-02 23:58
 toc: true
 tags: ["贪心"]

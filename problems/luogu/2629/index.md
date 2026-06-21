@@ -2,6 +2,7 @@
 oj: "luogu"
 problem_id: "P2629"
 title: "好消息，坏消息"
+difficulty: "普及/提高-"
 date: 2025-12-26 21:49
 toc: true
 tags: ["单调队列"]

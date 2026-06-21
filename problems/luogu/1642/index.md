@@ -2,6 +2,7 @@
 oj: "luogu"
 problem_id: "P1642"
 title: "规划"
+difficulty: "提高+/省选-"
 date: 2026-01-05 14:15
 toc: true
 tags: ["分数规划","树形DP"]

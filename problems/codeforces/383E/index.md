@@ -2,6 +2,7 @@
 oj: "CodeForces"
 problem_id: "383E"
 title: "Vowels"
+difficulty: "提高+/省选-"
 date: 2026-01-22 10:18
 toc: true
 tags: ["sosdp"]

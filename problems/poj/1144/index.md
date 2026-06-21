@@ -2,6 +2,7 @@
 oj: "POJ"
 problem_id: "1144"
 title: "Network"
+difficulty: "普及+/提高"
 date: 2025-12-29 07:22
 toc: true
 tags: ["割点"]

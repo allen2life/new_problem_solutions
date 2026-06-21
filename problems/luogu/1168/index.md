@@ -2,6 +2,7 @@
 oj: "luogu"
 problem_id: "P1168"
 title: "中位数"
+difficulty: "普及/提高-"
 date: 2026-01-01 12:26
 toc: true
 tags: ["堆"]

@@ -2,6 +2,7 @@
 oj: "OpenJ_Bailian"
 problem_id: "2083"
 title: "Fractal"
+difficulty: "普及-"
 date: 2026-01-21 21:02
 toc: true
 tags: ["分治"]

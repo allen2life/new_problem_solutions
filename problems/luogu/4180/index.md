@@ -2,6 +2,7 @@
 oj: "luogu"
 problem_id: "P4180"
 title: "[BJWC2010] 严格次小生成树"
+difficulty: "省选/NOI-"
 date: 2026-01-03 20:15
 toc: true
 tags: ["最长生成树","01背包"]

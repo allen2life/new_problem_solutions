@@ -2,6 +2,7 @@
 oj: "HDU"
 problem_id: "3394"
 title: "Railway"
+difficulty: "提高+/省选-"
 date: 2026-01-09 14:43
 toc: true
 tags: ["双连通分量","todo"]

@@ -2,6 +2,7 @@
 oj: "luogu"
 problem_id: "P2014"
 title: "[CTSC1997] 选课"
+difficulty: "普及+/提高"
 date: 2025-12-30 17:17
 toc: true
 tags: ["树形dp"]

@@ -2,6 +2,7 @@
 oj: "luogu"
 problem_id: "P3387"
 title: "【模板】缩点"
+difficulty: "普及+/提高"
 date: 2025-12-29 10:52
 toc: true
 tags: ["scc","dag"]

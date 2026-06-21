@@ -2,6 +2,7 @@
 oj: "luogu"
 problem_id: "P6628"
 title: "[省选联考 2020 B 卷] 丁香之路"
+difficulty: "省选/NOI-"
 date: 2026-01-07 20:18
 toc: true
 tags: ["todo","欧拉路","最小生成树","中国邮递员问题","贪心"]

@@ -2,6 +2,7 @@
 oj: "luogu"
 problem_id: "P2657"
 title: "windy数"
+difficulty: "普及/提高-"
 date: 2026-05-31 09:38
 toc: true
 tags: ["数位dp"]

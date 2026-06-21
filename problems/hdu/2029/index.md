@@ -2,6 +2,7 @@
 oj: "HDU"
 problem_id: "2029"
 title: "Palindromes _easy version"
+difficulty: "入门"
 date: 2025-12-24 15:55
 toc: true
 tags: []

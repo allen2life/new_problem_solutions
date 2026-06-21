@@ -2,6 +2,7 @@
 oj: "POJ"
 problem_id: "1521"
 title: "Entropy"
+difficulty: "普及/提高-"
 date: 2025-12-31 15:17
 toc: true
 tags: ["哈夫曼编码"]

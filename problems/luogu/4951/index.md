@@ -2,6 +2,7 @@
 oj: "luogu"
 problem_id: "P4951"
 title: "[USACO01OPEN] Earthquake"
+difficulty: "提高+/省选-"
 date: 2026-01-05 14:06
 toc: true
 tags: []

@@ -2,6 +2,7 @@
 oj: "HDU"
 problem_id: "1121"
 title: "Complete the Sequence"
+difficulty: "普及/提高-"
 date: 2026-01-01 18:42
 toc: true
 tags: ["数学题","差分"]

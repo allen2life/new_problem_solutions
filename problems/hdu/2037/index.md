@@ -2,6 +2,7 @@
 oj: "HDU"
 problem_id: "2037"
 title: "今年暑假不AC"
+difficulty: "普及-"
 date: 2026-01-02 21:54
 toc: true
 tags: ["贪心"]

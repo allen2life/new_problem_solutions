@@ -2,6 +2,7 @@
 oj: "POJ"
 problem_id: "1523"
 title: "SPF"
+difficulty: "普及+/提高"
 date: 2025-12-29 15:09
 toc: true
 tags: ["割点","v-bcc"]

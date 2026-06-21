@@ -2,6 +2,7 @@
 oj: "POJ"
 problem_id: "3018"
 title: "Giftbox"
+difficulty: "普及+/提高"
 date: 2026-01-08 16:09
 toc: true
 tags: ["lis","dag"]

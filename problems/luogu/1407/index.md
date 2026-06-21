@@ -2,6 +2,7 @@
 oj: "luogu"
 problem_id: "P1407"
 title: "[国家集训队] 稳定婚姻"
+difficulty: "提高+/省选-"
 date: 2025-12-29 20:51
 toc: true
 tags: ["二分图","scc"]

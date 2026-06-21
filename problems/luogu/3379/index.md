@@ -2,6 +2,7 @@
 oj: "luogu"
 problem_id: "P3379"
 title: "【模板】最近公共祖先（LCA）"
+difficulty: "普及/提高-"
 date: 2026-01-03 20:47
 toc: true
 tags: ["lca","模板题"]

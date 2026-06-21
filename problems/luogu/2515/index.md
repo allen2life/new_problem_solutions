@@ -2,6 +2,7 @@
 oj: "luogu"
 problem_id: "P2515"
 title: "[HAOI2010] 软件安装"
+difficulty: "提高+/省选-"
 date: 2025-12-30 17:19
 toc: true
 tags: ["scc","树形dp"]

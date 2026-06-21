@@ -2,6 +2,7 @@
 oj: "HDU"
 problem_id: "3072"
 title: "Intelligence System"
+difficulty: "普及+/提高"
 date: 2026-01-09 12:52
 toc: true
 tags: ["贪心","强连通分量"]

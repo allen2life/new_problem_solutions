@@ -2,6 +2,7 @@
 oj: "luogu"
 problem_id: "P2065"
 title: "[TJOI2011] 卡片"
+difficulty: "提高+/省选-"
 date: 2026-01-12 20:04
 toc: true
 tags: ["网络流","二分图"]

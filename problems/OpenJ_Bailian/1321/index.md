@@ -2,6 +2,7 @@
 oj: "OpenJ_Bailian"
 problem_id: "1321"
 title: "棋盘问题"
+difficulty: "普及-"
 date: 2026-01-23 19:11
 toc: true
 tags: ["dfs"]

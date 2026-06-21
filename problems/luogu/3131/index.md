@@ -2,6 +2,7 @@
 oj: "luogu"
 problem_id: "P3131"
 title: "[USACO16JAN] Subsequences Summing to Sevens S"
+difficulty: "普及-"
 date: 2025-12-31 15:35
 toc: true
 tags: ["数论","前缀和"]

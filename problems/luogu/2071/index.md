@@ -2,6 +2,7 @@
 oj: "luogu"
 problem_id: "P2071"
 title: "座位安排"
+difficulty: "普及+/提高"
 date: 2026-01-11 22:33
 toc: true
 tags: ["网络流"]

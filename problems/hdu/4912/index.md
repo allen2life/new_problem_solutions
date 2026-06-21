@@ -2,6 +2,7 @@
 oj: "HDU"
 problem_id: "4912"
 title: "Paths on the tree"
+difficulty: "提高+/省选-"
 date: 2026-01-04 15:42
 toc: true
 tags: ["树形dp","lca","dfs序","todo"]

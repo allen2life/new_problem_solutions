@@ -2,6 +2,7 @@
 oj: "luogu"
 problem_id: "P4001"
 title: "[ICPC-Beijing 2006] 狼抓兔子"
+difficulty: "省选/NOI-"
 date: 2026-01-26 23:45
 toc: true
 tags: ["最小割"]

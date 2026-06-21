@@ -2,6 +2,7 @@
 oj: "luogu"
 problem_id: "P3366"
 title: "【模板】最小生成树"
+difficulty: "普及/提高-"
 date: 2026-01-03 09:38
 toc: true
 tags: ["模板","最小生成树"]

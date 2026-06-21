@@ -2,6 +2,7 @@
 oj: "luogu"
 problem_id: "P2057"
 title: "[SHOI2007] 善意的投票 / [JLOI2010] 冠军调查"
+difficulty: "提高+/省选-"
 date: 2026-01-24 16:46
 toc: true
 tags: []

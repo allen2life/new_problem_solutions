@@ -2,6 +2,7 @@
 oj: "luogu"
 problem_id: "P14358"
 title: "[CSP-J 2025] 座位"
+difficulty: "普及-"
 date: 2026-02-01 17:05
 toc: true
 tags: ["cspj"]

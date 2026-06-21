@@ -2,6 +2,7 @@
 oj: "luogu"
 problem_id: "P1923"
 title: "【深基9.例4】求第 k 小的数"
+difficulty: "普及-"
 date: 2025-12-31 17:10
 toc: true
 tags: ["分治","快速排序"]

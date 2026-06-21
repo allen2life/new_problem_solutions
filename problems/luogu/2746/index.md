@@ -2,6 +2,7 @@
 oj: "luogu"
 problem_id: "P2746"
 title: "[IOI 1996 / USACO5.3] 校园网 Network of Schools"
+difficulty: "普及+/提高"
 date: 2025-12-29 11:17
 toc: true
 tags: ["scc","dag"]
