@@ -1,0 +1,99 @@
+# P4617 [COCI 2017/2018 #5] Planinarenje
+## 题目描述
+
+Mirko and Slavko like to hike together. Mirko likes mountain peaks, and Slavko likes valleys.
+Because of this, every time they climb to a peak, Slavko decides which valley they are going
+to descend to, given that a trail exists to it. Similarly, in each valley, Mirko decides which
+peak they are going to climb up to. It will never be possible to directly climb from one peak to
+another, or to get from one valley to another valley. In order to make the hiking as fun as
+possible, they never visit the same spot twice (whether it’s a peak or a valley). Once they
+reach a spot that only leads to spots they’ve visited before, they call the mountain rangers to
+pick them up. If the final spot is a peak, Mirko wins, and if it is a valley, Slavko wins.
+
+Naturally, you must already know what your task is: If we assume that both of them play
+optimally, who wins? Answer this question for all initial peaks.
+
+## 输入输出样例 #1
+
+### 输入 #1
+
+```
+2 3
+1 2
+2 2
+2 1
+```
+
+### 输出 #1
+
+```
+Slavko
+Slavko
+```
+
+## 输入输出样例 #2
+
+### 输入 #2
+
+```
+4 5
+2 2
+1 2
+1 1
+1 3
+4 2
+```
+
+### 输出 #2
+
+```
+Slavko
+Mirko
+Mirko
+Mirko
+```
+
+## 输入输出样例 #3
+
+### 输入 #3
+
+```
+4 5
+1 2
+1 3
+2 2
+2 3
+4 1
+```
+
+### 输出 #3
+
+```
+Slavko
+Slavko
+Mirko
+Slavko
+```
+
+## 说明/提示
+
+In test cases worth 30% of total points, it will hold 1 ≤ ​N
+≤ 10 and 1 ≤ ​M
+≤ ​N
+·​N
+.
+
+In test cases worth an additional 20% of total points, for each two connected spots, there will
+exist a unique path between them. In other words, the graph will be a forest.
+
+**Clarification of the second test case:**
+
+Starting from the first peak, Slavko can choose to go to the first valley, so Slavko wins.
+
+Starting from the second peak, Slavko can choose to go to the second valley, after which Mirko wins
+by choosing to go to the fourth peak.
+
+Starting from the third peak, there are no trails, so Mirko wins.
+
+Starting from the fourth peak, Slavko must choose to go to the second valley, after which Mirko wins
+by choosing the second peak.

@@ -1,0 +1,31 @@
+# P3131 [USACO16JAN] Subsequences Summing to Sevens S
+## 题目描述
+
+Farmer John's $N$ cows are standing in a row, as they have a tendency to do from time to time.  Each cow is labeled with a distinct integer ID number so FJ can tell them apart. FJ would like to take a photo of a contiguous group of cows but, due to a traumatic  childhood incident involving the numbers $1 \ldots 6$, he only wants to take a picture of a group of cows if their IDs add up to a multiple of 7.
+
+Please help FJ determine the size of the largest group he can photograph.
+
+## 输入输出样例 #1
+
+### 输入 #1
+
+```
+7
+3
+5
+1
+6
+2
+14
+10
+```
+
+### 输出 #1
+
+```
+5
+```
+
+## 说明/提示
+
+In this example, $5+1+6+2+14 = 28$.
