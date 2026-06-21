@@ -281,7 +281,7 @@ test('MarkdownRenderer renders visualization fences for Mermaid and Graphviz', (
 
   assert.match(html, /<pre class="mermaid">\nflowchart LR/);
   assert.match(html, /A --&gt; B/);
-  assert.match(html, /<div class="graphviz"><pre class="dot">/);
+  assert.match(html, /<div class="graphviz" data-viz-engine="dot"><pre class="dot">/);
   assert.match(html, /1 -- 2;/);
   assert.doesNotMatch(html, /data-code-copy/);
 });
