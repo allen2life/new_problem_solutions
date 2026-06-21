@@ -26,6 +26,16 @@ source: https://www.luogu.com.cn/problem/P1796
 
 ### 思路
 
+#### 一图流解析
+
+这张图先把本题的整体路线串起来：把题意看成分层图，避开暴力枚举所有路径，再用按层 DP 保留每个星球的最小花费。
+
+![一图流解析](./one-page-explainer.png)
+
+下面这张是同一份提示词改用 `gpt-image-2` 生成的版本，用来对比不同图片模型的表达效果。
+
+![一图流解析 - gpt-image-2](./one-page-explainer-gpt-image-2-v1.png)
+
 最直接的想法是把所有可能路径都枚举出来，求其中最小值。
 
 先看一个可以直接验证想法的朴素解：
@@ -68,7 +78,15 @@ source: https://www.luogu.com.cn/problem/P1796
 
 这样一边读输入一边转移，代码会更直接。
 
+#### 数组写法参考
+
+如果想贴近传统 OI 写法，可以先看这个二维数组版本。它把每个星球的所有前驱先存下来，再统一按层转移。
+
+@include-code(./rainboy.cpp, cpp)
+
 ### 代码
+
+正式提交时可以使用下面这个版本。它一边读入一边转移，只保留上一层和当前层的最小花费。
 
 @include-code(./main.cpp, cpp)
 
