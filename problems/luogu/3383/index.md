@@ -81,3 +81,9 @@ source: https://www.luogu.com.cn/problem/P3383
 
 - 每个合数只被最小质因子筛掉一次；
 - 当 `i % p == 0` 时必须 `break`。
+
+### 一图流解析
+
+这张图把本题的建模、关键转移、实现检查和训练方法压缩到一页，适合读完正文后复盘。
+
+![一图流解析](./one-page-explainer.png)

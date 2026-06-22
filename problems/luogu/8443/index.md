@@ -65,3 +65,9 @@ source: https://www.luogu.com.cn/problem/P8443
 
 - 公共值；
 - 或 `1`。
+
+### 一图流解析
+
+这张图把本题的建模、关键转移、实现检查和训练方法压缩到一页，适合读完正文后复盘。
+
+![一图流解析](./one-page-explainer.png)

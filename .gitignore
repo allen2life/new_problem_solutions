@@ -5,6 +5,7 @@ problems.json
 .DS_Store
 .worktrees/
 tmp/
+.tmp/
 .opencode/
 docs/superpowers/
 **/*/__pycache__/
@@ -15,3 +16,4 @@ work2_.md
 codex_resume
 
 ai_image_api.md
+todo_work.md
