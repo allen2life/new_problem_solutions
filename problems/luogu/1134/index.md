@@ -117,3 +117,10 @@ source: https://www.luogu.com.cn/problem/P1134
 `D(n) = D(n / 5) * D(n % 5) * 2^(n / 5) mod 10`
 
 这题就只剩下一个很短的递归实现。
+
+
+### 一图流解析
+
+这张图把本题的建模、关键转移、实现检查和训练方法压缩到一页，适合读完正文后复盘。
+
+![一图流解析](./one-page-explainer.png)

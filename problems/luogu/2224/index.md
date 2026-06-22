@@ -90,3 +90,10 @@ source: https://www.luogu.com.cn/problem/P2224
 - 同时加到 A 和 B
 
 就能自然写出一维负载 DP。
+
+
+### 一图流解析
+
+这张图把本题的建模、关键转移、实现检查和训练方法压缩到一页，适合读完正文后复盘。
+
+![一图流解析](./one-page-explainer.png)

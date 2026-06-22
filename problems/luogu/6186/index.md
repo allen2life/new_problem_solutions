@@ -98,3 +98,10 @@ source: https://www.luogu.com.cn/problem/P6186
 - `sum(max(c[x]-k,0))`
 
 一旦得到这个式子，后面的在线交换维护就顺了。
+
+
+### 一图流解析
+
+这张图把本题的建模、关键转移、实现检查和训练方法压缩到一页，适合读完正文后复盘。
+
+![一图流解析](./one-page-explainer.png)

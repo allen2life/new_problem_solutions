@@ -119,3 +119,10 @@ source: https://www.luogu.com.cn/problem/P6298
 - 容斥还原 exact gcd
 
 的组合题。
+
+
+### 一图流解析
+
+这张图把本题的建模、关键转移、实现检查和训练方法压缩到一页，适合读完正文后复盘。
+
+![一图流解析](./one-page-explainer.png)

@@ -78,3 +78,10 @@ source: https://www.luogu.com.cn/problem/P3183
 3. 的路径总数
 
 一旦看出这是 DAG 路径计数，拓扑排序上的 DP 就是标准做法。
+
+
+### 一图流解析
+
+这张图把本题的建模、关键转移、实现检查和训练方法压缩到一页，适合读完正文后复盘。
+
+![一图流解析](./one-page-explainer.png)
