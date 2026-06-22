@@ -28,6 +28,12 @@ source: https://www.luogu.com.cn/problem/P2296
 
 ### 思路
 
+#### 一图流解析
+
+这张图把本题的建模、关键转移、实现检查和训练方法压缩到一页，适合先建立整体框架。
+
+![一图流解析](./one-page-explainer.png)
+
 先看一个可以直接验证想法的朴素解：
 
 @include-code(./brute.cpp, cpp)

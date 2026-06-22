@@ -57,6 +57,18 @@ export default async function indexRoutes(app) {
       return reply.callNotFound();
     }
 
+    return reply.redirect(`/problems/${problem.oj}/${problem.problem_id}/`);
+  });
+
+  app.get('/problems/:oj/:id/', async (request, reply) => {
+    const { oj, id } = request.params;
+
+    const problem = problemManager.find(oj, id);
+
+    if (!problem) {
+      return reply.callNotFound();
+    }
+
     const mdPath = path.join(process.cwd(), 'problems', problem.md_path);
     const renderer = new MarkdownRenderer(mdPath, problemManager);
     const htmlContent = renderer.toHTML();
@@ -76,6 +88,20 @@ export default async function indexRoutes(app) {
       recommendations: problemManager.getRecommendations(problem),
       githubUrl: problemManager.github_url(problem.md_path),
     });
+  });
+
+  app.get('/problems/:oj/:id/*', async (request, reply) => {
+    const { oj, id, '*': resourcePath } = request.params;
+    const problem = problemManager.find(oj, id);
+
+    if (!problem || !resourcePath) {
+      return reply.callNotFound();
+    }
+
+    const mdPath = path.join(process.cwd(), 'problems', problem.md_path);
+    const problemDir = path.dirname(mdPath);
+
+    return reply.sendFile(resourcePath, problemDir);
   });
 
   app.get('/relations', async (request, reply) => {

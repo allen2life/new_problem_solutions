@@ -128,9 +128,17 @@ test('Fastify app returns paginated problem JSON', async () => {
 test('Fastify app returns a problem detail page', async () => {
   const app = await buildApp({ logger: false });
 
-  const response = await app.inject({
+  const redirect = await app.inject({
     method: 'GET',
     url: '/problems/OpenJ_Bailian/1651',
+  });
+
+  assert.equal(redirect.statusCode, 302);
+  assert.equal(redirect.headers.location, '/problems/OpenJ_Bailian/1651/');
+
+  const response = await app.inject({
+    method: 'GET',
+    url: '/problems/OpenJ_Bailian/1651/',
   });
 
   assert.equal(response.statusCode, 200);
@@ -157,12 +165,42 @@ test('Fastify app returns a problem detail page', async () => {
   await app.close();
 });
 
+test('Fastify app serves problem-local relative assets', async () => {
+  const app = await buildApp({ logger: false });
+
+  const page = await app.inject({
+    method: 'GET',
+    url: '/problems/luogu/P1129/',
+  });
+
+  assert.equal(page.statusCode, 200);
+  assert.match(page.body, /src="\.\/one-page-explainer\.png"/);
+
+  const image = await app.inject({
+    method: 'GET',
+    url: '/problems/luogu/P1129/one-page-explainer.png',
+  });
+
+  assert.equal(image.statusCode, 200);
+  assert.match(image.headers['content-type'], /image\/png/);
+
+  await app.close();
+});
+
 test('Fastify app renders problem statement modal when problem.md exists', async () => {
   const app = await buildApp({ logger: false });
 
-  const response = await app.inject({
+  const redirect = await app.inject({
     method: 'GET',
     url: '/problems/luogu/P1968',
+  });
+
+  assert.equal(redirect.statusCode, 302);
+  assert.equal(redirect.headers.location, '/problems/luogu/P1968/');
+
+  const response = await app.inject({
+    method: 'GET',
+    url: '/problems/luogu/P1968/',
   });
 
   assert.equal(response.statusCode, 200);
@@ -242,7 +280,7 @@ test('Fastify app renders TOC and KaTeX on markdown problem pages', async () => 
 
   const response = await app.inject({
     method: 'GET',
-    url: '/problems/OpenJ_Bailian/1651',
+    url: '/problems/OpenJ_Bailian/1651/',
   });
 
   assert.equal(response.statusCode, 200);
@@ -258,7 +296,7 @@ test('Fastify app renders problem relation lists on detail pages', async () => {
 
   const response = await app.inject({
     method: 'GET',
-    url: '/problems/luogu/P3387',
+    url: '/problems/luogu/P3387/',
   });
 
   assert.equal(response.statusCode, 200);
@@ -290,7 +328,7 @@ test('Fastify app renders external problem recommendations on detail pages', asy
   try {
     const response = await app.inject({
       method: 'GET',
-      url: '/problems/OpenJ_Bailian/1651',
+      url: '/problems/OpenJ_Bailian/1651/',
     });
 
     assert.equal(response.statusCode, 200);
