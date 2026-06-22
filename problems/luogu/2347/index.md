@@ -70,6 +70,30 @@ source: https://www.luogu.com.cn/problem/P2347
 
 最后统计 `1..总重量` 中有多少个 `dp[w] = true` 即可。
 
+#### DP 公式
+
+设 $dp_w$ 表示重量 $w$ 是否能够被恰好称出。初始化：
+
+$$
+dp_0=true
+$$
+
+把每个实际存在的砝码都当作一个 0/1 物品，重量为 $value$，则：
+
+$$
+dp_w\leftarrow dp_w\lor dp_{w-value}
+$$
+
+最终答案是所有正可达重量的数量：
+
+$$
+\sum_{w=1}^{sum} [dp_w=true]
+$$
+
+
+公式解释：状态只表示某个重量能否被称出。加入一个实际存在的砝码后，原来能称出 `w-value` 的方案再加上这个砝码，就能称出 `w`。
+
+
 ### 代码
 
 @include-code(./main.cpp, cpp)

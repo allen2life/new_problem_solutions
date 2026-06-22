@@ -73,6 +73,36 @@ source: https://www.luogu.com.cn/problem/P1140
 
 整个表填完后，右下角 `dp[n][m]` 就是最终答案。
 
+#### DP 公式
+
+设 $dp_{i,j}$ 表示第一条序列前 $i$ 个字符和第二条序列前 $j$ 个字符的最大相似度。转移来自三种选择：
+
+$$
+dp_{i,j}=\max\left\{
+\begin{aligned}
+&dp_{i-1,j-1}+score(a_i,b_j),\\
+&dp_{i-1,j}+score(a_i,-),\\
+&dp_{i,j-1}+score(-,b_j)
+\end{aligned}
+\right\}
+$$
+
+边界为只和空位匹配：
+
+$$
+dp_{i,0}=dp_{i-1,0}+score(a_i,-),\quad dp_{0,j}=dp_{0,j-1}+score(-,b_j)
+$$
+
+最终答案是：
+
+$$
+dp_{n,m}
+$$
+
+
+公式解释：序列比对的最后一步只有三种：两个字符互相匹配，第一条字符和空位匹配，或第二条字符和空位匹配。分别对应三个前驱状态，取相似度最大的方案。
+
+
 ### 代码
 
 @include-code(./main.cpp, cpp)

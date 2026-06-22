@@ -88,6 +88,24 @@ source: https://www.luogu.com.cn/problem/P2430
 
 最后输出 `dp[T]` 即可。
 
+#### DP 公式
+
+设 $dp_t$ 表示总时间不超过 $t$ 时能够得到的最大奖励值。处理第 $i$ 道题，耗时为 $cost_i$，奖励为 $reward_i$，则：
+
+$$
+dp_t=\max(dp_t,\ dp_{t-cost_i}+reward_i)
+$$
+
+其中 $t\ge cost_i$，且时间倒序枚举。最终答案为：
+
+$$
+dp_T
+$$
+
+
+公式解释：每道题最多做一次，耗时是容量消耗，奖励是收益。若选择当前题，就必须从剩余时间 `t-cost_i` 的最优状态转移过来。
+
+
 ### 代码
 
 @include-code(./main.cpp, cpp)

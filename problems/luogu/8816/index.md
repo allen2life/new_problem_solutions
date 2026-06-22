@@ -93,6 +93,30 @@ source: https://www.luogu.com.cn/problem/P8816
 
 - `best + k`
 
+#### DP 公式
+
+两个给定点 $i,j$ 能相连时，所需新增点数为：
+
+$$
+need(i,j)=(x_j-x_i)+(y_j-y_i)-1
+$$
+
+设 $dp_{i,t}$ 表示以第 $i$ 个给定点结尾，恰好用了 $t$ 个新增点时，最多能选到多少个给定点。若 $x_j\ge x_i$ 且 $y_j\ge y_i$，则：
+
+$$
+dp_{j,t+need(i,j)}=\max(dp_{j,t+need(i,j)},\ dp_{i,t}+1)
+$$
+
+设 $best=\max_{i,0\le t\le k}dp_{i,t}$，最终答案为：
+
+$$
+best+k
+$$
+
+
+公式解释：两个给定点之间的曼哈顿步数固定，中间缺多少整数点也随之固定。`dp_{i,t}` 记录在新增点预算消耗为 `t` 时最多选了多少给定点；剩余新增点总能继续补在路径末端，所以最终长度再统一加上 `k`。
+
+
 ### 代码
 
 @include-code(./main.cpp, cpp)

@@ -1,0 +1,1060 @@
+{
+  "dry_run": false,
+  "delay_seconds": 1.5,
+  "retries": 2,
+  "total_luogu_index": 628,
+  "skipped_existing_count": 533,
+  "planned_count": 95,
+  "planned": [
+    {
+      "id": "1111",
+      "path": "problems/luogu/1111/problem.md",
+      "url": "https://www.luogu.com.cn/problem/P1111"
+    },
+    {
+      "id": "1113",
+      "path": "problems/luogu/1113/problem.md",
+      "url": "https://www.luogu.com.cn/problem/P1113"
+    },
+    {
+      "id": "1127",
+      "path": "problems/luogu/1127/problem.md",
+      "url": "https://www.luogu.com.cn/problem/P1127"
+    },
+    {
+      "id": "1156",
+      "path": "problems/luogu/1156/problem.md",
+      "url": "https://www.luogu.com.cn/problem/P1156"
+    },
+    {
+      "id": "1168",
+      "path": "problems/luogu/1168/problem.md",
+      "url": "https://www.luogu.com.cn/problem/P1168"
+    },
+    {
+      "id": "1198",
+      "path": "problems/luogu/1198/problem.md",
+      "url": "https://www.luogu.com.cn/problem/P1198"
+    },
+    {
+      "id": "1341",
+      "path": "problems/luogu/1341/problem.md",
+      "url": "https://www.luogu.com.cn/problem/P1341"
+    },
+    {
+      "id": "1344",
+      "path": "problems/luogu/1344/problem.md",
+      "url": "https://www.luogu.com.cn/problem/P1344"
+    },
+    {
+      "id": "1345",
+      "path": "problems/luogu/1345/problem.md",
+      "url": "https://www.luogu.com.cn/problem/P1345"
+    },
+    {
+      "id": "1407",
+      "path": "problems/luogu/1407/problem.md",
+      "url": "https://www.luogu.com.cn/problem/P1407"
+    },
+    {
+      "id": "1419",
+      "path": "problems/luogu/1419/problem.md",
+      "url": "https://www.luogu.com.cn/problem/P1419"
+    },
+    {
+      "id": "14358",
+      "path": "problems/luogu/14358/problem.md",
+      "url": "https://www.luogu.com.cn/problem/P14358"
+    },
+    {
+      "id": "1453",
+      "path": "problems/luogu/1453/problem.md",
+      "url": "https://www.luogu.com.cn/problem/P1453"
+    },
+    {
+      "id": "1462",
+      "path": "problems/luogu/1462/problem.md",
+      "url": "https://www.luogu.com.cn/problem/P1462"
+    },
+    {
+      "id": "1493",
+      "path": "problems/luogu/1493/problem.md",
+      "url": "https://www.luogu.com.cn/problem/P1493"
+    },
+    {
+      "id": "15288",
+      "path": "problems/luogu/15288/problem.md",
+      "url": "https://www.luogu.com.cn/problem/P15288"
+    },
+    {
+      "id": "1559",
+      "path": "problems/luogu/1559/problem.md",
+      "url": "https://www.luogu.com.cn/problem/P1559"
+    },
+    {
+      "id": "1593",
+      "path": "problems/luogu/1593/problem.md",
+      "url": "https://www.luogu.com.cn/problem/P1593"
+    },
+    {
+      "id": "1642",
+      "path": "problems/luogu/1642/problem.md",
+      "url": "https://www.luogu.com.cn/problem/P1642"
+    },
+    {
+      "id": "1714",
+      "path": "problems/luogu/1714/problem.md",
+      "url": "https://www.luogu.com.cn/problem/P1714"
+    },
+    {
+      "id": "1725",
+      "path": "problems/luogu/1725/problem.md",
+      "url": "https://www.luogu.com.cn/problem/P1725"
+    },
+    {
+      "id": "1816",
+      "path": "problems/luogu/1816/problem.md",
+      "url": "https://www.luogu.com.cn/problem/P1816"
+    },
+    {
+      "id": "1923",
+      "path": "problems/luogu/1923/problem.md",
+      "url": "https://www.luogu.com.cn/problem/P1923"
+    },
+    {
+      "id": "2014",
+      "path": "problems/luogu/2014/problem.md",
+      "url": "https://www.luogu.com.cn/problem/P2014"
+    },
+    {
+      "id": "2024",
+      "path": "problems/luogu/2024/problem.md",
+      "url": "https://www.luogu.com.cn/problem/P2024"
+    },
+    {
+      "id": "2032",
+      "path": "problems/luogu/2032/problem.md",
+      "url": "https://www.luogu.com.cn/problem/P2032"
+    },
+    {
+      "id": "2045",
+      "path": "problems/luogu/2045/problem.md",
+      "url": "https://www.luogu.com.cn/problem/P2045"
+    },
+    {
+      "id": "2053",
+      "path": "problems/luogu/2053/problem.md",
+      "url": "https://www.luogu.com.cn/problem/P2053"
+    },
+    {
+      "id": "2057",
+      "path": "problems/luogu/2057/problem.md",
+      "url": "https://www.luogu.com.cn/problem/P2057"
+    },
+    {
+      "id": "2065",
+      "path": "problems/luogu/2065/problem.md",
+      "url": "https://www.luogu.com.cn/problem/P2065"
+    },
+    {
+      "id": "2071",
+      "path": "problems/luogu/2071/problem.md",
+      "url": "https://www.luogu.com.cn/problem/P2071"
+    },
+    {
+      "id": "2085",
+      "path": "problems/luogu/2085/problem.md",
+      "url": "https://www.luogu.com.cn/problem/P2085"
+    },
+    {
+      "id": "2097",
+      "path": "problems/luogu/2097/problem.md",
+      "url": "https://www.luogu.com.cn/problem/P2097"
+    },
+    {
+      "id": "2168",
+      "path": "problems/luogu/2168/problem.md",
+      "url": "https://www.luogu.com.cn/problem/P2168"
+    },
+    {
+      "id": "2272",
+      "path": "problems/luogu/2272/problem.md",
+      "url": "https://www.luogu.com.cn/problem/P2272"
+    },
+    {
+      "id": "2280",
+      "path": "problems/luogu/2280/problem.md",
+      "url": "https://www.luogu.com.cn/problem/P2280"
+    },
+    {
+      "id": "2326",
+      "path": "problems/luogu/2326/problem.md",
+      "url": "https://www.luogu.com.cn/problem/P2326"
+    },
+    {
+      "id": "2341",
+      "path": "problems/luogu/2341/problem.md",
+      "url": "https://www.luogu.com.cn/problem/P2341"
+    },
+    {
+      "id": "2423",
+      "path": "problems/luogu/2423/problem.md",
+      "url": "https://www.luogu.com.cn/problem/P2423"
+    },
+    {
+      "id": "2515",
+      "path": "problems/luogu/2515/problem.md",
+      "url": "https://www.luogu.com.cn/problem/P2515"
+    },
+    {
+      "id": "2627",
+      "path": "problems/luogu/2627/problem.md",
+      "url": "https://www.luogu.com.cn/problem/P2627"
+    },
+    {
+      "id": "2629",
+      "path": "problems/luogu/2629/problem.md",
+      "url": "https://www.luogu.com.cn/problem/P2629"
+    },
+    {
+      "id": "2652",
+      "path": "problems/luogu/2652/problem.md",
+      "url": "https://www.luogu.com.cn/problem/P2652"
+    },
+    {
+      "id": "2657",
+      "path": "problems/luogu/2657/problem.md",
+      "url": "https://www.luogu.com.cn/problem/P2657"
+    },
+    {
+      "id": "2680",
+      "path": "problems/luogu/2680/problem.md",
+      "url": "https://www.luogu.com.cn/problem/P2680"
+    },
+    {
+      "id": "2746",
+      "path": "problems/luogu/2746/problem.md",
+      "url": "https://www.luogu.com.cn/problem/P2746"
+    },
+    {
+      "id": "2763",
+      "path": "problems/luogu/2763/problem.md",
+      "url": "https://www.luogu.com.cn/problem/P2763"
+    },
+    {
+      "id": "2764",
+      "path": "problems/luogu/2764/problem.md",
+      "url": "https://www.luogu.com.cn/problem/P2764"
+    },
+    {
+      "id": "2765",
+      "path": "problems/luogu/2765/problem.md",
+      "url": "https://www.luogu.com.cn/problem/P2765"
+    },
+    {
+      "id": "2766",
+      "path": "problems/luogu/2766/problem.md",
+      "url": "https://www.luogu.com.cn/problem/P2766"
+    },
+    {
+      "id": "2774",
+      "path": "problems/luogu/2774/problem.md",
+      "url": "https://www.luogu.com.cn/problem/P2774"
+    },
+    {
+      "id": "2776",
+      "path": "problems/luogu/2776/problem.md",
+      "url": "https://www.luogu.com.cn/problem/P2776"
+    },
+    {
+      "id": "2825",
+      "path": "problems/luogu/2825/problem.md",
+      "url": "https://www.luogu.com.cn/problem/P2825"
+    },
+    {
+      "id": "2827",
+      "path": "problems/luogu/2827/problem.md",
+      "url": "https://www.luogu.com.cn/problem/P2827"
+    },
+    {
+      "id": "2863",
+      "path": "problems/luogu/2863/problem.md",
+      "url": "https://www.luogu.com.cn/problem/P2863"
+    },
+    {
+      "id": "2872",
+      "path": "problems/luogu/2872/problem.md",
+      "url": "https://www.luogu.com.cn/problem/P2872"
+    },
+    {
+      "id": "2879",
+      "path": "problems/luogu/2879/problem.md",
+      "url": "https://www.luogu.com.cn/problem/P2879"
+    },
+    {
+      "id": "2880",
+      "path": "problems/luogu/2880/problem.md",
+      "url": "https://www.luogu.com.cn/problem/P2880"
+    },
+    {
+      "id": "2947",
+      "path": "problems/luogu/2947/problem.md",
+      "url": "https://www.luogu.com.cn/problem/P2947"
+    },
+    {
+      "id": "3033",
+      "path": "problems/luogu/3033/problem.md",
+      "url": "https://www.luogu.com.cn/problem/P3033"
+    },
+    {
+      "id": "3128",
+      "path": "problems/luogu/3128/problem.md",
+      "url": "https://www.luogu.com.cn/problem/P3128"
+    },
+    {
+      "id": "3131",
+      "path": "problems/luogu/3131/problem.md",
+      "url": "https://www.luogu.com.cn/problem/P3131"
+    },
+    {
+      "id": "3199",
+      "path": "problems/luogu/3199/problem.md",
+      "url": "https://www.luogu.com.cn/problem/P3199"
+    },
+    {
+      "id": "3225",
+      "path": "problems/luogu/3225/problem.md",
+      "url": "https://www.luogu.com.cn/problem/P3225"
+    },
+    {
+      "id": "3358",
+      "path": "problems/luogu/3358/problem.md",
+      "url": "https://www.luogu.com.cn/problem/P3358"
+    },
+    {
+      "id": "3366",
+      "path": "problems/luogu/3366/problem.md",
+      "url": "https://www.luogu.com.cn/problem/P3366"
+    },
+    {
+      "id": "3378",
+      "path": "problems/luogu/3378/problem.md",
+      "url": "https://www.luogu.com.cn/problem/P3378"
+    },
+    {
+      "id": "3379",
+      "path": "problems/luogu/3379/problem.md",
+      "url": "https://www.luogu.com.cn/problem/P3379"
+    },
+    {
+      "id": "3385",
+      "path": "problems/luogu/3385/problem.md",
+      "url": "https://www.luogu.com.cn/problem/P3385"
+    },
+    {
+      "id": "3386",
+      "path": "problems/luogu/3386/problem.md",
+      "url": "https://www.luogu.com.cn/problem/P3386"
+    },
+    {
+      "id": "3387",
+      "path": "problems/luogu/3387/problem.md",
+      "url": "https://www.luogu.com.cn/problem/P3387"
+    },
+    {
+      "id": "3749",
+      "path": "problems/luogu/3749/problem.md",
+      "url": "https://www.luogu.com.cn/problem/P3749"
+    },
+    {
+      "id": "3948",
+      "path": "problems/luogu/3948/problem.md",
+      "url": "https://www.luogu.com.cn/problem/P3948"
+    },
+    {
+      "id": "4001",
+      "path": "problems/luogu/4001/problem.md",
+      "url": "https://www.luogu.com.cn/problem/P4001"
+    },
+    {
+      "id": "4013",
+      "path": "problems/luogu/4013/problem.md",
+      "url": "https://www.luogu.com.cn/problem/P4013"
+    },
+    {
+      "id": "4014",
+      "path": "problems/luogu/4014/problem.md",
+      "url": "https://www.luogu.com.cn/problem/P4014"
+    },
+    {
+      "id": "4015",
+      "path": "problems/luogu/4015/problem.md",
+      "url": "https://www.luogu.com.cn/problem/P4015"
+    },
+    {
+      "id": "4016",
+      "path": "problems/luogu/4016/problem.md",
+      "url": "https://www.luogu.com.cn/problem/P4016"
+    },
+    {
+      "id": "4047",
+      "path": "problems/luogu/4047/problem.md",
+      "url": "https://www.luogu.com.cn/problem/P4047"
+    },
+    {
+      "id": "4180",
+      "path": "problems/luogu/4180/problem.md",
+      "url": "https://www.luogu.com.cn/problem/P4180"
+    },
+    {
+      "id": "4281",
+      "path": "problems/luogu/4281/problem.md",
+      "url": "https://www.luogu.com.cn/problem/P4281"
+    },
+    {
+      "id": "4322",
+      "path": "problems/luogu/4322/problem.md",
+      "url": "https://www.luogu.com.cn/problem/P4322"
+    },
+    {
+      "id": "4377",
+      "path": "problems/luogu/4377/problem.md",
+      "url": "https://www.luogu.com.cn/problem/P4377"
+    },
+    {
+      "id": "4617",
+      "path": "problems/luogu/4617/problem.md",
+      "url": "https://www.luogu.com.cn/problem/P4617"
+    },
+    {
+      "id": "4951",
+      "path": "problems/luogu/4951/problem.md",
+      "url": "https://www.luogu.com.cn/problem/P4951"
+    },
+    {
+      "id": "4995",
+      "path": "problems/luogu/4995/problem.md",
+      "url": "https://www.luogu.com.cn/problem/P4995"
+    },
+    {
+      "id": "5022",
+      "path": "problems/luogu/5022/problem.md",
+      "url": "https://www.luogu.com.cn/problem/P5022"
+    },
+    {
+      "id": "5049",
+      "path": "problems/luogu/5049/problem.md",
+      "url": "https://www.luogu.com.cn/problem/P5049"
+    },
+    {
+      "id": "5058",
+      "path": "problems/luogu/5058/problem.md",
+      "url": "https://www.luogu.com.cn/problem/P5058"
+    },
+    {
+      "id": "5194",
+      "path": "problems/luogu/5194/problem.md",
+      "url": "https://www.luogu.com.cn/problem/P5194"
+    },
+    {
+      "id": "5322",
+      "path": "problems/luogu/5322/problem.md",
+      "url": "https://www.luogu.com.cn/problem/P5322"
+    },
+    {
+      "id": "5365",
+      "path": "problems/luogu/5365/problem.md",
+      "url": "https://www.luogu.com.cn/problem/P5365"
+    },
+    {
+      "id": "5662",
+      "path": "problems/luogu/5662/problem.md",
+      "url": "https://www.luogu.com.cn/problem/P5662"
+    },
+    {
+      "id": "6628",
+      "path": "problems/luogu/6628/problem.md",
+      "url": "https://www.luogu.com.cn/problem/P6628"
+    },
+    {
+      "id": "U613136",
+      "path": "problems/luogu/U613136/problem.md",
+      "url": "https://www.luogu.com.cn/problem/U613136"
+    }
+  ],
+  "success_count": 95,
+  "success": [
+    {
+      "id": "1111",
+      "path": "problems/luogu/1111/problem.md",
+      "title": "修复公路",
+      "source": "https://www.luogu.com.cn/problem/P1111"
+    },
+    {
+      "id": "1113",
+      "path": "problems/luogu/1113/problem.md",
+      "title": "[USACO02FEB] 杂务",
+      "source": "https://www.luogu.com.cn/problem/P1113"
+    },
+    {
+      "id": "1127",
+      "path": "problems/luogu/1127/problem.md",
+      "title": "词链",
+      "source": "https://www.luogu.com.cn/problem/P1127"
+    },
+    {
+      "id": "1156",
+      "path": "problems/luogu/1156/problem.md",
+      "title": "[USACO01OPEN] 垃圾陷阱",
+      "source": "https://www.luogu.com.cn/problem/P1156"
+    },
+    {
+      "id": "1168",
+      "path": "problems/luogu/1168/problem.md",
+      "title": "中位数",
+      "source": "https://www.luogu.com.cn/problem/P1168"
+    },
+    {
+      "id": "1198",
+      "path": "problems/luogu/1198/problem.md",
+      "title": "[JSOI2008] 最大数",
+      "source": "https://www.luogu.com.cn/problem/P1198"
+    },
+    {
+      "id": "1341",
+      "path": "problems/luogu/1341/problem.md",
+      "title": "无序字母对",
+      "source": "https://www.luogu.com.cn/problem/P1341"
+    },
+    {
+      "id": "1344",
+      "path": "problems/luogu/1344/problem.md",
+      "title": "[USACO4.4] 追查坏牛奶 Pollutant Control",
+      "source": "https://www.luogu.com.cn/problem/P1344"
+    },
+    {
+      "id": "1345",
+      "path": "problems/luogu/1345/problem.md",
+      "title": "[USACO5.4] 奶牛的电信 Telecowmunication",
+      "source": "https://www.luogu.com.cn/problem/P1345"
+    },
+    {
+      "id": "1407",
+      "path": "problems/luogu/1407/problem.md",
+      "title": "[国家集训队] 稳定婚姻",
+      "source": "https://www.luogu.com.cn/problem/P1407"
+    },
+    {
+      "id": "1419",
+      "path": "problems/luogu/1419/problem.md",
+      "title": "寻找段落",
+      "source": "https://www.luogu.com.cn/problem/P1419"
+    },
+    {
+      "id": "14358",
+      "path": "problems/luogu/14358/problem.md",
+      "title": "[CSP-J 2025] 座位",
+      "source": "https://www.luogu.com.cn/problem/P14358"
+    },
+    {
+      "id": "1453",
+      "path": "problems/luogu/1453/problem.md",
+      "title": "城市环路",
+      "source": "https://www.luogu.com.cn/problem/P1453"
+    },
+    {
+      "id": "1462",
+      "path": "problems/luogu/1462/problem.md",
+      "title": "通往奥格瑞玛的道路",
+      "source": "https://www.luogu.com.cn/problem/P1462"
+    },
+    {
+      "id": "1493",
+      "path": "problems/luogu/1493/problem.md",
+      "title": "分梨子",
+      "source": "https://www.luogu.com.cn/problem/P1493"
+    },
+    {
+      "id": "15288",
+      "path": "problems/luogu/15288/problem.md",
+      "title": "「YLLOI-R3-T3」龙卷风",
+      "source": "https://www.luogu.com.cn/problem/P15288"
+    },
+    {
+      "id": "1559",
+      "path": "problems/luogu/1559/problem.md",
+      "title": "运动员最佳匹配问题",
+      "source": "https://www.luogu.com.cn/problem/P1559"
+    },
+    {
+      "id": "1593",
+      "path": "problems/luogu/1593/problem.md",
+      "title": "因子和",
+      "source": "https://www.luogu.com.cn/problem/P1593"
+    },
+    {
+      "id": "1642",
+      "path": "problems/luogu/1642/problem.md",
+      "title": "规划",
+      "source": "https://www.luogu.com.cn/problem/P1642"
+    },
+    {
+      "id": "1714",
+      "path": "problems/luogu/1714/problem.md",
+      "title": "切蛋糕",
+      "source": "https://www.luogu.com.cn/problem/P1714"
+    },
+    {
+      "id": "1725",
+      "path": "problems/luogu/1725/problem.md",
+      "title": "琪露诺",
+      "source": "https://www.luogu.com.cn/problem/P1725"
+    },
+    {
+      "id": "1816",
+      "path": "problems/luogu/1816/problem.md",
+      "title": "忠诚",
+      "source": "https://www.luogu.com.cn/problem/P1816"
+    },
+    {
+      "id": "1923",
+      "path": "problems/luogu/1923/problem.md",
+      "title": "【深基9.例4】求第 k 小的数",
+      "source": "https://www.luogu.com.cn/problem/P1923"
+    },
+    {
+      "id": "2014",
+      "path": "problems/luogu/2014/problem.md",
+      "title": "[CTSC1997] 选课",
+      "source": "https://www.luogu.com.cn/problem/P2014"
+    },
+    {
+      "id": "2024",
+      "path": "problems/luogu/2024/problem.md",
+      "title": "[NOI2001] 食物链",
+      "source": "https://www.luogu.com.cn/problem/P2024"
+    },
+    {
+      "id": "2032",
+      "path": "problems/luogu/2032/problem.md",
+      "title": "扫描",
+      "source": "https://www.luogu.com.cn/problem/P2032"
+    },
+    {
+      "id": "2045",
+      "path": "problems/luogu/2045/problem.md",
+      "title": "方格取数加强版",
+      "source": "https://www.luogu.com.cn/problem/P2045"
+    },
+    {
+      "id": "2053",
+      "path": "problems/luogu/2053/problem.md",
+      "title": "[SCOI2007] 修车",
+      "source": "https://www.luogu.com.cn/problem/P2053"
+    },
+    {
+      "id": "2057",
+      "path": "problems/luogu/2057/problem.md",
+      "title": "[SHOI2007] 善意的投票 / [JLOI2010] 冠军调查",
+      "source": "https://www.luogu.com.cn/problem/P2057"
+    },
+    {
+      "id": "2065",
+      "path": "problems/luogu/2065/problem.md",
+      "title": "[TJOI2011] 卡片",
+      "source": "https://www.luogu.com.cn/problem/P2065"
+    },
+    {
+      "id": "2071",
+      "path": "problems/luogu/2071/problem.md",
+      "title": "座位安排",
+      "source": "https://www.luogu.com.cn/problem/P2071"
+    },
+    {
+      "id": "2085",
+      "path": "problems/luogu/2085/problem.md",
+      "title": "最小函数值",
+      "source": "https://www.luogu.com.cn/problem/P2085"
+    },
+    {
+      "id": "2097",
+      "path": "problems/luogu/2097/problem.md",
+      "title": "资料分发 1",
+      "source": "https://www.luogu.com.cn/problem/P2097"
+    },
+    {
+      "id": "2168",
+      "path": "problems/luogu/2168/problem.md",
+      "title": "[NOI2015] 荷马史诗",
+      "source": "https://www.luogu.com.cn/problem/P2168"
+    },
+    {
+      "id": "2272",
+      "path": "problems/luogu/2272/problem.md",
+      "title": "[ZJOI2007] 最大半连通子图",
+      "source": "https://www.luogu.com.cn/problem/P2272"
+    },
+    {
+      "id": "2280",
+      "path": "problems/luogu/2280/problem.md",
+      "title": "[HNOI2003] 激光炸弹",
+      "source": "https://www.luogu.com.cn/problem/P2280"
+    },
+    {
+      "id": "2326",
+      "path": "problems/luogu/2326/problem.md",
+      "title": "AKN’s PPAP",
+      "source": "https://www.luogu.com.cn/problem/P2326"
+    },
+    {
+      "id": "2341",
+      "path": "problems/luogu/2341/problem.md",
+      "title": "[USACO03FALL / HAOI2006] 受欢迎的牛 G",
+      "source": "https://www.luogu.com.cn/problem/P2341"
+    },
+    {
+      "id": "2423",
+      "path": "problems/luogu/2423/problem.md",
+      "title": "[HEOI2012] 朋友圈",
+      "source": "https://www.luogu.com.cn/problem/P2423"
+    },
+    {
+      "id": "2515",
+      "path": "problems/luogu/2515/problem.md",
+      "title": "[HAOI2010] 软件安装",
+      "source": "https://www.luogu.com.cn/problem/P2515"
+    },
+    {
+      "id": "2627",
+      "path": "problems/luogu/2627/problem.md",
+      "title": "[USACO11OPEN] Mowing the Lawn G",
+      "source": "https://www.luogu.com.cn/problem/P2627"
+    },
+    {
+      "id": "2629",
+      "path": "problems/luogu/2629/problem.md",
+      "title": "好消息，坏消息",
+      "source": "https://www.luogu.com.cn/problem/P2629"
+    },
+    {
+      "id": "2652",
+      "path": "problems/luogu/2652/problem.md",
+      "title": "同花顺",
+      "source": "https://www.luogu.com.cn/problem/P2652"
+    },
+    {
+      "id": "2657",
+      "path": "problems/luogu/2657/problem.md",
+      "title": "[SCOI2009] windy 数",
+      "source": "https://www.luogu.com.cn/problem/P2657"
+    },
+    {
+      "id": "2680",
+      "path": "problems/luogu/2680/problem.md",
+      "title": "[NOIP 2015 提高组] 运输计划",
+      "source": "https://www.luogu.com.cn/problem/P2680"
+    },
+    {
+      "id": "2746",
+      "path": "problems/luogu/2746/problem.md",
+      "title": "[IOI 1996 / USACO5.3] 校园网 Network of Schools",
+      "source": "https://www.luogu.com.cn/problem/P2746"
+    },
+    {
+      "id": "2763",
+      "path": "problems/luogu/2763/problem.md",
+      "title": "试题库问题",
+      "source": "https://www.luogu.com.cn/problem/P2763"
+    },
+    {
+      "id": "2764",
+      "path": "problems/luogu/2764/problem.md",
+      "title": "最小路径覆盖问题",
+      "source": "https://www.luogu.com.cn/problem/P2764"
+    },
+    {
+      "id": "2765",
+      "path": "problems/luogu/2765/problem.md",
+      "title": "魔术球问题",
+      "source": "https://www.luogu.com.cn/problem/P2765"
+    },
+    {
+      "id": "2766",
+      "path": "problems/luogu/2766/problem.md",
+      "title": "最长不下降子序列问题",
+      "source": "https://www.luogu.com.cn/problem/P2766"
+    },
+    {
+      "id": "2774",
+      "path": "problems/luogu/2774/problem.md",
+      "title": "方格取数问题",
+      "source": "https://www.luogu.com.cn/problem/P2774"
+    },
+    {
+      "id": "2776",
+      "path": "problems/luogu/2776/problem.md",
+      "title": "[SDOI2007] 小组队列",
+      "source": "https://www.luogu.com.cn/problem/P2776"
+    },
+    {
+      "id": "2825",
+      "path": "problems/luogu/2825/problem.md",
+      "title": "[HEOI2016/TJOI2016] 游戏",
+      "source": "https://www.luogu.com.cn/problem/P2825"
+    },
+    {
+      "id": "2827",
+      "path": "problems/luogu/2827/problem.md",
+      "title": "[NOIP 2016 提高组] 蚯蚓",
+      "source": "https://www.luogu.com.cn/problem/P2827"
+    },
+    {
+      "id": "2863",
+      "path": "problems/luogu/2863/problem.md",
+      "title": "[USACO06JAN] The Cow Prom S",
+      "source": "https://www.luogu.com.cn/problem/P2863"
+    },
+    {
+      "id": "2872",
+      "path": "problems/luogu/2872/problem.md",
+      "title": "[USACO07DEC] Building Roads S",
+      "source": "https://www.luogu.com.cn/problem/P2872"
+    },
+    {
+      "id": "2879",
+      "path": "problems/luogu/2879/problem.md",
+      "title": "[USACO07JAN] Tallest Cow S",
+      "source": "https://www.luogu.com.cn/problem/P2879"
+    },
+    {
+      "id": "2880",
+      "path": "problems/luogu/2880/problem.md",
+      "title": "[USACO07JAN] Balanced Lineup G",
+      "source": "https://www.luogu.com.cn/problem/P2880"
+    },
+    {
+      "id": "2947",
+      "path": "problems/luogu/2947/problem.md",
+      "title": "[USACO09MAR] Look Up S",
+      "source": "https://www.luogu.com.cn/problem/P2947"
+    },
+    {
+      "id": "3033",
+      "path": "problems/luogu/3033/problem.md",
+      "title": "[USACO11NOV] Cow Steeplechase G",
+      "source": "https://www.luogu.com.cn/problem/P3033"
+    },
+    {
+      "id": "3128",
+      "path": "problems/luogu/3128/problem.md",
+      "title": "[USACO15DEC] Max Flow P",
+      "source": "https://www.luogu.com.cn/problem/P3128"
+    },
+    {
+      "id": "3131",
+      "path": "problems/luogu/3131/problem.md",
+      "title": "[USACO16JAN] Subsequences Summing to Sevens S",
+      "source": "https://www.luogu.com.cn/problem/P3131"
+    },
+    {
+      "id": "3199",
+      "path": "problems/luogu/3199/problem.md",
+      "title": "[HNOI2009] 最小圈",
+      "source": "https://www.luogu.com.cn/problem/P3199"
+    },
+    {
+      "id": "3225",
+      "path": "problems/luogu/3225/problem.md",
+      "title": "[HNOI2012] 矿场搭建",
+      "source": "https://www.luogu.com.cn/problem/P3225"
+    },
+    {
+      "id": "3358",
+      "path": "problems/luogu/3358/problem.md",
+      "title": "最长 k 可重区间集问题",
+      "source": "https://www.luogu.com.cn/problem/P3358"
+    },
+    {
+      "id": "3366",
+      "path": "problems/luogu/3366/problem.md",
+      "title": "【模板】最小生成树",
+      "source": "https://www.luogu.com.cn/problem/P3366"
+    },
+    {
+      "id": "3378",
+      "path": "problems/luogu/3378/problem.md",
+      "title": "【模板】堆",
+      "source": "https://www.luogu.com.cn/problem/P3378"
+    },
+    {
+      "id": "3379",
+      "path": "problems/luogu/3379/problem.md",
+      "title": "【模板】最近公共祖先（LCA）",
+      "source": "https://www.luogu.com.cn/problem/P3379"
+    },
+    {
+      "id": "3385",
+      "path": "problems/luogu/3385/problem.md",
+      "title": "【模板】负环",
+      "source": "https://www.luogu.com.cn/problem/P3385"
+    },
+    {
+      "id": "3386",
+      "path": "problems/luogu/3386/problem.md",
+      "title": "【模板】二分图最大匹配",
+      "source": "https://www.luogu.com.cn/problem/P3386"
+    },
+    {
+      "id": "3387",
+      "path": "problems/luogu/3387/problem.md",
+      "title": "【模板】缩点 / 强连通分量",
+      "source": "https://www.luogu.com.cn/problem/P3387"
+    },
+    {
+      "id": "3749",
+      "path": "problems/luogu/3749/problem.md",
+      "title": "[六省联考 2017] 寿司餐厅",
+      "source": "https://www.luogu.com.cn/problem/P3749"
+    },
+    {
+      "id": "3948",
+      "path": "problems/luogu/3948/problem.md",
+      "title": "数据结构",
+      "source": "https://www.luogu.com.cn/problem/P3948"
+    },
+    {
+      "id": "4001",
+      "path": "problems/luogu/4001/problem.md",
+      "title": "[ICPC 2006 Beijing R] 狼抓兔子",
+      "source": "https://www.luogu.com.cn/problem/P4001"
+    },
+    {
+      "id": "4013",
+      "path": "problems/luogu/4013/problem.md",
+      "title": "数字梯形问题",
+      "source": "https://www.luogu.com.cn/problem/P4013"
+    },
+    {
+      "id": "4014",
+      "path": "problems/luogu/4014/problem.md",
+      "title": "分配问题",
+      "source": "https://www.luogu.com.cn/problem/P4014"
+    },
+    {
+      "id": "4015",
+      "path": "problems/luogu/4015/problem.md",
+      "title": "运输问题",
+      "source": "https://www.luogu.com.cn/problem/P4015"
+    },
+    {
+      "id": "4016",
+      "path": "problems/luogu/4016/problem.md",
+      "title": "负载平衡问题",
+      "source": "https://www.luogu.com.cn/problem/P4016"
+    },
+    {
+      "id": "4047",
+      "path": "problems/luogu/4047/problem.md",
+      "title": "[JSOI2010] 部落划分",
+      "source": "https://www.luogu.com.cn/problem/P4047"
+    },
+    {
+      "id": "4180",
+      "path": "problems/luogu/4180/problem.md",
+      "title": "[BJWC2010] 严格次小生成树",
+      "source": "https://www.luogu.com.cn/problem/P4180"
+    },
+    {
+      "id": "4281",
+      "path": "problems/luogu/4281/problem.md",
+      "title": "[AHOI2008] 紧急集合 / 聚会",
+      "source": "https://www.luogu.com.cn/problem/P4281"
+    },
+    {
+      "id": "4322",
+      "path": "problems/luogu/4322/problem.md",
+      "title": "[JSOI2016] 最佳团体",
+      "source": "https://www.luogu.com.cn/problem/P4322"
+    },
+    {
+      "id": "4377",
+      "path": "problems/luogu/4377/problem.md",
+      "title": "[USACO18OPEN] Talent Show G",
+      "source": "https://www.luogu.com.cn/problem/P4377"
+    },
+    {
+      "id": "4617",
+      "path": "problems/luogu/4617/problem.md",
+      "title": "[COCI 2017/2018 #5] Planinarenje",
+      "source": "https://www.luogu.com.cn/problem/P4617"
+    },
+    {
+      "id": "4951",
+      "path": "problems/luogu/4951/problem.md",
+      "title": "[USACO01OPEN] Earthquake",
+      "source": "https://www.luogu.com.cn/problem/P4951"
+    },
+    {
+      "id": "4995",
+      "path": "problems/luogu/4995/problem.md",
+      "title": "跳跳！",
+      "source": "https://www.luogu.com.cn/problem/P4995"
+    },
+    {
+      "id": "5022",
+      "path": "problems/luogu/5022/problem.md",
+      "title": "[NOIP 2018 提高组] 旅行",
+      "source": "https://www.luogu.com.cn/problem/P5022"
+    },
+    {
+      "id": "5049",
+      "path": "problems/luogu/5049/problem.md",
+      "title": "[NOIP 2018 提高组] 旅行 加强版",
+      "source": "https://www.luogu.com.cn/problem/P5049"
+    },
+    {
+      "id": "5058",
+      "path": "problems/luogu/5058/problem.md",
+      "title": "[ZJOI2004] 嗅探器",
+      "source": "https://www.luogu.com.cn/problem/P5058"
+    },
+    {
+      "id": "5194",
+      "path": "problems/luogu/5194/problem.md",
+      "title": "[USACO05DEC] Scales S",
+      "source": "https://www.luogu.com.cn/problem/P5194"
+    },
+    {
+      "id": "5322",
+      "path": "problems/luogu/5322/problem.md",
+      "title": "[BJOI2019] 排兵布阵",
+      "source": "https://www.luogu.com.cn/problem/P5322"
+    },
+    {
+      "id": "5365",
+      "path": "problems/luogu/5365/problem.md",
+      "title": "[SNOI2017] 英雄联盟",
+      "source": "https://www.luogu.com.cn/problem/P5365"
+    },
+    {
+      "id": "5662",
+      "path": "problems/luogu/5662/problem.md",
+      "title": "[CSP-J 2019] 纪念品",
+      "source": "https://www.luogu.com.cn/problem/P5662"
+    },
+    {
+      "id": "6628",
+      "path": "problems/luogu/6628/problem.md",
+      "title": "[省选联考 2020 B 卷] 丁香之路",
+      "source": "https://www.luogu.com.cn/problem/P6628"
+    },
+    {
+      "id": "U613136",
+      "path": "problems/luogu/U613136/problem.md",
+      "title": "【力扣】买卖股票的最佳时机 II",
+      "source": "https://www.luogu.com.cn/problem/U613136"
+    }
+  ],
+  "failed_count": 0,
+  "failed": []
+}

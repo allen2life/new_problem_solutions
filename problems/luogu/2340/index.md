@@ -76,6 +76,30 @@ source: https://www.luogu.com.cn/problem/P2340
 
 最后只在智商和非负、情商和非负的状态里，取 `智商和 + 情商和` 的最大值。
 
+#### DP 公式
+
+设偏移量为 $OFFSET$，$dp_s$ 表示智商和为 $s-OFFSET$ 时能得到的最大情商和。初始化：
+
+$$
+dp_{OFFSET}=0
+$$
+
+处理一头智商为 $a_i$、情商为 $b_i$ 的牛时：
+
+$$
+dp_{s+a_i}=\max(dp_{s+a_i},\ dp_s+b_i)
+$$
+
+最终只在智商和、情商和都非负的状态中取最大：
+
+$$
+\max_{s\ge OFFSET,\ dp_s\ge 0}\left((s-OFFSET)+dp_s\right)
+$$
+
+
+公式解释：智商和可能为负，所以用偏移量把它变成数组下标。`dp_s` 保存这个智商和下能达到的最大情商和，最后只允许智商和、情商和都非负的状态参与答案。
+
+
 ### 代码
 
 @include-code(./main.cpp, cpp)

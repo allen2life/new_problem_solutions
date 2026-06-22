@@ -68,11 +68,29 @@ source: https://www.luogu.com.cn/problem/P1853
 - 它可以买很多份，所以是完全背包
 - 转移是 `best[j] = max(best[j], best[j - cost] + profit)`
 
+#### DP 公式
+
+每一年都做一次完全背包。设 $best_j$ 表示这一年本金不超过 $j$ 时能获得的最大收益。对每种债券，成本为 $cost_i$，收益为 $profit_i$：
+
+$$
+best_j=\max(best_j,\ best_{j-cost_i}+profit_i)
+$$
+
+容量正序枚举。若第 $y$ 年开始时本金为 $money_y$，则年底本金变为：
+
+$$
+money_{y+1}=money_y+best_{money_y}
+$$
+
+
 每年结算时：
 
 - 用当前总资产 `capital` 的千元部分 `capital / 1000`
 - 查出这一年的最优利息 `best[...]`
 - 把利息加回总资产，进入下一年
+
+公式解释：每年本金固定后，都要在这个预算内选择债券组合使收益最大。债券可以买多份，所以用完全背包算出当年最大收益，再把收益滚入下一年的本金。
+
 
 ### 代码
 

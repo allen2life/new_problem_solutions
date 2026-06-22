@@ -45,6 +45,30 @@ source: https://www.luogu.com.cn/problem/P2362
 - `dp[i] = 1`
 - `cnt[i] = 1`
 
+#### DP 公式
+
+把序列记为 $a_1,a_2,\ldots,a_n$。设 $dp_i$ 表示以第 $i$ 个木桩结尾的最长不下降子序列长度，$cnt_i$ 表示达到这个长度的方案数，则：
+
+$$
+dp_i=1,\quad cnt_i=1
+$$
+
+当 $j<i$ 且 $a_j\le a_i$ 时，可以尝试从 $j$ 接到 $i$：
+
+$$
+\begin{cases}
+dp_i=dp_j+1,\ cnt_i=cnt_j, & dp_j+1>dp_i,\\
+cnt_i=cnt_i+cnt_j, & dp_j+1=dp_i.
+\end{cases}
+$$
+
+最后令 $L=\max_i dp_i$，答案为：
+
+$$
+\sum_{i:dp_i=L} cnt_i
+$$
+
+
 然后枚举 `j < i`：
 
 如果 `a[j] <= a[i]`，就可以从 `j` 转移到 `i`。
@@ -53,6 +77,9 @@ source: https://www.luogu.com.cn/problem/P2362
 - 若 `dp[j] + 1 == dp[i]`，说明又找到一种同样优的接法，把方案数累加。
 
 最后先求出全局最长长度，再把所有达到这个长度的结尾方案数加起来。
+
+公式解释：`dp_i` 只关心最后选中的木桩是 `i`，因为前面的合法序列只需要满足高度不超过 `a_i`。当从 `j` 接到 `i` 得到更长长度时，旧方案全部失效，所以方案数改成 `cnt_j`；如果长度相同，就说明多了一批同样最优的结尾方案，要把方案数累加。
+
 
 ### 代码
 

@@ -76,6 +76,30 @@ source: https://www.luogu.com.cn/problem/P1877
 全部转移完以后，从 `maxLevel` 倒着找第一个 `dp[n][v] = true` 的音量，就是最后能达到的最大音量。
 如果整行都没有可达状态，答案就是 `-1`。
 
+#### DP 公式
+
+设 $dp_{i,v}$ 表示调完前 $i$ 次之后，音量 $v$ 是否可达。初始化：
+
+$$
+dp_{0,begin}=true
+$$
+
+若 $dp_{i-1,v}=true$，则第 $i$ 次可以向上或向下调：
+
+$$
+dp_{i,v+c_i}=true\quad (v+c_i\le maxLevel)
+$$
+
+$$
+dp_{i,v-c_i}=true\quad (v-c_i\ge 0)
+$$
+
+最终从大到小找满足 $dp_{n,v}=true$ 的最大 $v$，不存在则输出 $-1$。
+
+
+公式解释：音量 DP 是可达性状态。每次调节只能在上一次可达音量的基础上加或减 `c_i`，并且结果必须仍在合法音量范围内。
+
+
 ### 代码
 
 @include-code(./main.cpp, cpp)

@@ -73,6 +73,30 @@ source: https://www.luogu.com.cn/problem/P1510
 
 最后如果 `dp[v] > c`，说明体力不够；否则答案就是 `c - dp[v]`。
 
+#### DP 公式
+
+设 $dp_j$ 表示达到体积 $j$ 所需的最小体力，并把所有超过目标体积 $v$ 的状态截断到 $v$。初始化：
+
+$$
+dp_0=0,\quad dp_j=+\infty\ (j>0)
+$$
+
+处理一块体积为 $k_i$、体力消耗为 $m_i$ 的木石时：
+
+$$
+dp_{\min(v,j+k_i)}=\min\left(dp_{\min(v,j+k_i)},\ dp_j+m_i\right)
+$$
+
+若 $dp_v>c$ 则无法填海，否则答案为：
+
+$$
+c-dp_v
+$$
+
+
+公式解释：题目只关心体积是否至少达到目标，因此超过 `v` 的体积统一压到状态 `v`。转移中的 `min(v,j+k_i)` 表示“已经够了”和“刚好够”没有区别。
+
+
 ### 代码
 
 @include-code(./main.cpp, cpp)

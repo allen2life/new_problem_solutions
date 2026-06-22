@@ -71,6 +71,24 @@ source: https://www.luogu.com.cn/problem/P1048
 
 最后输出 `dp[T]` 即可。
 
+#### DP 公式
+
+设 $dp_t$ 表示总时间不超过 $t$ 时能取得的最大总价值。处理第 $i$ 株草药时：
+
+$$
+dp_t=\max(dp_t,\ dp_{t-time_i}+value_i)
+$$
+
+其中 $t\ge time_i$。因为每株草药最多采一次，$t$ 必须倒序枚举。最终答案为：
+
+$$
+dp_T
+$$
+
+
+公式解释：`dp_t` 保存时间上限为 `t` 时的最大价值。选择当前草药会占用 `time_i` 时间，所以只能从剩余时间 `t-time_i` 的最优值转移过来。
+
+
 ### 代码
 
 @include-code(./main.cpp, cpp)

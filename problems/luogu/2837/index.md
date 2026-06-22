@@ -78,6 +78,24 @@ source: https://www.luogu.com.cn/problem/P2837
 - `cut = 0` 表示整条队伍都变成 `2`
 - `cut = n` 表示整条队伍都变成 `1`
 
+#### 核心公式
+
+设 $preOne_i$ 表示前 $i$ 个位置里 $1$ 的数量，$preTwo_i$ 表示前 $i$ 个位置里 $2$ 的数量。枚举分界点 $cut$，代价为：
+
+$$
+cost(cut)=preTwo_{cut}+(preOne_n-preOne_{cut})
+$$
+
+其中左边的 $2$ 要改成 $1$，右边的 $1$ 要改成 $2$。最终答案是：
+
+$$
+\min_{0\le cut\le n} cost(cut)
+$$
+
+
+公式解释：分界点左边最终都应该是 `1`，所以左边出现的 `2` 都要修改；右边最终都应该是 `2`，所以右边出现的 `1` 都要修改。前缀和让这两个数量可以 `O(1)` 算出。
+
+
 ### 代码
 
 @include-code(./main.cpp, cpp)

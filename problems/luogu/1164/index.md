@@ -74,6 +74,30 @@ source: https://www.luogu.com.cn/problem/P1164
 
 最后输出 `dp[M]` 即可。
 
+#### DP 公式
+
+设 $dp_j$ 表示恰好花掉 $j$ 元的方案数。初始化：
+
+$$
+dp_0=1
+$$
+
+处理价格为 $a_i$ 的菜时：
+
+$$
+dp_j\leftarrow dp_j+dp_{j-a_i}
+$$
+
+其中 $j\ge a_i$，且容量倒序枚举，保证每道菜最多点一次。最终答案为：
+
+$$
+dp_M
+$$
+
+
+公式解释：`dp_j` 是方案数，不是最优值。点当前菜时，所有原来恰好花 `j-a_i` 元的方案都能扩展成恰好花 `j` 元的新方案。
+
+
 ### 代码
 
 @include-code(./main.cpp, cpp)

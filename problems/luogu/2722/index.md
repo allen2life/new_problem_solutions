@@ -69,6 +69,24 @@ source: https://www.luogu.com.cn/problem/P2722
 
 最后输出 `dp[T]` 即可。
 
+#### DP 公式
+
+设 $dp_j$ 表示时间不超过 $j$ 时能获得的最大全分。对于分值 $points_i$、耗时 $cost_i$ 的题型：
+
+$$
+dp_j=\max(dp_j,\ dp_{j-cost_i}+points_i)
+$$
+
+同一种题型可以重复选，所以容量正序枚举。最终答案为：
+
+$$
+dp_T
+$$
+
+
+公式解释：题型可以重复做，所以是完全背包最大值。若本次再做一道耗时 `cost_i` 的题，就从剩余时间的最优分数转移并加上这题分值。
+
+
 ### 代码
 
 @include-code(./main.cpp, cpp)

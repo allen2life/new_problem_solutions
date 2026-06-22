@@ -70,6 +70,24 @@ source: https://www.luogu.com.cn/problem/P1650
 | 否则若 `tian[tl] > king[kl]` | 最慢打最慢 |
 | 否则 | 最慢去消耗对方最快 |
 
+#### 贪心决策公式
+
+排序后维护田忌区间 $[tl,tr]$ 和齐王区间 $[kl,kr]$。每一步按下面的决策取收益：
+
+$$
+\begin{cases}
+ans\leftarrow ans+200,\ tr--,\ kr--, & tian_{tr}>king_{kr},\\
+ans\leftarrow ans+200,\ tl++,\ kl++, & tian_{tl}>king_{kl},\\
+ans\leftarrow ans-200\cdot [tian_{tl}<king_{kr}],\ tl++,\ kr--, & \text{otherwise}.
+\end{cases}
+$$
+
+其中 $[condition]$ 为条件成立时取 $1$，否则取 $0$。
+
+
+公式解释：若最快能赢最快，应立即拿下这场确定胜利；否则若最慢能赢最慢，也应拿下不浪费强马。两者都不行时，只能用最慢马消耗对方最快马，把损失控制到最小。
+
+
 ### 代码
 
 @include-code(./main.cpp, cpp)

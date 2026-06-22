@@ -69,6 +69,40 @@ source: https://www.luogu.com.cn/problem/P2800
 
 最后答案要取 `min(dp_rest[n], dp_tired[n])`，因为最后一步既可能是爬到终点，也可能是跳到终点。
 
+#### DP 公式
+
+设 $rest_i$ 表示到达第 $i$ 层且已经休息好、可以继续跳时的最小花费；$tired_i$ 表示到达第 $i$ 层且刚跳完、下一步不能继续跳时的最小花费。初始化：
+
+$$
+rest_0=0,\quad tired_0=+\infty
+$$
+
+从 $rest_i$ 出发：
+
+$$
+rest_{i+1}=\min(rest_{i+1},\ rest_i+h_{i+1})
+$$
+
+$$
+tired_{i+1}=\min(tired_{i+1},\ rest_i),\quad tired_{i+2}=\min(tired_{i+2},\ rest_i)
+$$
+
+从 $tired_i$ 出发只能先爬一层恢复：
+
+$$
+rest_{i+1}=\min(rest_{i+1},\ tired_i+h_{i+1})
+$$
+
+最终答案为：
+
+$$
+\min(rest_n,\ tired_n)
+$$
+
+
+公式解释：是否刚跳完会影响下一步能不能继续跳，所以要拆成 `rest` 和 `tired` 两个状态。休息好时可以爬或跳，跳后进入疲惫；疲惫时只能爬一层并恢复，最后到达终点时两种状态都合法。
+
+
 ### 代码
 
 @include-code(./main.cpp, cpp)

@@ -72,6 +72,30 @@ source: https://www.luogu.com.cn/problem/P2663
 
 最后从 `floor(sum / 2)` 开始倒着找第一个满足 `dp[n / 2][s] = true` 的 `s`，就是答案。
 
+#### DP 公式
+
+设 $dp_{j,s}$ 表示是否能恰好选 $j$ 个人，使总分恰好为 $s$。初始化：
+
+$$
+dp_{0,0}=true
+$$
+
+处理分数为 $a_i$ 的人时：
+
+$$
+dp_{j,s}=dp_{j,s}\lor dp_{j-1,s-a_i}
+$$
+
+最终从 $\lfloor sum/2\rfloor$ 开始向下找最大的 $s$，满足：
+
+$$
+dp_{n/2,s}=true
+$$
+
+
+公式解释：`dp_{j,s}` 只回答“能不能选出 `j` 个人总分为 `s`”。每加入一个人，就可以把所有少选一个人、少这份分数的可达状态推到新状态；最后找最接近一半总分的可达值。
+
+
 ### 代码
 
 @include-code(./main.cpp, cpp)

@@ -42,6 +42,30 @@ source: https://www.luogu.com.cn/problem/P1359
 
 按编号顺序从小到大转移就行。
 
+#### DP 公式
+
+设 $dp_i$ 表示从码头 $1$ 到码头 $i$ 的最少租金。初始化：
+
+$$
+dp_1=0,\quad dp_i=+\infty\ (i>1)
+$$
+
+若可以从 $i$ 直接租船到 $j$，费用为 $cost_{i,j}$，则：
+
+$$
+dp_j=\min(dp_j,\ dp_i+cost_{i,j})
+$$
+
+最终答案为：
+
+$$
+dp_n
+$$
+
+
+公式解释：`dp_i` 保存已经到达码头 `i` 的最小费用。若再租一段从 `i` 到 `j` 的船，就能用 `dp_i + cost_{i,j}` 更新 `dp_j`；码头编号天然从小到大，形成无环转移。
+
+
 ### 代码
 
 @include-code(./main.cpp, cpp)

@@ -34,6 +34,9 @@ problems/<oj>/<problem_id>/
     04-correctness-and-edge-cases.md
     05-complexity-and-implementation.md
     06-final-index-draft.md
+    07-ai-image-evaluation.md
+    ai-image-plan.md
+    ai-image-report.md
     duipai-report.md
 ```
 
@@ -73,6 +76,7 @@ Final `index.md` must follow that format:
 - `@include-code(./brute.cpp, cpp)` in `### 思路`
 - Mermaid、Graphviz、Markdown 表格等可视化内容必须遵守 `oj-problem-format-spec` 的“可视化辅助格式”。
 - 如果题目需要样例、DP、树、图、网格或模拟过程可视化，使用 `oj-sample-visualizer` 生成题目专用 `problem-analysis-workspace/viz_render.py` 和素材；不要在本 skill 中临时发明通用可视化解析器。
+- `index.md`、`main.cpp`、`brute.cpp` 和验证记录完成后，必须进行一次 AI 一图流后置评估；如果满足生成门槛，使用 `oj-ai-image-explainer`，否则在 `07-ai-image-evaluation.md` 记录不生成原因。
 - 创建或修改 `main.cpp` / `brute.cpp` 时，必须使用 `oj-cpp-competitive-style`，保持 C++17 竞赛风格、中文注释和可读性。
 
 ## Source Priority
@@ -320,6 +324,14 @@ Also include visualization when it improves learning:
 
 Visualization is not mandatory for every problem, but it is a mandatory evaluation item. If the problem is graph/tree/DP/grid/search/simulation-heavy, prefer including one small visual block unless it would be redundant.
 
+AI-generated one-page images are a separate post-processing step, not part of the early sample visualization workflow. After the final `index.md` is written from `06-final-index-draft.md` and checked against `main.cpp` / `brute.cpp`, evaluate whether the completed article needs a global "一图流解析":
+
+- Use `oj-ai-image-explainer` only when the final article has a modeling jump, multi-stage DP/graph/tree/binary-search/greedy reasoning, or a long enough route that a 3 to 5 panel overview would help students.
+- Do not use AI images for exact DP values, edge weights, sample traces, or code. Those belong to `oj-sample-visualizer`, Mermaid, Graphviz, SVG, or Markdown tables.
+- If no image is needed, create or update `problem-analysis-workspace/07-ai-image-evaluation.md` with the reason and stop.
+- If an image is generated and passes review, only make a minimal final patch to `index.md`: insert `#### 一图流解析`, 1 to 3 explanatory sentences, and `![一图流解析](./one-page-explainer.png)`.
+- Do not rewrite the main article while inserting the AI image. Treat it as a final reference patch.
+
 Every visual block in final `index.md` must:
 
 - state what it shows before the figure/table;
@@ -372,6 +384,7 @@ python3 scripts/problem-analysis-tools/list_tags.py --format plain
 - `brute.cpp` is complete and matches the same input/output format.
 - Key implementation details mentioned in the article exist in the code.
 - Visualization was evaluated in `02-observation-and-model.md`.
+- AI 一图流 was evaluated after the final article in `07-ai-image-evaluation.md`; if an image was inserted, `ai-image-report.md` records that it passed review.
 - Any Mermaid / Graphviz / table used in `index.md` has nearby explanatory text and follows the format spec.
 - After finishing the article, evaluate whether `pre` / `common` / `recommend` should be maintained by `oj-problem-relation-writer`; do not invent external OJ links from memory.
 - If no verification was run, say so in the process notes; do not imply proof by testing.

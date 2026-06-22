@@ -71,6 +71,26 @@ sqybi 只有 `m` 块大洋和 `r` 点人品。
 
 因为每个 MM 只能选一次，所以钱和人品都要倒序枚举。
 
+#### DP 公式
+
+设 $dp_{j,k}$ 表示钱不超过 $j$、人品不超过 $k$ 时的最优二元组 $(cnt,time)$，其中 $cnt$ 越大越好，$cnt$ 相同时 $time$ 越小越好。处理第 $i$ 个 MM 时：
+
+$$
+candidate=(dp_{j-rmb_i,k-rp_i}.cnt+1,\ dp_{j-rmb_i,k-rp_i}.time+time_i)
+$$
+
+若 $candidate$ 按上述优先级更优，则更新：
+
+$$
+dp_{j,k}\leftarrow candidate
+$$
+
+两个容量都倒序枚举。最终查看 $dp_{m,r}$。
+
+
+公式解释：状态值是一个带优先级的二元组，先比泡到的人数，再比总时间。选择当前 MM 时两个资源都要扣除，人数加一、时间增加；只有候选二元组更优才更新。
+
+
 ### 代码
 
 @include-code(./main.cpp, cpp)

@@ -50,6 +50,39 @@ source: https://www.luogu.com.cn/problem/P1130
 
 第一步可以任选小组，因此直接初始化为第一列代价。
 
+#### DP 公式
+
+设 $dp_i$ 表示处理完当前步骤后停在第 $i$ 组的最小总代价。第一步初始化为：
+
+$$
+dp_i=cost_{i,1}
+$$
+
+第 $step$ 步的转移是：
+
+$$
+new\_dp_i=\min(dp_i,\ dp_{prev(i)})+cost_{i,step}
+$$
+
+其中：
+
+$$
+prev(i)=\begin{cases}
+m, & i=1,\\
+i-1, & i>1.
+\end{cases}
+$$
+
+最终答案为：
+
+$$
+\min_{1\le i\le m} dp_i
+$$
+
+
+公式解释：第 `step` 步停在第 `i` 组时，上一刻只能已经在第 `i` 组，或者从环上的前一组转过来。两者取较小值后再加上当前组完成这一步的代价，就得到新的最小总代价。
+
+
 ### 代码
 
 @include-code(./main.cpp, cpp)

@@ -72,6 +72,24 @@ source: https://www.luogu.com.cn/problem/P1616
 
 最后输出 `dp[T]` 即可。
 
+#### DP 公式
+
+设 $dp_j$ 表示时间不超过 $j$ 时能获得的最大价值。处理耗时 $cost_i$、价值 $value_i$ 的草药时：
+
+$$
+dp_j=\max(dp_j,\ dp_{j-cost_i}+value_i)
+$$
+
+同一种草药可以无限采，所以 $j$ 正序枚举，让本轮更新后的状态继续参与转移。最终答案为：
+
+$$
+dp_T
+$$
+
+
+公式解释：同一种草药可以无限采，所以当前轮更新出的 `dp_{j-cost_i}` 还能继续用于同一种草药。正序枚举容量正是为了允许这种重复选择。
+
+
 ### 代码
 
 @include-code(./main.cpp, cpp)

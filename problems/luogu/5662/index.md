@@ -70,6 +70,30 @@ source: https://www.luogu.com.cn/problem/P5662
 如果某个纪念品的净收益不是正数，就不选它。
 因为完全背包本来就允许“什么都不买”，所以这种情况直接跳过即可。
 
+#### DP 公式
+
+处理第 $i$ 天到第 $i+1$ 天时，当前金币为 $money$。设 $dp_x$ 表示用不超过 $x$ 枚金币在这一晚能额外赚到的最大金币。对第 $j$ 种纪念品：
+
+$$
+weight=P_{i,j},\quad value=P_{i+1,j}-P_{i,j}
+$$
+
+若 $value>0$，做完全背包转移：
+
+$$
+dp_x=\max(dp_x,\ dp_{x-weight}+value)
+$$
+
+这一晚结束后：
+
+$$
+money\leftarrow money+dp_{money}
+$$
+
+
+公式解释：一天到下一天之间，买入价是容量消耗，价格差是收益。每天用当前金币做一次完全背包，算出这一晚最多能赚多少，再把收益加入金币进入下一天。
+
+
 ### 代码
 
 @include-code(./main.cpp, cpp)

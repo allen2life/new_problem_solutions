@@ -64,6 +64,36 @@ source: https://www.luogu.com.cn/problem/P8395
 
 这就把逐个枚举变成了 `O(1)` 计算。
 
+#### 核心公式
+
+题目要求统计非负整数解：
+
+$$
+4a+5b=n
+$$
+
+枚举 $b$ 时，合法条件为：
+
+$$
+n-5b\equiv 0\pmod 4
+$$
+
+因为 $5\equiv 1\pmod 4$，所以：
+
+$$
+b\equiv n\pmod 4
+$$
+
+令 $maxFive=\lfloor n/5\rfloor$，$first=n\bmod 4$。若 $first>maxFive$，答案为 $0$；否则：
+
+$$
+ans=\left\lfloor\frac{maxFive-first}{4}\right\rfloor+1
+$$
+
+
+公式解释：决定用了多少个 `5` 后，剩下部分必须全部由 `4` 组成。模 `4` 后能直接筛出所有合法的 `b`，它们按公差 `4` 出现，所以答案就是这个等差序列在合法范围内的项数。
+
+
 ### 代码
 
 @include-code(./main.cpp, cpp)

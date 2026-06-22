@@ -72,6 +72,24 @@ source: https://www.luogu.com.cn/problem/P2871
 
 最后输出 `dp[M]` 即可。
 
+#### DP 公式
+
+设 $dp_j$ 表示容量不超过 $j$ 时能获得的最大奖励。处理重量 $W_i$、价值 $D_i$ 的物品时：
+
+$$
+dp_j=\max(dp_j,\ dp_{j-W_i}+D_i)
+$$
+
+其中 $j\ge W_i$，容量倒序枚举。最终答案为：
+
+$$
+dp_M
+$$
+
+
+公式解释：这是最标准的 0/1 背包。`dp_j` 表示容量 `j` 内的最大价值，选当前物品时消耗重量并增加奖励。
+
+
 ### 代码
 
 @include-code(./main.cpp, cpp)

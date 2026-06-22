@@ -52,6 +52,24 @@ source: https://www.luogu.com.cn/problem/P8675
 
 实现时，先由上一层 `dp` 构造 `cover_sum[l][r]`，表示所有能覆盖 `[l, r]` 的上一层方案数之和；再判断这一层 `[l, r]` 是否全是 `.`，如果合法，就令 `next_dp[l][r] = cover_sum[l][r]`。所有 `next_dp` 都可以加入答案，因为在这一层停止同样是合法方案。
 
+#### DP 公式
+
+设 $dp_{l,r}$ 表示上一层支撑区间恰好是 $[l,r]$ 的方案数。当前层想放区间 $[nl,nr]$ 时，需要统计所有能覆盖它的上一层区间：
+
+$$
+next_{nl,nr}=\sum_{L\le nl,\ R\ge nr} dp_{L,R}
+$$
+
+代码用二维包含和快速得到这个求和。每一层所有合法的 $next_{l,r}$ 都可以加入答案：
+
+$$
+ans\leftarrow ans+\sum_{l\le r} next_{l,r}
+$$
+
+
+公式解释：下一层区间必须被上一层区间覆盖。`next_{l,r}` 因此等于所有父区间方案数之和，二维包含和只是把这个求和加速；每个合法当前区间都可以作为最终停止层。
+
+
 ### 代码
 
 @include-code(./main.cpp, cpp)

@@ -1,0 +1,3 @@
+interface:
+  display_name: "OJ Visual Explainer"
+  short_description: "Generate Chinese Mermaid/SVG teaching diagrams and image prompts for algorithm contest problems."
