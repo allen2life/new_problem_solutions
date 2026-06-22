@@ -6,8 +6,9 @@
 
   const readable = document.querySelector('[data-problem-readable]');
   const toolbar = document.querySelector('.problem-floating-toolbar');
+  const problemPage = document.querySelector('.problem-page');
 
-  if (!readable || !toolbar) return;
+  if (!readable || !toolbar || !problemPage) return;
 
   function clamp(value) {
     return Math.min(maxScale, Math.max(minScale, value));
@@ -52,7 +53,7 @@
     readable.style.fontSize = `${initialScale}em`;
   }
 
-  toolbar.addEventListener('click', (event) => {
+  problemPage.addEventListener('click', (event) => {
     const fontButton = event.target.closest('[data-problem-font]');
     if (fontButton) {
       changeScale(fontButton.dataset.problemFont);
@@ -62,6 +63,12 @@
     const topButton = event.target.closest('[data-scroll-top]');
     if (topButton) {
       window.scrollTo({ top: 0, behavior: 'smooth' });
+      return;
+    }
+
+    const printButton = event.target.closest('[data-problem-print]');
+    if (printButton) {
+      window.print();
     }
   });
 }());

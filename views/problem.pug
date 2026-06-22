@@ -75,89 +75,91 @@ mixin lucideIcon(icon)
         path(d="M12 19V5")
 
 block content
-  nav.problem-floating-toolbar(aria-label="题解工具")
-    button.problem-toolbar-button(type="button", data-problem-font="increase", title="字体增大", aria-label="字体增大")
-      +lucideIcon('zoom-in')
-    button.problem-toolbar-button(type="button", data-problem-font="decrease", title="字体缩小", aria-label="字体缩小")
-      +lucideIcon('zoom-out')
-    button.problem-toolbar-button(type="button", data-problem-font="reset", title="字体重置", aria-label="字体重置")
-      +lucideIcon('reset')
-    a.problem-toolbar-button(href="/", title="返回首页", aria-label="返回首页")
-      +lucideIcon('home')
-    button.problem-toolbar-button(type="button", data-scroll-top, title="返回顶部", aria-label="返回顶部")
-      +lucideIcon('arrow-up')
+  .problem-page
+    nav.problem-floating-toolbar(aria-label="题解工具")
+      button.problem-toolbar-button(type="button", data-problem-font="increase", title="字体增大", aria-label="字体增大")
+        +lucideIcon('zoom-in')
+      button.problem-toolbar-button(type="button", data-problem-font="decrease", title="字体缩小", aria-label="字体缩小")
+        +lucideIcon('zoom-out')
+      button.problem-toolbar-button(type="button", data-problem-font="reset", title="字体重置", aria-label="字体重置")
+        +lucideIcon('reset')
+      a.problem-toolbar-button(href="/", title="返回首页", aria-label="返回首页")
+        +lucideIcon('home')
+      button.problem-toolbar-button(type="button", data-scroll-top, title="返回顶部", aria-label="返回顶部")
+        +lucideIcon('arrow-up')
 
-  nav(aria-label="breadcrumb")
-    ol.breadcrumb
-      li.breadcrumb-item
-        a(href="/") 首页
-      li.breadcrumb-item
-        a(href=`/?oj=${problem.oj}`) #{problem.oj}
-      li.breadcrumb-item.active(aria-current="page") #{problem.problem_id}
+    nav(aria-label="breadcrumb")
+      ol.breadcrumb
+        li.breadcrumb-item
+          a(href="/") 首页
+        li.breadcrumb-item
+          a(href=`/?oj=${problem.oj}`) #{problem.oj}
+        li.breadcrumb-item.active(aria-current="page") #{problem.problem_id}
 
-  .card.mb-4
-    .card-header
-      .d-flex.justify-content-between.align-items-center
-        h2.mb-0 #{problem.title}
-        .d-flex.gap-2
-          if githubUrl
-            a.btn.btn-outline-dark.btn-sm(href=githubUrl, target="_blank", rel="noopener noreferrer") GitHub
-          if problem.source
-            a.btn.btn-outline-info.btn-sm(href=problem.source, target="_blank", rel="noopener noreferrer") 跳转原题
-          if hasStatement
-            button.btn.btn-outline-success.btn-sm(type="button", data-bs-toggle="modal", data-bs-target="#problemStatementModal") 显示题目
-          else
-            button.btn.btn-outline-secondary.btn-sm(type="button", disabled) 无题目
-          a.btn.btn-outline-primary.btn-sm(href=`/relations?oj=${encodeURIComponent(problem.oj)}&pid=${encodeURIComponent(problem.problem_id)}`) 关系图
-          a.btn.btn-outline-secondary.btn-sm(href="/") 返回列表
-    .card-body
-      if problem.description
-        p.problem-description.mb-3 #{problem.description}
-      .row.mb-3
-        .col-md-6
-          p
-            strong OJ:
-            |  #{problem.oj}
-          p
-            strong 题目 ID:
-            |  #{problem.problem_id}
-          p
-            strong 难度:
-            |
-            +difficultyBadge(problem.difficulty)
-        .col-md-6
-          if problem.tags
+    .card.mb-4.problem-summary-card
+      .card-header
+        .d-flex.justify-content-between.align-items-center
+          h2.mb-0 #{problem.title}
+          .d-flex.gap-2.problem-page-actions
+            if githubUrl
+              a.btn.btn-outline-dark.btn-sm(href=githubUrl, target="_blank", rel="noopener noreferrer") GitHub
+            if problem.source
+              a.btn.btn-outline-info.btn-sm(href=problem.source, target="_blank", rel="noopener noreferrer") 跳转原题
+            if hasStatement
+              button.btn.btn-outline-success.btn-sm(type="button", data-bs-toggle="modal", data-bs-target="#problemStatementModal") 显示题目
+            else
+              button.btn.btn-outline-secondary.btn-sm(type="button", disabled) 无题目
+            button.btn.btn-outline-primary.btn-sm(type="button", data-problem-print) 打印
+            a.btn.btn-outline-primary.btn-sm(href=`/relations?oj=${encodeURIComponent(problem.oj)}&pid=${encodeURIComponent(problem.problem_id)}`) 关系图
+            a.btn.btn-outline-secondary.btn-sm(href="/") 返回列表
+      .card-body
+        if problem.description
+          p.problem-description.mb-3 #{problem.description}
+        .row.mb-3
+          .col-md-6
             p
-              strong 标签:
-              | 
-              each tag in problem.tags
-                span.badge.bg-secondary.me-1 #{tag}
-          if problem.date
+              strong OJ:
+              |  #{problem.oj}
             p
-              strong 日期:
-              |  #{problem.date}
-      if (relations && relations.hasAny) || (recommendations && recommendations.length)
-        .problem-relations
-          +relationGroup('前置题目', relations ? relations.predecessors : [])
-          +relationGroup('后置题目', relations ? relations.successors : [])
-          +relationGroup('相似题目', relations ? relations.common : [])
-          +recommendGroup('推荐练习', recommendations)
+              strong 题目 ID:
+              |  #{problem.problem_id}
+            p
+              strong 难度:
+              |
+              +difficultyBadge(problem.difficulty)
+          .col-md-6
+            if problem.tags
+              p
+                strong 标签:
+                |
+                each tag in problem.tags
+                  span.badge.bg-secondary.me-1 #{tag}
+            if problem.date
+              p
+                strong 日期:
+                |  #{problem.date}
+        if (relations && relations.hasAny) || (recommendations && recommendations.length)
+          .problem-relations
+            +relationGroup('前置题目', relations ? relations.predecessors : [])
+            +relationGroup('后置题目', relations ? relations.successors : [])
+            +relationGroup('相似题目', relations ? relations.common : [])
+            +recommendGroup('推荐练习', recommendations)
 
-  .card.problem-content-card
-    .card-body
-      .markdown-body(data-problem-readable)
-        != content
+    .card.problem-content-card
+      .card-body
+        .markdown-body(data-problem-readable)
+          != content
 
-  if hasStatement
-    #problemStatementModal.modal.fade.problem-statement-modal(tabindex="-1", aria-labelledby="problemStatementModalLabel", aria-hidden="true")
-      .modal-dialog.modal-xl.modal-dialog-scrollable
-        .modal-content
-          .modal-header
-            h2#problemStatementModalLabel.modal-title.fs-5 #{problem.oj} #{problem.problem_id} - 题目
-            button.btn-close(type="button", data-bs-dismiss="modal", aria-label="关闭")
-          .modal-body
-            .markdown-body.problem-statement-body
-              != statementHtml
+    if hasStatement
+      #problemStatementModal.modal.fade.problem-statement-modal(tabindex="-1", aria-labelledby="problemStatementModalLabel", aria-hidden="true")
+        .modal-dialog.modal-xl.modal-dialog-scrollable
+          .modal-content
+            .modal-header
+              h2#problemStatementModalLabel.modal-title.fs-5 #{problem.oj} #{problem.problem_id} - 题目
+              button.btn-close(type="button", data-bs-dismiss="modal", aria-label="关闭")
+            .modal-body
+              .markdown-body.problem-statement-body
+                != statementHtml
 
 block scripts
   script(src="/vendor/viz-global.js")

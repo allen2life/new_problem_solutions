@@ -643,6 +643,36 @@ a {
   overflow-x: auto;
 }
 
+.problem-page-actions {
+  flex-wrap: wrap;
+  justify-content: flex-end;
+}
+
+.problem-content-card .markdown-body .katex-display {
+  display: block;
+  margin: 1.1rem 0;
+  padding: 0.9rem 1rem;
+  overflow-x: auto;
+  overflow-y: hidden;
+  color: #172033;
+  text-align: center;
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 0.375rem;
+}
+
+.problem-content-card .markdown-body .katex-display > .katex {
+  font-size: 1.12em;
+  line-height: 1.45;
+  white-space: nowrap;
+}
+
+[data-bs-theme="dark"] .problem-content-card .markdown-body .katex-display {
+  color: #edf2f7;
+  background: #1f242b;
+  border-color: #39424e;
+}
+
 .problem-statement-modal .modal-content {
   overflow: hidden;
   background: var(--bs-secondary-bg);
@@ -1049,6 +1079,15 @@ a {
   .problem-statement-body {
     padding: 1rem;
     border-radius: 0.45rem;
+  }
+
+  .problem-content-card .markdown-body .katex-display {
+    margin: 1rem 0;
+    padding: 0.75rem 0.8rem;
+  }
+
+  .problem-content-card .markdown-body .katex-display > .katex {
+    font-size: 1.04em;
   }
 
   .relations-header {
@@ -1503,5 +1542,193 @@ a {
 
   .navbar-theme-switcher {
     margin-top: 0.75rem;
+  }
+}
+
+@media print {
+  @page {
+    margin: 14mm 12mm;
+  }
+
+  html,
+  body {
+    color: #111827 !important;
+    background: #ffffff !important;
+  }
+
+  body:has(.problem-page) > .navbar,
+  body:has(.problem-page) > footer,
+  .problem-page > nav[aria-label="breadcrumb"],
+  .problem-floating-toolbar,
+  .problem-page-actions,
+  .problem-statement-modal,
+  .modal-backdrop {
+    display: none !important;
+  }
+
+  body:has(.problem-page) main.container-xxl {
+    width: 100% !important;
+    max-width: none !important;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+
+  .problem-page .card {
+    color: #111827 !important;
+    background: #ffffff !important;
+    border: 0 !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+  }
+
+  .problem-page .card-header,
+  .problem-page .card-body {
+    padding: 0 !important;
+    background: #ffffff !important;
+    border: 0 !important;
+  }
+
+  .problem-summary-card {
+    margin-bottom: 8mm !important;
+    padding-bottom: 5mm !important;
+    border-bottom: 1px solid #d1d5db !important;
+  }
+
+  .problem-summary-card h2 {
+    margin-bottom: 4mm !important;
+    color: #111827 !important;
+    font-size: 20pt !important;
+    line-height: 1.25 !important;
+  }
+
+  .problem-page .problem-description {
+    max-width: none !important;
+    color: #374151 !important;
+  }
+
+  .problem-page .problem-difficulty-badge,
+  .problem-page .badge {
+    color: #111827 !important;
+    background: #ffffff !important;
+    border: 1px solid #9ca3af !important;
+  }
+
+  .problem-page .problem-relations {
+    display: none !important;
+  }
+
+  .problem-content-card,
+  .problem-content-card .card-body {
+    overflow: visible !important;
+  }
+
+  .problem-content-card .markdown-body {
+    font-size: 10.5pt !important;
+    line-height: 1.6 !important;
+  }
+
+  .problem-page .markdown-body h2,
+  .problem-page .markdown-body h3,
+  .problem-page .markdown-body h4 {
+    color: #111827 !important;
+    break-after: avoid;
+    page-break-after: avoid;
+  }
+
+  .problem-page .markdown-body p,
+  .problem-page .markdown-body li,
+  .problem-page .markdown-body td,
+  .problem-page .markdown-body th {
+    color: #111827 !important;
+  }
+
+  .problem-page .markdown-body a {
+    color: #111827 !important;
+    text-decoration: none !important;
+  }
+
+  .problem-page .markdown-body table,
+  .problem-page .markdown-body figure,
+  .problem-page .markdown-body img,
+  .problem-page .markdown-body .katex-display,
+  .problem-page .markdown-body .line-numbers-mode,
+  .problem-page .markdown-body .graphviz,
+  .problem-page .markdown-body .mermaid {
+    break-inside: avoid;
+    page-break-inside: avoid;
+  }
+
+  .problem-page .markdown-body table {
+    display: table !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    overflow: visible !important;
+    border-color: #9ca3af !important;
+  }
+
+  .problem-page .markdown-body th,
+  .problem-page .markdown-body td {
+    border-color: #9ca3af !important;
+  }
+
+  .problem-page .markdown-body th {
+    background: #f3f4f6 !important;
+  }
+
+  .problem-page .markdown-body img {
+    max-width: 100% !important;
+    height: auto !important;
+  }
+
+  .problem-content-card .markdown-body .katex-display {
+    color: #111827 !important;
+    background: #f8fafc !important;
+    border: 1px solid #bfdbfe !important;
+    border-left: 4px solid #2563eb !important;
+    box-shadow: none !important;
+  }
+
+  .problem-page .markdown-body .line-numbers-mode {
+    border: 1px solid #d1d5db !important;
+    background: #ffffff !important;
+  }
+
+  .problem-page .markdown-body .line-numbers-mode .code-info-header,
+  .problem-page .markdown-body .line-numbers-mode pre,
+  .problem-page .markdown-body pre,
+  .problem-page .markdown-body code {
+    color: #111827 !important;
+    background: #ffffff !important;
+  }
+
+  .problem-page .markdown-body .line-numbers-mode pre {
+    overflow: visible !important;
+    white-space: pre-wrap !important;
+  }
+
+  .problem-page .markdown-body .line-numbers-mode pre code {
+    color: #111827 !important;
+    white-space: pre-wrap !important;
+    word-break: break-word !important;
+  }
+
+  .problem-page .markdown-body .line-numbers-mode .token {
+    color: #111827 !important;
+    background: transparent !important;
+  }
+
+  .problem-page .markdown-body .line-numbers-mode .line-numbers-wrapper {
+    color: #6b7280 !important;
+    background: #f3f4f6 !important;
+    border-right-color: #d1d5db !important;
+  }
+
+  .problem-page .markdown-body .code-copy-button {
+    display: none !important;
+  }
+
+  .problem-page .markdown-body .toc-body,
+  .problem-page .markdown-body .table-of-contents {
+    display: none !important;
   }
 }
