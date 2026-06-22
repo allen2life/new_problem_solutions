@@ -22,12 +22,12 @@
     "watch": "watchify browser.js -o bundle.js -v"
   },
   "peerDependencies": {
-    "katex": "^0.10.0",
-    "markdown-it": "^6.0.0"
+    "katex": "^0.17.0",
+    "markdown-it": "^14.2.0"
   },
   "devDependencies": {
-    "markdown-it": "^6.0.0",
-    "watchify": "^3.11.0",
-    "katex": "^0.10.0"
+    "katex": "^0.17.0",
+    "markdown-it": "^14.2.0",
+    "watchify": "^4.0.0"
   }
 }
