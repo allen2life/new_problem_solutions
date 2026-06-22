@@ -329,7 +329,8 @@ AI-generated one-page images are a separate post-processing step, not part of th
 - Use `oj-ai-image-explainer` only when the final article has a modeling jump, multi-stage DP/graph/tree/binary-search/greedy reasoning, or a long enough route that a 3 to 5 panel overview would help students.
 - Do not use AI images for exact DP values, edge weights, sample traces, or code. Those belong to `oj-sample-visualizer`, Mermaid, Graphviz, SVG, or Markdown tables.
 - If no image is needed, create or update `problem-analysis-workspace/07-ai-image-evaluation.md` with the reason and stop.
-- If an image is generated and passes review, only make a minimal final patch to `index.md`: insert `#### 一图流解析`, 1 to 3 explanatory sentences, and `![一图流解析](./one-page-explainer.png)`.
+- If an image is generated and passes review, only make a minimal final patch to `index.md`: append `### 一图流解析` after `### 总结`, add 1 to 3 explanatory sentences, and insert `![一图流解析](./one-page-explainer.png)`.
+- Treat the dense AI board as a read-after review aid. Do not place it at the beginning of `### 思路` unless the user explicitly asks for a read-before overview.
 - Do not rewrite the main article while inserting the AI image. Treat it as a final reference patch.
 
 Every visual block in final `index.md` must:

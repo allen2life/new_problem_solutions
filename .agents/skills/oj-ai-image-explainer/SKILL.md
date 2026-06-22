@@ -188,12 +188,14 @@ If review passes:
 Recommended insertion when adopted:
 
 ```markdown
-#### 一图流解析
+### 一图流解析
 
-这张图把本题的建模、关键转移、实现检查和训练方法压缩到一页，适合先建立整体框架。
+这张图把本题的建模、关键转移、实现检查和训练方法压缩到一页，适合读完正文后复盘。
 
 ![一图流解析](./one-page-explainer.png)
 ```
+
+Place this section after `### 总结` by default. A dense one-page AI board is a post-reading review aid, not an early sample diagram. Do not insert it at the start of `### 思路` unless the user explicitly asks for a read-before overview.
 
 ## Report Format
 

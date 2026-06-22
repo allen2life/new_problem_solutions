@@ -29,12 +29,6 @@ source: https://www.luogu.com.cn/problem/P1129
 
 ### 思路
 
-#### 一图流解析
-
-这张图把本题的建模、匹配过程、实现检查和训练方法压缩到一页，适合先建立整体框架。
-
-![一图流解析](./one-page-explainer.png)
-
 先看一个可以直接验证想法的朴素解：
 
 @include-code(./brute.cpp, cpp)
@@ -95,3 +89,9 @@ source: https://www.luogu.com.cn/problem/P1129
 - 从“交换行列”转成“挑选互不冲突的黑格”
 
 一旦看出题目本质是在给“行”和“列”做一一配对，就可以自然地建成二分图最大匹配。
+
+### 一图流解析
+
+这张图把本题的建模、匹配过程、实现检查和训练方法压缩到一页，适合读完正文后复盘。
+
+![一图流解析](./one-page-explainer.png)
