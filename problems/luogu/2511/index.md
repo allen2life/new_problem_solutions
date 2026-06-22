@@ -68,6 +68,21 @@ source: https://www.luogu.com.cn/problem/P2511
 
 最后因为题目允许“最多切 `m` 刀”，也就是至多 `m+1` 段，所以把所有段数的 `dp[s][n]` 累加起来即可。
 
+
+#### DP 转移方程
+
+核心状态：
+
+`dp[s][i]` 为前 i 根分 s 段的方案数
+
+核心转移：
+
+`dp[s][i]+=sum dp[s-1][t] where sum(t+1,i)<=lim`
+
+答案收束：
+
+`sum_s dp[s][n]`
+
 ### 代码
 
 @include-code(./main.cpp, cpp)
@@ -81,3 +96,10 @@ source: https://www.luogu.com.cn/problem/P2511
 这题最关键的是把“最优值”和“计数”拆开处理。
 
 先二分最优上界，再在这个固定上界下做计数 DP，往往比试图一次把两个目标揉在一起更自然，也更容易写对。
+
+### 一图流解析
+
+这张图把本题的建模、关键转移、实现检查和训练方法压缩到一页，适合读完正文后复盘。
+
+![一图流解析](./one-page-explainer.png)
+

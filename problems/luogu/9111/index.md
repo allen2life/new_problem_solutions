@@ -75,6 +75,12 @@ source: https://www.luogu.com.cn/problem/P9111
 
 所以转移非常直接：
 
+
+#### DP 转移方程：树上定向合并
+
+合并儿子 `v` 时，当前状态为 `(W_u,C_u,F_u)`，儿子状态为 `(W_v,C_v,F_v)`。
+只有两种边方向：
+
 - `v -> u`：`(W_u + W_v, C_u, F_u + F_v + W_v * C_u)`
 - `u -> v`：`(W_u, C_u + C_v, F_u + F_v + W_u * C_v)`
 
@@ -115,3 +121,9 @@ source: https://www.luogu.com.cn/problem/P9111
 - 能往下覆盖多少点
 
 抓住这两个量以后，合并儿子就是很自然的两种方向分类讨论。
+
+### 一图流解析
+
+这张图把本题的建模、关键转移、实现检查和训练方法压缩到一页，适合读完正文后复盘。
+
+![一图流解析](./one-page-explainer.png)

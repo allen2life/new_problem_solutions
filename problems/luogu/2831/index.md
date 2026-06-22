@@ -45,6 +45,18 @@ source: https://www.luogu.com.cn/problem/P2831
 
 - `dp[mask]` 表示消灭 `mask` 这些小猪最少需要多少只小鸟
 
+
+#### DP 转移方程
+
+设 `cover[first][j]` 表示一条经过 `first` 和 `j` 的合法抛物线能消灭的小猪集合，则：
+
+$$
+dp[mask \mid cover[first][j]]
+=\min(dp[mask \mid cover[first][j]],\ dp[mask]+1)
+$$
+
+如果只单独打一只 `first`，就把 `cover[first][j]` 换成 `1<<first`。
+
 转移时，找到第一只还没被打掉的猪 `first`：
 
 - 可以单独打一只它
@@ -64,3 +76,10 @@ source: https://www.luogu.com.cn/problem/P2831
 
 这题的核心是把几何问题离散化成集合覆盖问题。
 一旦把抛物线预处理成覆盖集合，后面的部分就是标准状压 DP。
+
+### 一图流解析
+
+这张图把本题的建模、关键转移、实现检查和训练方法压缩到一页，适合读完正文后复盘。
+
+![一图流解析](./one-page-explainer.png)
+

@@ -66,6 +66,21 @@ source: https://www.luogu.com.cn/problem/P6893
 
 如果根本没有连续菜，那就必须由离散菜恰好凑出 `W`，否则输出 `impossible`。
 
+
+#### DP 转移方程
+
+核心状态：
+
+`disc[w]` 为离散菜重量 w 的最大美味
+
+核心转移：
+
+`ans=max_w disc[w]+cont[W-w]`
+
+答案收束：
+
+`W` 重量恰好凑满的最大值
+
 ### 代码
 
 @include-code(./main.cpp, cpp)
@@ -87,3 +102,10 @@ source: https://www.luogu.com.cn/problem/P6893
 - 连续菜是“分段二次最优分配”
 
 拆开以后各自处理，再在总重量上合并，结构就清楚了。
+
+### 一图流解析
+
+这张图把本题的建模、关键转移、实现检查和训练方法压缩到一页，适合读完正文后复盘。
+
+![一图流解析](./one-page-explainer.png)
+

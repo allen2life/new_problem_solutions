@@ -74,6 +74,21 @@ source: https://www.luogu.com.cn/problem/P4056
 
 这样就把二维偏序 DP 拆成了两次单调凸包优化。
 
+
+#### DP 转移方程
+
+核心状态：
+
+`dp(i)` 为到达岛 i 的最大收益
+
+核心转移：
+
+`dp(i)=v_i-x_i^2-y_i^2+max(dp(j)-x_j^2-y_j^2+2x_ix_j+2y_iy_j)`
+
+答案收束：
+
+`dp` 到终点最大值
+
 ### 代码
 
 @include-code(./main.cpp, cpp)
@@ -94,3 +109,10 @@ source: https://www.luogu.com.cn/problem/P4056
 - 当前列内部对纵坐标的前缀最优转移
 
 一旦把这两层拆开，代码结构就清楚了。
+
+### 一图流解析
+
+这张图把本题的建模、关键转移、实现检查和训练方法压缩到一页，适合读完正文后复盘。
+
+![一图流解析](./one-page-explainer.png)
+

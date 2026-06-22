@@ -87,6 +87,28 @@ source: https://www.luogu.com.cn/problem/P7118
 
 `rank[u] = sum_{x=0}^{ls-1} cat[x] * cat[sz[u]-1-x] + rank[left] * cat[rs] + rank[right]`
 
+
+#### 递推公式与排名公式
+
+对每个结点 `u`，需要维护两个量：
+
+$$
+sz[u] = sz[lc[u]] + sz[rc[u]] + 1
+$$
+
+$$
+rank[u] =
+\sum_{x=0}^{ls-1} cat[x] \cdot cat[sz[u]-1-x]
++ rank[lc[u]] \cdot cat[rs]
++ rank[rc[u]]
+$$
+
+最终答案是：
+
+$$
+pre\_cat[sz[1]-1] + rank[1]
+$$
+
 第一项如果直接枚举，在极端结构下会很慢。
 
 这里继续利用 Catalan 总和：
@@ -121,3 +143,9 @@ source: https://www.luogu.com.cn/problem/P7118
 
 - Catalan 数计数
 - 同大小树的递归字典序排名
+
+### 一图流解析
+
+这张图把本题的建模、关键转移、实现检查和训练方法压缩到一页，适合读完正文后复盘。
+
+![一图流解析](./one-page-explainer.png)

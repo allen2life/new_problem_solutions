@@ -60,6 +60,18 @@ source: https://www.luogu.com.cn/problem/P8733
 
 - `dp[mask][u]`：已经访问了 `mask` 中这些村庄，当前停在 `u` 的最小代价
 
+
+#### DP 转移方程
+
+在 Floyd 处理出任意两点的补给最短路后，TSP 状压转移为：
+
+$$
+dp[mask \mid (1<<v)][v]
+=\min(dp[mask \mid (1<<v)][v],\ dp[mask][u]+dis\_mat[u][v])
+$$
+
+最后枚举当前停点 `u`，再加上 `dis_mat[u][1]` 回到总部。
+
 最后枚举回到总部即可。
 
 ### 代码
@@ -74,3 +86,10 @@ source: https://www.luogu.com.cn/problem/P8733
 
 这题最容易错的地方，是把它误看成“直接按欧氏距离做 TSP”。
 真正的关键在于先把“中途补油”折叠进最短路，再做后续的状压 DP。
+
+### 一图流解析
+
+这张图把本题的建模、关键转移、实现检查和训练方法压缩到一页，适合读完正文后复盘。
+
+![一图流解析](./one-page-explainer.png)
+

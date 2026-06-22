@@ -52,6 +52,18 @@ source: https://www.luogu.com.cn/problem/P8756
 
 - `dp[col][pre2][pre1][used]`
 
+
+#### DP 转移方程
+
+枚举当前列状态 `cur`，若它和前两列都不冲突，则：
+
+$$
+dp[col+1][pre1][cur][used+popcount(cur)]
+\mathrel{+}= dp[col][pre2][pre1][used]
+$$
+
+其中合法条件是 `ok1[pre1][cur]` 且 `ok2[pre2][cur]`。
+
 每次枚举当前列状态 `cur`，只要满足：
 
 - `ok1[pre1][cur]`
@@ -73,3 +85,10 @@ source: https://www.luogu.com.cn/problem/P8756
 
 这题的关键是识别马的攻击范围只跨 1 列和 2 列，因此状态只需要保留前两列。
 看清这一点后，问题就会自然落到列状压 DP 上。
+
+### 一图流解析
+
+这张图把本题的建模、关键转移、实现检查和训练方法压缩到一页，适合读完正文后复盘。
+
+![一图流解析](./one-page-explainer.png)
+

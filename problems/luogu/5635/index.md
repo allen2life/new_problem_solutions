@@ -45,6 +45,18 @@ source: https://www.luogu.com.cn/problem/P5635
 - `a2 = y`
 - `a_n = (a_{n-1} + a_{n-2}) mod p`
 
+
+#### 递推公式
+
+把交替更新统一写成一个序列：
+
+$$
+a_1=x,\quad a_2=y,\quad a_n=(a_{n-1}+a_{n-2})\bmod p
+$$
+
+第 `step` 次操作得到的是 `a_{step+2}`。
+如果 `step` 为奇数，变成 `0` 的是 `x`；否则变成 `0` 的是 `y`。
+
 那么：
 
 - 第 1 次操作后，`x = a3`

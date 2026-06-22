@@ -60,6 +60,31 @@ source: https://www.luogu.com.cn/problem/P1464
 
 这样每个状态只会算一次，整题就很轻松了。
 
+
+#### 记忆化转移方程
+
+题目递归式可以直接作为记忆化搜索的转移：
+
+$$
+w(a,b,c)=1\quad (a\le 0\ \text{or}\ b\le 0\ \text{or}\ c\le 0)
+$$
+
+$$
+w(a,b,c)=w(20,20,20)\quad (a>20\ \text{or}\ b>20\ \text{or}\ c>20)
+$$
+
+当 `a < b < c` 时：
+
+$$
+w(a,b,c)=w(a,b,c-1)+w(a,b-1,c-1)-w(a,b-1,c)
+$$
+
+否则：
+
+$$
+w(a,b,c)=w(a-1,b,c)+w(a-1,b-1,c)+w(a-1,b,c-1)-w(a-1,b-1,c-1)
+$$
+
 ### 代码
 
 @include-code(./main.cpp, cpp)

@@ -54,6 +54,21 @@ source: https://www.luogu.com.cn/problem/P3195
 
 又因为 `X(i)` 单调递增，所以可以用单调队列维护候选决策点。
 
+
+#### DP 转移方程
+
+核心状态：
+
+`X(i)=sum[i]+i`，`dp[i]` 为前 i 件最小费用
+
+核心转移：
+
+`dp[i]=min(dp[j]+(X(i)-X(j)-L-1)^2)`
+
+答案收束：
+
+`dp[n]`
+
 ### 代码
 
 @include-code(./main.cpp, cpp)
@@ -67,3 +82,10 @@ source: https://www.luogu.com.cn/problem/P3195
 这题是非常典型的“分段平方代价 DP -> 展开平方 -> 斜率优化”。
 
 记住 `X(i) = sum[i] + i` 这一步，后面的形式就会很自然。
+
+### 一图流解析
+
+这张图把本题的建模、关键转移、实现检查和训练方法压缩到一页，适合读完正文后复盘。
+
+![一图流解析](./one-page-explainer.png)
+

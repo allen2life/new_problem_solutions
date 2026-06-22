@@ -60,6 +60,21 @@ source: https://www.luogu.com.cn/problem/P5785
 
 所以总复杂度可以降到 `O(n)`。
 
+
+#### DP 转移方程
+
+核心状态：
+
+`dp[i]` 为前 i 个任务的最小费用
+
+核心转移：
+
+`dp[i]=(sum_t[i]+s)sum_c[n]+min(dp[j]-(sum_t[i]+s)sum_c[j]-sum_t[j](sum_c[n]-sum_c[j]))`
+
+答案收束：
+
+`dp[n]`
+
 ### 代码
 
 @include-code(./main.cpp, cpp)
@@ -80,3 +95,10 @@ source: https://www.luogu.com.cn/problem/P5785
 - 历史决策点形成的直线部分
 
 这样斜率优化就出来了。
+
+### 一图流解析
+
+这张图把本题的建模、关键转移、实现检查和训练方法压缩到一页，适合读完正文后复盘。
+
+![一图流解析](./one-page-explainer.png)
+

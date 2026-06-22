@@ -91,6 +91,21 @@ source: https://www.luogu.com.cn/problem/P2497
 
 那么就可以用 `dp[i]` 更新答案。
 
+
+#### DP 转移方程
+
+核心状态：
+
+`dp[i]` 为启动 i 并接收到信号的最小总代价
+
+核心转移：
+
+`dp[i]=v_i+min(k_j*x_i+b_j)`
+
+答案收束：
+
+能覆盖家的点里取最小 `dp[i]`
+
 ### 代码
 
 @include-code(./main.cpp, cpp)
@@ -109,3 +124,10 @@ source: https://www.luogu.com.cn/problem/P2497
 - 每个新点 `i` 只是在自己的 `x_i` 处查询最小值
 
 Li Chao Tree 就是最自然的正解。
+
+### 一图流解析
+
+这张图把本题的建模、关键转移、实现检查和训练方法压缩到一页，适合读完正文后复盘。
+
+![一图流解析](./one-page-explainer.png)
+

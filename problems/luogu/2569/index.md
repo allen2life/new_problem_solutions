@@ -118,6 +118,21 @@ source: https://www.luogu.com.cn/problem/P2569
 
 总复杂度就从朴素的 `O(T * MaxP^2)` 降到了 `O(T * MaxP)`。
 
+
+#### DP 转移方程
+
+核心状态：
+
+`dp[i][j]` 为第 i 天结束持有 j 股最大收益
+
+核心转移：
+
+买: `-j*AP_i+max(dp[pre][k]+k*AP_i)`；卖: `-j*BP_i+max(dp[pre][k]+k*BP_i)`
+
+答案收束：
+
+`max_j dp[T][j]`
+
 ### 代码
 
 @include-code(./main.cpp, cpp)
@@ -131,3 +146,10 @@ source: https://www.luogu.com.cn/problem/P2569
 这题的关键不是“股票”背景，而是把状态转移改写成区间最值。
 
 一旦发现对固定的一天来说，合法前驱 `k` 会随着持股数 `j` 的变化形成滑动窗口，就可以自然地想到用单调队列优化 DP。
+
+### 一图流解析
+
+这张图把本题的建模、关键转移、实现检查和训练方法压缩到一页，适合读完正文后复盘。
+
+![一图流解析](./one-page-explainer.png)
+

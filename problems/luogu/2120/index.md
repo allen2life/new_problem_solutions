@@ -66,6 +66,21 @@ source: https://www.luogu.com.cn/problem/P2120
 
 所以可以直接用单调队列维护凸包。
 
+
+#### DP 转移方程
+
+核心状态：
+
+`dp[i]` 为最后仓库建在 i 的最小费用
+
+核心转移：
+
+`dp[i]=c_i+x_i*sum_p[i]-sum_px[i]+min(dp[j]+sum_px[j]-x_i*sum_p[j])`
+
+答案收束：
+
+`dp[n]`
+
 ### 代码
 
 @include-code(./main.cpp, cpp)
@@ -81,3 +96,10 @@ source: https://www.luogu.com.cn/problem/P2120
 每个仓库负责的一定是一段连续工厂。
 
 一旦写成连续分段 DP，再把运输费用用前缀和展开，斜率优化就很自然了。
+
+### 一图流解析
+
+这张图把本题的建模、关键转移、实现检查和训练方法压缩到一页，适合读完正文后复盘。
+
+![一图流解析](./one-page-explainer.png)
+

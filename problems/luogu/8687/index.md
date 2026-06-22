@@ -47,6 +47,18 @@ source: https://www.luogu.com.cn/problem/P8687
 
 `mask -> mask | pack_mask`
 
+
+#### DP 转移方程
+
+买第 `i` 包糖果时，设这一包覆盖的口味集合为 `pack_mask[i]`：
+
+$$
+dp[mask \mid pack\_mask[i]]
+=\min(dp[mask \mid pack\_mask[i]],\ dp[mask]+1)
+$$
+
+初始状态是 `dp[0]=0`，答案是 `dp[(1<<M)-1]`。
+
 因为买下这包之后，口味集合只会做一个按位或。
 
 这就是一个很标准的集合覆盖型状压 DP。

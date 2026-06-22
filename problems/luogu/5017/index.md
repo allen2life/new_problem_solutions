@@ -101,6 +101,21 @@ source: https://www.luogu.com.cn/problem/P5017
 
 这就是标准的斜率优化 DP。
 
+
+#### DP 转移方程
+
+核心状态：
+
+`dp[x]` 为回程时刻 x 时的最小等待和
+
+核心转移：
+
+`dp[x]=x*cnt[x]-sum[x]+min(dp[y]+sum[y]-x*cnt[y])`
+
+答案收束：
+
+覆盖所有同学后的最小 `dp[x]`
+
 ### 代码
 
 @include-code(./main.cpp, cpp)
@@ -123,3 +138,10 @@ source: https://www.luogu.com.cn/problem/P5017
 - 加上一批关于 `y` 的直线
 
 后面的凸包优化就很自然了。
+
+### 一图流解析
+
+这张图把本题的建模、关键转移、实现检查和训练方法压缩到一页，适合读完正文后复盘。
+
+![一图流解析](./one-page-explainer.png)
+

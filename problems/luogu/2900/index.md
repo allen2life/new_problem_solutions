@@ -66,6 +66,21 @@ source: https://www.luogu.com.cn/problem/P2900
 
 又因为保留下来的 `x_i` 单调递增、`y_{j+1}` 单调递减，所以可以用单调队列维护凸包。
 
+
+#### DP 转移方程
+
+核心状态：
+
+`dp[i]` 为前 i 个矩形的最小花费
+
+核心转移：
+
+`dp[i]=min(dp[j]+x_i*y_{j+1})`
+
+答案收束：
+
+`dp[n]`
+
 ### 代码
 
 @include-code(./main.cpp, cpp)
@@ -82,3 +97,10 @@ source: https://www.luogu.com.cn/problem/P2900
 2. 再把分组问题化成连续分段 DP
 
 这样斜率优化的结构才会自然出现。
+
+### 一图流解析
+
+这张图把本题的建模、关键转移、实现检查和训练方法压缩到一页，适合读完正文后复盘。
+
+![一图流解析](./one-page-explainer.png)
+

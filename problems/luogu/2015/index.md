@@ -52,6 +52,18 @@ source: https://www.luogu.com.cn/problem/P2015
 
 于是整个过程就是一个树上的分组背包。
 
+
+#### DP 转移方程
+
+合并儿子 `v` 时，若当前 `u` 已经保留 `used` 条边，从 `v` 子树保留 `take` 条边，则：
+
+$$
+dp[u][used+take+1] =
+\max(dp[u][used+take+1],\ dp[u][used]+dp[v][take]+w(u,v))
+$$
+
+这里的 `+1` 就是必须额外保留父边 `u-v`。
+
 下面这张图可以帮助理解“为什么父边也必须保留”：
 
 ```dot

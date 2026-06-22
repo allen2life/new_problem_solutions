@@ -62,6 +62,18 @@ source: https://www.luogu.com.cn/problem/P2704
 
 满足条件就可以转移。
 
+
+#### DP 转移方程
+
+设当前行状态为 `cur`，上一行为 `pre1`，上上行为 `pre2`，则：
+
+$$
+dp[i][pre1][cur] =
+\max(dp[i][pre1][cur],\ dp[i-1][pre2][pre1]+popcount(cur))
+$$
+
+前提是 `cur` 不压到山地，且 `cur` 与 `pre1/pre2` 都没有同列冲突。
+
 这样就把整张图的搜索，压成了“枚举每一行合法状态”的状压 DP。
 
 ### 代码
@@ -77,3 +89,10 @@ source: https://www.luogu.com.cn/problem/P2704
 这题的核心不是“网格”，而是“攻击范围只影响最近两行”。
 
 一旦抓住这个局部性，就可以自然地想到按行状压，并只保留前两行状态。
+
+### 一图流解析
+
+这张图把本题的建模、关键转移、实现检查和训练方法压缩到一页，适合读完正文后复盘。
+
+![一图流解析](./one-page-explainer.png)
+

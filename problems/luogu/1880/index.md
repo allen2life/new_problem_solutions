@@ -74,6 +74,21 @@ source: https://www.luogu.com.cn/problem/P1880
 - 所有这些长度为 `n` 的区间里，最小值的最小者就是答案
 - 最大值的最大者就是答案
 
+
+#### DP 转移方程
+
+核心状态：
+
+`dp_min[l][r]` 与 `dp_max[l][r]`
+
+核心转移：
+
+`dp[l][r]=opt_k(dp[l][k]+dp[k+1][r]+sum(l,r))`
+
+答案收束：
+
+长度 n 的所有区间取最小/最大
+
 ### 代码
 
 @include-code(./main.cpp, cpp)
@@ -94,3 +109,10 @@ source: https://www.luogu.com.cn/problem/P1880
 2. 再用“复制数组”的方式把环断成链
 
 一旦想清楚最后一次合并一定会把某个区间 `[l,r]` 的左右两部分拼起来，转移就很自然了。
+
+### 一图流解析
+
+这张图把本题的建模、关键转移、实现检查和训练方法压缩到一页，适合读完正文后复盘。
+
+![一图流解析](./one-page-explainer.png)
+

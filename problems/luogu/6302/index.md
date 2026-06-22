@@ -72,6 +72,21 @@ source: https://www.luogu.com.cn/problem/P6302
 
 这样自然支持 `q_j = p_i` 的零等待换乘。
 
+
+#### DP 转移方程
+
+核心状态：
+
+`dp[i]` 为最后乘第 i 班车的最小烦躁值
+
+核心转移：
+
+`dp[i]=A p_i^2+B p_i+C+min(dp[j]+Aq_j^2-Bq_j-2Aq_j p_i)`
+
+答案收束：
+
+到终点列车 `dp[i]+q_i` 取最小
+
 ### 代码
 
 @include-code(./main.cpp, cpp)
@@ -90,3 +105,10 @@ source: https://www.luogu.com.cn/problem/P6302
 - 前驱列车形成的直线项
 
 这样才能把枚举前驱优化成凸包查询。
+
+### 一图流解析
+
+这张图把本题的建模、关键转移、实现检查和训练方法压缩到一页，适合读完正文后复盘。
+
+![一图流解析](./one-page-explainer.png)
+

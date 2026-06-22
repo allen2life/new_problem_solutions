@@ -72,6 +72,21 @@ source: https://www.luogu.com.cn/problem/P4516
 
 这两种状态之和。
 
+
+#### DP 转移方程
+
+核心状态：
+
+`f[u][j][sel][cov]`
+
+核心转移：
+
+合并儿子要求 `cov_v || sel_u`，新 `cov_u |= sel_v`
+
+答案收束：
+
+`f[root][k][0][1]+f[root][k][1][1]`
+
 ### 代码
 
 @include-code(./main.cpp, cpp)
@@ -92,3 +107,10 @@ source: https://www.luogu.com.cn/problem/P4516
 只要这两个状态定清楚，合并儿子的条件就是一句：
 
 `cov_v || sel_u`
+
+### 一图流解析
+
+这张图把本题的建模、关键转移、实现检查和训练方法压缩到一页，适合读完正文后复盘。
+
+![一图流解析](./one-page-explainer.png)
+

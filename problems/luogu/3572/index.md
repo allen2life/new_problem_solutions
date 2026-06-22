@@ -75,6 +75,21 @@ source: https://www.luogu.com.cn/problem/P3572
 2. 用队头计算 `dp[i]`
 3. 再把当前 `i` 按上面的优先级插入队列
 
+
+#### DP 转移方程
+
+核心状态：
+
+`dp[i]` 为到第 i 棵树最少疲劳跳跃
+
+核心转移：
+
+`dp[i]=dp[q.front]+(h[q.front]<=h[i])`
+
+答案收束：
+
+`dp[n]`
+
 ### 代码
 
 @include-code(./main.cpp, cpp)
@@ -95,3 +110,10 @@ source: https://www.luogu.com.cn/problem/P3572
 - 再比高度
 
 就能自然得到单调队列维护候选前驱的做法。
+
+### 一图流解析
+
+这张图把本题的建模、关键转移、实现检查和训练方法压缩到一页，适合读完正文后复盘。
+
+![一图流解析](./one-page-explainer.png)
+
