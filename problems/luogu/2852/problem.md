@@ -1,0 +1,30 @@
+# P2852 [USACO06DEC] Milk Patterns G
+## 题目描述
+
+Farmer John has noticed that the quality of milk given by his cows varies from day to day. On further investigation, he discovered that although he can't predict the quality of milk from one day to the next, there are some regular patterns in the daily milk quality.
+
+To perform a rigorous study, he has invented a complex classification scheme by which each milk sample is recorded as an integer between $0$ and $1,000,000$ inclusive, and has recorded data from a single cow over $N(1 \le N \le 20,000)$ days. He wishes to find the longest pattern of samples which repeats identically at least $K(2 \le K \le N)$ times. This may include overlapping patterns -- `1 2 3 2 3 2 3 1` repeats `2 3 2 3` twice, for example.
+
+Help Farmer John by finding the longest repeating subsequence in the sequence of samples. It is guaranteed that at least one subsequence is repeated at least $K$ times.
+
+## 输入输出样例 #1
+
+### 输入 #1
+
+```
+8 2
+1
+2
+3
+2
+3
+2
+3
+1
+```
+
+### 输出 #1
+
+```
+4
+```
